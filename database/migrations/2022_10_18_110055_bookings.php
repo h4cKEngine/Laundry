@@ -13,10 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('email')->unique();
-            $table->string('password');
+        Schema::create('bookings', function (Blueprint $table) {
+            $table->time('dataora');
+            $table->foreingId('id_utente')->references('id')->on('users');
+            $table->foreingId('id_lav')->references('id')->on('washers');
         });
     }
 
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        //
     }
 };

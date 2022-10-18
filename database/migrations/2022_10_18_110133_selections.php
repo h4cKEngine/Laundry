@@ -13,10 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('email')->unique();
-            $table->string('password');
+        Schema::create('selections', function (Blueprint $table) {
+            $table->foreingId('id_lav')->references('id')->on('washers');
+            $table->foreingId('id_progr_lav')->references('id')->on('washing_programs');  
         });
     }
 
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        //
     }
 };
