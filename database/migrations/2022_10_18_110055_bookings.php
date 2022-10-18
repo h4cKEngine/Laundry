@@ -14,9 +14,9 @@ return new class extends Migration
     public function up()
     {
         Schema::create('bookings', function (Blueprint $table) {
-            $table->time('dataora');
-            $table->foreingId('id_utente')->references('id')->on('users');
-            $table->foreingId('id_lav')->references('id')->on('washers');
+            $table->datetime('dataora');
+            $table->foreignId('id_utente')->references('id')->on('users');
+            $table->foreignId('id_lav')->references('id')->on('washers');
         });
     }
 

@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('washers', function (Blueprint $table) {
             $table->id();
             $table->string('marca');
-            $table->bool('disponibile_bool');
+            $table->boolean('disponibile_bool');
         });
     }
 

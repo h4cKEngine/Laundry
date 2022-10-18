@@ -14,8 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::create('selections', function (Blueprint $table) {
-            $table->foreingId('id_lav')->references('id')->on('washers');
-            $table->foreingId('id_progr_lav')->references('id')->on('washing_programs');  
+            $table->foreignId('id_lav')->references('id')->on('washers');
+            $table->foreignId('id_progr_lav')->references('id')->on('washing_programs');  
         });
     }
 
