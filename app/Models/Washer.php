@@ -14,11 +14,11 @@ class Washer extends Model
         'disponibile_bool'
     ];
 
-    public function utente(): BelongsToMany{
-        return $this->belongsToMany(User::class, 'booking','id_lav', 'id_utente');
+    public function prenotazioneLavasciuga(){
+        return $this->hasMany(Reservation::class, 'id_reservation', 'id');
     }
 
-    public function programmaLav(): BelongsToMany{
-        return $this->belongsToMany(WashingProgram::class, 'selection', 'id_lav', 'id_progr_lav');
+    public function programmaLavaggio(){
+        return $this->belongsToMany(WashingProgram::class, 'selectings', 'id_lav', 'id_progr_lav');
     }
 }

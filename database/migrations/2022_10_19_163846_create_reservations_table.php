@@ -13,9 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('selections', function (Blueprint $table) {
-            $table->foreignId('id_lav')->references('id')->on('washers');
-            $table->foreignId('id_progr_lav')->references('id')->on('washing_programs');  
+        Schema::create('reservations', function (Blueprint $table) {
+            $table->id();
+            $table->datetime('orario');
         });
     }
 
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('reservations');
     }
 };

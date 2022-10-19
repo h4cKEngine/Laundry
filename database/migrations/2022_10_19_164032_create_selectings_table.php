@@ -13,10 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('bookings', function (Blueprint $table) {
-            $table->datetime('dataora');
-            $table->foreignId('id_utente')->references('id')->on('users');
+        Schema::create('selectings', function (Blueprint $table) {
             $table->foreignId('id_lav')->references('id')->on('washers');
+            $table->foreignId('id_progr_lav')->references('id')->on('washing_programs');
         });
     }
 
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('selectings');
     }
 };

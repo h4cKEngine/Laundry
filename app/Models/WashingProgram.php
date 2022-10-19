@@ -15,7 +15,7 @@ class WashingProgram extends Model
         'durata'
     ];
 
-    public function lavasciugaProg(): BelongsToMany{
-        return $this->belongsToMany(Washer::class, 'selection',  'id_progr_lav', 'id_lav');
+    public function lavasciuga(){
+        return $this->belongsToMany(Washer::class, 'selectings', 'id_progr_lav',  'id_lav');
     }
 }

@@ -22,8 +22,8 @@ class User extends Authenticatable
         'password',
     ];
 
-    public function lavasciuga(): BelongsToMany{
-        return $this->belongsToMany(Washer::class, 'booking', 'id_utente', 'id_lav');
+    public function prenotazione(){
+        return $this->hasMany(Reservation::class, 'id_reservation', 'id_utente');
     }
 
     /**
