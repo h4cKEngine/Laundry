@@ -27,3 +27,6 @@ Route::get('users/{id}', function ($id) {
         'programma_lav' => WashingProgram::find(1)->lavasciuga
     ];
 });
+
+Route::update('/washer/{washer}', [WasherController::class, 'abilitaStato']);
+

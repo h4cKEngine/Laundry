@@ -11,7 +11,7 @@ class Washer extends Model
 
     protected $fillable = [
         'marca',
-        'disponibile_bool'
+        'stato'
     ];
 
     public function prenotazioneLavasciuga(){
