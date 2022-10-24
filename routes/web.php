@@ -13,6 +13,43 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+/* HTTP METHODS
+
+    GET - Request a resurce
+    POST - Create a new resurce
+    PUT - Update a resurce
+    PATCH - Modify a resurce
+    DELETE - Delete a resurce
+    OPTIONS - Ask the server which verbs are allowed
+
+    GET
+    Route::get('/url{parameter}', [Controller::class, 'functionName']);
+    
+    POST
+    Route::post('/url{parameter}', [Controller::class, 'functionName']);
+    
+    PATCH
+    Route::patch('/url{parameter}', [Controller::class, 'functionName']);
+    
+    DELETE
+    Route::delete('/url{parameter}', [Controller::class, 'functionName']);
+
+    Multiple HTTP verbs
+    Route::match(['GET', 'POST'], '/url', [Controller::class, 'functionName']);
+    Route::any(['GET', 'POST'], '/url', [Controller::class, 'functionName']);
+*/
+
+//'prova/{numero?}' --> il ? indica che il paramentro è opzionale, $numero = 2 è il valore di default
+Route::get('prova/{numero?}', function ($numero = 2) { 
+    for($i=0; $i<10; $i=$i+1){
+        echo "$x * $numero = ". $x * $numero ."<br>";
+        }
+});
+
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/', [WasherController::class, 'abilitaStato']);
+
+Route::get('/', [WasherController::class, 'disabilitaStato']);
