@@ -30,3 +30,4 @@ Route::get('users/{id}', function ($id) {
 
 Route::update('/washer/{washer}', [WasherController::class, 'abilitaStato']);
 
+Route::get('users/all', [UserController::class,'VisualizzaUtenti']);
