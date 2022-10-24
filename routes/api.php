@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Models\Washer;
@@ -16,18 +17,18 @@ use App\Models\WashingProgram;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+/*Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
-});
+});*/
 
 
-Route::get('users/{id}', function ($id) {
+/*Route::get('/users/{id}', function ($id) {
     return [
         'lavasciuga' => Washer::find(1)->programmaLavaggio,
         'programma_lav' => WashingProgram::find(1)->lavasciuga
     ];
-});
+});*/
 
-Route::update('/washer/{washer}', [WasherController::class, 'abilitaStato']);
+Route::put('/washer/{washer}', [WasherController::class, 'abilitaStato']);
 
-Route::get('users/all', [UserController::class,'VisualizzaUtenti']);
+Route::get('/users/all/', [UserController::class,'visualizzaUtenti']);

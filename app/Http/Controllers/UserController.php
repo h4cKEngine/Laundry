@@ -9,9 +9,10 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {   
-    public function VisualizzaUtenti(){
+    public function visualizzaUtenti(){
         return ['utenti_chiave' => UserResource::collection(User::all())]; 
     }
+
     public function VisualizzaPrenotazioni(){
         return ['utenti_chiave' => UserResource::collection(Reservation::where())]; 
     }
