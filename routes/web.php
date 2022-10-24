@@ -42,7 +42,7 @@ use Illuminate\Support\Facades\Route;
 //'prova/{numero?}' --> il ? indica che il paramentro è opzionale, $numero = 2 è il valore di default
 Route::get('prova/{numero?}', function ($numero = 2) { 
     for($i=0; $i<10; $i=$i+1){
-        echo "$x * $numero = ". $x * $numero ."<br>";
+        echo "$i * $numero = ". $i * $numero ."<br>";
         }
 });
 

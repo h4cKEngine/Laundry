@@ -17,6 +17,9 @@ return new class extends Migration
             $table->id();
             $table->string('email')->unique();
             $table->string('password');
+            $table->string('nome');
+            $table->string('cognome');
+            $table->boolean('ruolo');
         });
     }
 
