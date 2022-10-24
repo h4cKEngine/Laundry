@@ -31,4 +31,4 @@ use App\Models\WashingProgram;
 
 Route::put('/washer/{washer}', [WasherController::class, 'abilitaStato']);
 
-Route::get('/users/all/', [UserController::class,'visualizzaUtenti']);
+Route::get('/users/all/', [UserController::class,'index']);
