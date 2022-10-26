@@ -48,9 +48,9 @@ class ReservationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Reservation $reservation_pippo)
+    public function show(Reservation $reservation_parameter)
     {
-       return new ReservationResource($reservation_pippo);
+       return new ReservationResource($reservation_parameter);
     }
 
     /**

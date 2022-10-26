@@ -40,6 +40,6 @@ Route::put('/washer/{washer}', [WasherController::class, 'abilitaStato']);
 
 Route::get('/user/all/', [UserController::class, 'index']);
 
-Route::get('reservation/{reservation_pippo}', [ReservationController::class, 'show']);
+Route::get('reservation/{reservation_parameter}', [ReservationController::class, 'show']);
 
 Route::get('/user/{user_prenotazione}/reservation/', [UserController::class, 'visualizzaPrenotazioni']);
