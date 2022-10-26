@@ -1,10 +1,17 @@
 <?php
 
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\WasherController;
+use App\Http\Controllers\WashingProgramController;
+use App\Http\Controllers\ReservationController;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+
+use App\Models\User;
 use App\Models\Washer;
 use App\Models\WashingProgram;
+use App\Models\Reservation;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,4 +38,6 @@ use App\Models\WashingProgram;
 
 Route::put('/washer/{washer}', [WasherController::class, 'abilitaStato']);
 
-Route::get('/users/all/', [UserController::class, 'index']);
+Route::get('/user/all/', [UserController::class, 'index']);
+
+Route::get('/reservation/{reservation}', [ReservationController::class, 'show']);

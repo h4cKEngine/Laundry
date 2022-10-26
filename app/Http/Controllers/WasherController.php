@@ -20,9 +20,15 @@ class WasherController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    // public function index()
+    // {
+    //     return ['utenti_chiave' => UserResource::collection(User::all())];
+    // }
+
     public function index()
     {
-        return ['utenti_chiave' => UserResource::collection(User::all())]; 
+
     }
 
     /**

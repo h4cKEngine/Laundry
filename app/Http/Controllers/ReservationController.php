@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\UserResource;
+use App\Http\Resources\ReservationResource;
 use Illuminate\Http\Request;
 
 class ReservationController extends Controller
@@ -44,9 +45,9 @@ class ReservationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Reservation $reservation)
     {
-        //
+       return new ReservationResource($reservation);
     }
 
     /**
