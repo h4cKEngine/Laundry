@@ -15,7 +15,7 @@ class Washer extends Model
     ];
 
     public function prenotazioneLavasciuga(){
-        return $this->hasMany(Reservation::class, 'id_reservation', 'id');
+        return $this->hasMany(Reservation::class, 'id_lav', 'id');
     }
 
     public function programmaLavaggio(){

@@ -18,4 +18,8 @@ class WashingProgram extends Model
     public function lavasciuga(){
         return $this->belongsToMany(Washer::class, 'selectings', 'id_progr_lav',  'id_lav');
     }
+
+    public function prenotazioneProgrammaLav(){
+        return $this->hasMany(Reservation::class, 'id_progr_lav', 'id');
+    }
 }

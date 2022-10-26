@@ -23,7 +23,7 @@ class User extends Authenticatable
     ];
 
     public function prenotazione(){
-        return $this->hasMany(Reservation::class, 'id_reservation', 'id_utente');
+        return $this->hasMany(Reservation::class, 'id_user', 'id');
     }
 
     /**

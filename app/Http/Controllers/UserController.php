@@ -2,15 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\ReservationResource;
 use App\Http\Resources\UserResource;
+
 use App\Models\Reservation;
 use App\Models\User;
+
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {   
-    public function VisualizzaPrenotazioni(){
-        return ['utenti_chiave' => UserResource::collection(Reservation::where())];
+    public function visualizzaPrenotazioni(User $user_prenotazione){
+        return ReservationResource::collection($user_prenotazione->prenotazione);
     }
     
     /**

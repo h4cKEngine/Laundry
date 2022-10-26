@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\UserResource;
 use App\Http\Resources\ReservationResource;
+
+use App\Models\Reservation;
+
 use Illuminate\Http\Request;
 
 class ReservationController extends Controller
@@ -15,7 +18,7 @@ class ReservationController extends Controller
      */
     public function index()
     {
-        return ['utenti_chiave' => UserResource::collection()];
+        //return ['utenti_chiave' => UserResource::collection()];
     }
 
     /**
@@ -45,9 +48,9 @@ class ReservationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Reservation $reservation)
+    public function show(Reservation $reservation_pippo)
     {
-       return new ReservationResource($reservation);
+       return new ReservationResource($reservation_pippo);
     }
 
     /**
