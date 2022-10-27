@@ -35,12 +35,15 @@ use App\Models\Reservation;
     ];
 });*/
 
+// PATCH washer
 Route::patch('/washer/{washer}/enable', [WasherController::class, 'abilitaStato']);
-
 Route::patch('/washer/{washer}/disable', [WasherController::class, 'disabilitaStato']);
 
-Route::get('/user/all/', [UserController::class, 'index']);
+// GET user
+Route::get('/user/{ruolo}/all/', [UserController::class, 'index']);
+Route::get('/user/{user_prenotazione}/{ruolo}/reservation/', [UserController::class, 'visualizzaPrenotazioni']);
 
+// GET reservation
 Route::get('/reservation/{reservation_parameter}', [ReservationController::class, 'show']);
 
-Route::get('/user/{user_prenotazione}/reservation/', [UserController::class, 'visualizzaPrenotazioni']);
+
