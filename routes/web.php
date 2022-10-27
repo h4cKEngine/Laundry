@@ -29,9 +29,10 @@ use Illuminate\Support\Facades\Route;
     Route::post('/url{parameter}', [Controller::class, 'functionName']);
 
     UPDATE
-    Route::put('/url')
+    Route::put('/url{parameter}', [Controller::class, 'functionName']);
     
-    PATCH
+    PATCH - piccole modifiche
+    
     Route::patch('/url{parameter}', [Controller::class, 'functionName']);
     
     DELETE
