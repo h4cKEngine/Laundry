@@ -17,6 +17,20 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
+
+    //Examples private, public, protected Getter and Setter
+    // private $numero;
+
+    // public function getElem(){
+    //     echo $this->numero;
+    // }
+
+    // public function setElem($num){
+    //     $this->numero = $num;
+    // }
+
+    public $timestamps = false;
+    
     protected $fillable = [
         'email',
         'password',

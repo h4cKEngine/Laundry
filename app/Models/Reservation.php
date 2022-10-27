@@ -9,7 +9,7 @@ class Reservation extends Model
 {
     use HasFactory;
 
-    public $table='reservations';
+    public $timestamps = false;
 
     public function lavasciugaPrenota(){
         return $this->belongsTo(Washer::class,  'id_lav', 'id');

@@ -28,7 +28,6 @@ use App\Models\Reservation;
     return $request->user();
 });*/
 
-
 /*Route::get('/users/{id}', function ($id) {
     return [
         'lavasciuga' => Washer::find(1)->programmaLavaggio,
@@ -36,10 +35,12 @@ use App\Models\Reservation;
     ];
 });*/
 
-Route::put('/washer/{washer}', [WasherController::class, 'abilitaStato']);
+Route::patch('/washer/{washer}/enable', [WasherController::class, 'abilitaStato']);
+
+Route::patch('/washer/{washer}/disable', [WasherController::class, 'disabilitaStato']);
 
 Route::get('/user/all/', [UserController::class, 'index']);
 
-Route::get('reservation/{reservation_parameter}', [ReservationController::class, 'show']);
+Route::get('/reservation/{reservation_parameter}', [ReservationController::class, 'show']);
 
 Route::get('/user/{user_prenotazione}/reservation/', [UserController::class, 'visualizzaPrenotazioni']);

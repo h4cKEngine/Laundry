@@ -27,6 +27,9 @@ use Illuminate\Support\Facades\Route;
     
     POST
     Route::post('/url{parameter}', [Controller::class, 'functionName']);
+
+    UPDATE
+    Route::put('/url')
     
     PATCH
     Route::patch('/url{parameter}', [Controller::class, 'functionName']);

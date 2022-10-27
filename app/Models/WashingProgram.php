@@ -9,6 +9,8 @@ class WashingProgram extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+
     protected $fillable = [
         'nome',
         'prezzo',

@@ -9,6 +9,8 @@ class Washer extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+
     protected $fillable = [
         'marca',
         'stato'
