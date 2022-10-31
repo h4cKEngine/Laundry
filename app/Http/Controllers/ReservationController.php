@@ -18,7 +18,7 @@ class ReservationController extends Controller
      */
     public function index()
     {
-        //return ['utenti_chiave' => UserResource::collection()];
+        return ['prenotazioni' => ReservationResource::collection(Reservation::all())];
     }
 
     /**
@@ -26,8 +26,7 @@ class ReservationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
+    public function create(){
         //
     }
 
@@ -37,9 +36,25 @@ class ReservationController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
+    public function store(Request $request){
+        $request->validate([
+            'orario' => 'date|required',
+            'id_user' => 'integer|required',
+            'id_washer' => 'integer|required',
+            'id_washing_program' => 'integer|required'
+        ],[
+            'date' => 'Errore, inserire datetime',
+            'integer' => 'Errore, inserire integer',
+            'required' => 'Errore, inserire un campo'
+        ]);
+        
+        $queryReservation = Reservation::create([
+            'orario' => $request->orario,
+            'id_user' => $request->id_user,
+            'id_washer' => $request->id_washer,
+            'id_washing_program' => $request->id_washing_program
+        ]);
+        return new ReservationResource($queryReservation);
     }
 
     /**
@@ -50,7 +65,7 @@ class ReservationController extends Controller
      */
     public function show(Reservation $reservation_parameter)
     {
-       return new ReservationResource($reservation_parameter);
+       //
     }
 
     /**
@@ -82,8 +97,12 @@ class ReservationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        //
+    public function destroy(Reservation $reserve){ // Usare Sanctum
+            $reserve->delete();
+    }
+
+    // Elimina tutte le prenotazioni di tutti gli utenti, svuota la tabella reservations
+    public function deleteall(){
+        Reservation::truncate();
     }
 }

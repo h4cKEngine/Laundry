@@ -11,6 +11,10 @@ class Reservation extends Model
 
     public $timestamps = false;
 
+    protected $fillable = [
+        'orario'
+    ];
+
     public function lavasciugaPrenota(){
         return $this->belongsTo(Washer::class,  'id_lav', 'id');
     }

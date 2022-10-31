@@ -16,9 +16,9 @@ return new class extends Migration
         Schema::create('reservations', function (Blueprint $table) {
             $table->id();
             $table->datetime('orario');
-            $table->foreignId('id_user')->references('id')->on('users');
-            $table->foreignId('id_washer')->references('id')->on('washers');
-            $table->foreignId('id_washing_program')->references('id')->on('washing_programs');
+            $table->foreignId('id_user')->references('id')->on('users')->onDelete('cascade');
+            $table->foreignId('id_washer')->references('id')->on('washers')->onDelete('cascade');
+            $table->foreignId('id_washing_program')->references('id')->on('washing_programs')->onDelete('cascade');
         });
     }
 

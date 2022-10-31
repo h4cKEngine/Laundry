@@ -14,7 +14,7 @@ class UserResource extends JsonResource
      */
     public function toArray($request)
     {
-        return[
+        return [
             'email' => $this->email,
             'nome' => ucfirst($this->nome),
             'cognome' => ucfirst($this->cognome),
@@ -22,4 +22,7 @@ class UserResource extends JsonResource
             //'_links' => $this->links()
         ];
     }
+
+    // Funzione per la restituzione di tutti gli admin
+    // $this->ruolo == 1
 }

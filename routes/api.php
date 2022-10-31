@@ -35,15 +35,34 @@ use App\Models\Reservation;
     ];
 });*/
 
-// PATCH washer
-Route::patch('/washer/{washer}/enable', [WasherController::class, 'abilitaStato']);
-Route::patch('/washer/{washer}/disable', [WasherController::class, 'disabilitaStato']);
+/* user ---> visualizzare, aggiungere, eliminare la propria prenotazione
+*   admin ---> visualizzare, eliminare tutte le prenotazioni
+*/
 
-// GET user
-Route::get('/user/{ruolo}/all/', [UserController::class, 'index']);
-Route::get('/user/{user_prenotazione}/{ruolo}/reservation/', [UserController::class, 'visualizzaPrenotazioni']);
+Route::group(['prefix' => 'washer'], function(){
+    // PATCH washer
+    Route::patch('{washer}/enable', [WasherController::class, 'abilitaStato']);
+    Route::patch('{washer}/disable', [WasherController::class, 'disabilitaStato']);
+});
 
-// GET reservation
-Route::get('/reservation/{reservation_parameter}', [ReservationController::class, 'show']);
+Route::group(['prefix' => 'user'], function(){
+    // GET user
+    Route::get('/', [UserController::class, 'index']);
+    Route::get('/{user}/reservation/', [UserController::class, 'visualizzaPrenotazioniUtente']);
 
+    // DELETE user
+    Route::delete('/{user}/reservation/', [UserController::class, 'cancellaPrenotazioniUtente']);
+});
 
+Route::group(['prefix' => 'reservation'], function(){
+    // GET reservation
+    Route::get('/', [ReservationController::class, 'index']);
+    Route::get('/reservation/{reservation_parameter}', [ReservationController::class, 'show']);
+    
+    // DELETE reservation
+    Route::delete('/', [ReservationController::class, 'deleteall']);
+    Route::delete('/{reserve}', [ReservationController::class, 'destroy']);
+
+    // POST reservation
+    Route::post('/', [ReservationController::class, 'store']);
+});

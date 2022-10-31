@@ -12,8 +12,22 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {   
-    public function visualizzaPrenotazioni(User $user_prenotazione){
-        return ReservationResource::collection($user_prenotazione->prenotazione);
+    // Visualizza tutte le prenotazioni dell'utente selezionato
+    public function visualizzaPrenotazioniUtente(User $user)
+    {
+        return ReservationResource::collection($user->prenotazione);
+    }
+
+    // Cancella tutte le prenotazioni dell'utente selezionato
+    public function cancellaPrenotazioniUtente(User $user)
+    {
+        $user->prenotazione()->delete();
+    }
+
+    // Cancella la singola prenotazione dell'utente selezionato
+    public function cancellaPrenotazioneUtente(User $user)
+    {
+        $user->prenotazione->delete();
     }
     
     /**
@@ -21,18 +35,30 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    
+    // Visualizza tutti gli utenti
     public function index()
     {
-        return ['utenti_chiave' => UserResource::collection(User::all())]; 
+        return ['utente' => UserResource::collection(User::all())];
     }
 
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        return ['utente' => ReservationResource::collection(Reservation::all())];
+    }
+    
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
+    public function create(){
         //
     }
 
@@ -47,16 +73,6 @@ class UserController extends Controller
         //
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
     
 
     /**
