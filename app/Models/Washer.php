@@ -16,6 +16,10 @@ class Washer extends Model
         'stato'
     ];
 
+    protected $guarded = [
+        'id'
+    ];
+
     public function prenotazioneLavasciuga(){
         return $this->hasMany(Reservation::class, 'id_lav', 'id');
     }

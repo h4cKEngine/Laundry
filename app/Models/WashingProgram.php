@@ -17,6 +17,10 @@ class WashingProgram extends Model
         'durata'
     ];
 
+    protected $guarded = [
+        'id'
+    ];
+
     public function lavasciuga(){
         return $this->belongsToMany(Washer::class, 'selectings', 'id_progr_lav',  'id_lav');
     }

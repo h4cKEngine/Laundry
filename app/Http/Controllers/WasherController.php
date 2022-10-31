@@ -8,13 +8,13 @@ use App\Models\Washer;
 
 class WasherController extends Controller
 {
-    public function disabilitaStato(Washer $washer){
-        $washer->update(['stato' => 0]);
+    public function abilitaStato(Washer $washer){
+        $washer->update(['stato' => 1]);
         return new WasherResource($washer);
     }
 
-    public function abilitaStato(Washer $washer){
-        $washer->update(['stato' => 1]);
+    public function disabilitaStato(Washer $washer){
+        $washer->update(['stato' => 0]);
         return new WasherResource($washer);
     }
 
@@ -23,15 +23,9 @@ class WasherController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-
-    // public function index()
-    // {
-    //     return ['utenti_chiave' => UserResource::collection(User::all())];
-    // }
-
     public function index()
     {
-
+        return ['lavasciuga' => WasherResource::collection(Washer::all())];
     }
 
     /**
@@ -45,12 +39,12 @@ class WasherController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function update(Request $request)
     {
         //
     }
@@ -79,15 +73,28 @@ class WasherController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function store(Request $request)
     {
-        //
+        $request->validate([
+            'marca' => 'string|required',
+            'stato' => 'boolean|required'
+        ],[
+            'string' => 'Errore, inserire string',
+            'boolean' => 'Errore, inserire integer',
+            'required' => 'Errore, inserire un campo'
+        ]);
+        
+        $queryWasher = Washer::create([
+            'marca' => $request->marca,
+            'stato' => $request->stato
+        ]);
+        //return new WasherResource($washer);
     }
 
     /**
@@ -96,8 +103,8 @@ class WasherController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Washer $washer)
     {
-        //
+        $washer->delete();
     }
 }

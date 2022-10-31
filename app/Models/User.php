@@ -42,11 +42,11 @@ class User extends Authenticatable
     ];
 
     protected $guarded = [
-        'id'
+        'id',
+        'ruolo'
     ];
 
     protected $hidden = [
-        'ruolo',
         'password'
     ];
 

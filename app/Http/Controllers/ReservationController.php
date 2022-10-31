@@ -36,7 +36,8 @@ class ReservationController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         $request->validate([
             'orario' => 'date|required',
             'id_user' => 'integer|required',
@@ -54,7 +55,7 @@ class ReservationController extends Controller
             'id_washer' => $request->id_washer,
             'id_washing_program' => $request->id_washing_program
         ]);
-        return new ReservationResource($queryReservation);
+        //return new ReservationResource($queryReservation);
     }
 
     /**
@@ -63,7 +64,7 @@ class ReservationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Reservation $reservation_parameter)
+    public function show(Reservation $reservation)
     {
        //
     }

@@ -12,8 +12,16 @@ class Reservation extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'orario'
+        'orario',
+        'id_user',
+        'id_washer',
+        'id_washing_program'
     ];
+
+    protected $guarded = [
+        'id'
+    ];
+
 
     public function lavasciugaPrenota(){
         return $this->belongsTo(Washer::class,  'id_lav', 'id');
