@@ -98,8 +98,8 @@ class ReservationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Reservation $reserve){ // Usare Sanctum
-            $reserve->delete();
+    public function destroy(Reservation $reservation){ // Usare Sanctum
+            $reservation->delete();
     }
 
     // Elimina tutte le prenotazioni di tutti gli utenti, svuota la tabella reservations

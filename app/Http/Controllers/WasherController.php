@@ -107,4 +107,8 @@ class WasherController extends Controller
     {
         $washer->delete();
     }
+
+    public function deleteall(){
+        Washer::truncate();
+    }
 }

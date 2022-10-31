@@ -2,10 +2,10 @@
 
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WasherController;
-//use App\Http\Controllers\WashingProgramController;
+use App\Http\Controllers\WashingProgramController;
 use App\Http\Controllers\ReservationController;
 
-//use Illuminate\Http\Request;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 // use App\Models\User;
@@ -24,54 +24,64 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-/*Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+/** Metodi HTTP
+ * 
+ * GET ottenere info
+ * POST inserire info
+ * PATCH effetturare piccola modifica
+ * PUT effetturare Grande modifica
+ * DELETE eliminazione info
+ */
+
+// Sanctum
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
-});*/
-
-/*Route::get('/users/{id}', function ($id) {
-    return [
-        'lavasciuga' => Washer::find(1)->programmaLavaggio,
-        'programma_lav' => WashingProgram::find(1)->lavasciuga
-    ];
-});*/
-
-/* user ---> visualizzare, aggiungere, eliminare la propria prenotazione
-*   admin ---> visualizzare, eliminare tutte le prenotazioni
-*/
-
-Route::group(['prefix' => 'washer'], function(){
-    // GET washer
-    Route::get('/', [WasherController::class, 'index']);
-
-    // PATCH washer
-    Route::patch('{washer}/enable', [WasherController::class, 'abilitaStato']);
-    Route::patch('{washer}/disable', [WasherController::class, 'disabilitaStato']);
-
-    // POST washer
-    Route::post('/', [WasherController::class, 'store']);
-
-    // DELETE washer
-    Route::delete('/{washer}', [WasherController::class, 'destroy']);
 });
 
+// User routes
 Route::group(['prefix' => 'user'], function(){
-    // GET user
-    Route::get('/', [UserController::class, 'index']); //Visualizza tutti gli utenti
-    Route::get('/{user}/reservation/', [UserController::class, 'show']);
+    Route::get('/', [UserController::class, 'index']); // Visualizza tutti gli utenti
+    Route::get('/{user}/reservation/', [UserController::class, 'show']); // Visualizza tutte le prenotazioni dell'utente selezionato
 
-    // DELETE user
-    Route::delete('/{user}/reservation/', [UserController::class, 'cancellaTuttePrenotazioniUtente']);
+    Route::delete('/{user}/reservation/', [UserController::class, 'cancellaTuttePrenotazioniUtente']); // Elimina tutte le prenotazioni dell'utente selezionato
 });
 
-Route::group(['prefix' => 'reservation'], function(){
-    // GET reservation
-    Route::get('/', [ReservationController::class, 'index']);
-    Route::get('/{reservation}', [ReservationController::class, 'show']);
+// Washer routes
+Route::group(['prefix' => 'washer'], function(){
+    Route::get('/', [WasherController::class, 'index']); // Visualizza tutte le lavasciuga
     
-    // DELETE reservation
-    Route::delete('/', [ReservationController::class, 'deleteall']);
-    Route::delete('/{reserve}', [ReservationController::class, 'destroy']);
+    Route::post('/', [WasherController::class, 'store']); // Aggiunge una lavasciuga
+    
+    Route::patch('{washer}/enable', [WasherController::class, 'abilitaStato']); // Attiva una lavasciuga (già esistente)
+    Route::patch('{washer}/disable', [WasherController::class, 'disabilitaStato']); // Disabilita una lavasciuga
+    
+    Route::delete('/{washer}', [WasherController::class, 'destroy']); // Elimina una lavasciuga
+    Route::delete('/', [WasherController::class, 'deleteall']); // Elimina tutte le lavasciuga
+});
 
-    // POST reservation
-    Route::post('/', [ReservationController::class, 'store']);
+//WashingProgram routes
+Route::group(['prefix' => 'washing_program'], function(){
+    Route::get('/', [WashingProgramController::class, 'index']); // Visualizza tutti i programmi lav
+    
+    Route::post('/', [WashingProgramController::class, 'store']); // Aggiunge un programma lav
+    
+    Route::patch('/{washer}', [WasherController::class, 'edit']); // Modifica un programma lav
+
+    Route::delete('/{washer}', [WashingProgramController::class, 'destroy']); // Elimina un programma lav
+    Route::delete('/', [WashingProgramController::class, 'deleteall']); // Elimina tutti i programmi lav
+});
+
+
+// Reservation routes
+Route::group(['prefix' => 'reservation'], function(){
+    Route::get('/', [ReservationController::class, 'index']); // Visualizza tutte le prenotazioni
+    
+    Route::post('/', [ReservationController::class, 'store']); // Aggiunge una prenotazione
+    
+    Route::patch('/', [ReservationController::class, 'edit']); // Modifica una prenotazione
+
+    Route::delete('/', [ReservationController::class, 'deleteall']); // Elimina tutte le prenotazioni
+    Route::delete('/{reservation}', [ReservationController::class, 'destroy']); // Elimina una prenotazione
+
+
 });
