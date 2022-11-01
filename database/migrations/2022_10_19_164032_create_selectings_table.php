@@ -14,8 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::create('selectings', function (Blueprint $table) {
-            $table->foreignId('id_washer')->references('id')->on('washers')->onDelete('cascade');
-            $table->foreignId('id_washing_program')->references('id')->on('washing_programs')->onDelete('cascade');
+            $table->foreignId('id_washer')->references('id')->on('washers')->constrained()->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('id_washing_program')->references('id')->on('washing_programs')->constrained()->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

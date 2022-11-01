@@ -38,12 +38,15 @@ class User extends Authenticatable
     public $timestamps = false;
     
     protected $fillable = [
-        'email'
+        'email',
+        'password',
+        'nome',
+        'cognome',
+        'ruolo'
     ];
 
     protected $guarded = [
-        'id',
-        'ruolo'
+        'id'
     ];
 
     protected $hidden = [
@@ -63,15 +66,13 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    // protected $hidden = [
-    //     'password'
-    // ];
 
     /**
      * The attributes that should be cast.
      *
      * @var array<string, string>
      */
+
     // protected $casts = [
     //     'email_verified_at' => 'datetime',
     // ];

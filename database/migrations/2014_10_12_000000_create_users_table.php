@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('nome');
             $table->string('cognome');
-            $table->boolean('ruolo');
+            $table->boolean('ruolo')->default(0);
         });
     }
 

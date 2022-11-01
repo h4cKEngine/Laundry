@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('washers', function (Blueprint $table) {
             $table->id();
             $table->string('marca');
-            $table->boolean('stato');
+            $table->boolean('stato')->default(1);
         });
     }
 

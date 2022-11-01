@@ -49,13 +49,13 @@ class ReservationController extends Controller
             'required' => 'Errore, inserire un campo'
         ]);
         
-        $queryReservation = Reservation::create([
+        $query = Reservation::create([
             'orario' => $request->orario,
             'id_user' => $request->id_user,
             'id_washer' => $request->id_washer,
             'id_washing_program' => $request->id_washing_program
         ]);
-        //return new ReservationResource($queryReservation);
+        //return new ReservationResource($query);
     }
 
     /**
@@ -75,7 +75,7 @@ class ReservationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Reservation $reservation)
     {
         //
     }
@@ -89,7 +89,12 @@ class ReservationController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        Reservation::where('id', '=', $id)->update([
+            'orario' => $request->orario,
+            //'id_user' => $request->id_user,
+            'id_washer' => $request-> id_washer,
+            'id_washing_program' => $request->id_washing_program
+        ]);
     }
 
     /**

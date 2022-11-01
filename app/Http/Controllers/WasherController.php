@@ -10,12 +10,12 @@ class WasherController extends Controller
 {
     public function abilitaStato(Washer $washer){
         $washer->update(['stato' => 1]);
-        return new WasherResource($washer);
+        //return new WasherResource($washer);
     }
 
     public function disabilitaStato(Washer $washer){
         $washer->update(['stato' => 0]);
-        return new WasherResource($washer);
+        //return new WasherResource($washer);
     }
 
      /**
@@ -94,7 +94,7 @@ class WasherController extends Controller
             'marca' => $request->marca,
             'stato' => $request->stato
         ]);
-        //return new WasherResource($washer);
+        //return new WasherResource($query);
     }
 
     /**
@@ -108,7 +108,19 @@ class WasherController extends Controller
         $washer->delete();
     }
 
-    public function deleteall(){
-        Washer::truncate();
+    public function disableall()
+    {   
+        $array = Washer::all();
+        foreach ($array as $item => $value) {
+            $array[$item]->update(['stato' => 0]);
+        }
+    }
+
+    public function enableall()
+    {   
+        $array = Washer::all();
+        foreach ($array as $item => $value) {
+            $array[$item]->update(['stato' => 1]);
+        }
     }
 }

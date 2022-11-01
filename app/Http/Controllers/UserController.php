@@ -67,7 +67,26 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'email' => 'string|required',
+            'nome' => 'string|required',
+            'cognome' => 'string|required',
+            'password' => 'string|required',
+            'ruolo' => 'boolean|required'
+        ],[
+            'string' => 'Errore, inserire string',
+            'boolean' => 'Errore, inserire boolean',
+            'required' => 'Errore, inserire un campo'
+        ]);
+        
+        $query = User::create([
+            'email' => $request->email,
+            'password' => $request->password,
+            'nome' => $request->nome,
+            'cognome' => $request->cognome,
+            'ruolo' => $request->ruolo
+        ]);
+        //return new UserResource($query);
     }
 
     

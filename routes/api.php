@@ -24,13 +24,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-/** Metodi HTTP
+/** Metodi HTTP per l'archittettura REST (REpresentational State Transfer), ovvero metodi CRUD (Create Read Update Delete)
  * 
  * GET ottenere info
  * POST inserire info
  * PATCH effetturare piccola modifica
  * PUT effetturare Grande modifica
  * DELETE eliminazione info
+ * 
  */
 
 // Sanctum
@@ -38,10 +39,17 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+// Route::group(['middleware' => 'auth'], function () {
+//     Route::get('/user', function() {
+//     });
+// });
+
 // User routes
 Route::group(['prefix' => 'user'], function(){
     Route::get('/', [UserController::class, 'index']); // Visualizza tutti gli utenti
     Route::get('/{user}/reservation/', [UserController::class, 'show']); // Visualizza tutte le prenotazioni dell'utente selezionato
+
+    Route::post('/', [UserController::class, 'store']);
 
     Route::delete('/{user}/reservation/', [UserController::class, 'cancellaTuttePrenotazioniUtente']); // Elimina tutte le prenotazioni dell'utente selezionato
 });
@@ -52,11 +60,14 @@ Route::group(['prefix' => 'washer'], function(){
     
     Route::post('/', [WasherController::class, 'store']); // Aggiunge una lavasciuga
     
-    Route::patch('{washer}/enable', [WasherController::class, 'abilitaStato']); // Attiva una lavasciuga (già esistente)
-    Route::patch('{washer}/disable', [WasherController::class, 'disabilitaStato']); // Disabilita una lavasciuga
+    Route::patch('/{washer}/enable', [WasherController::class, 'abilitaStato']); // Attiva una lavasciuga (già esistente)
+    Route::patch('/{washer}/disable', [WasherController::class, 'disabilitaStato']); // Disabilita una lavasciuga (già esistente)
+    Route::patch('/{washer}/edit', [WasherController::class, 'edit']);
+    
+    Route::put('/disableall', [WasherController::class, 'disableall']); // Abilita tutte le lavasciuga
+    Route::put('/enableall', [WasherController::class, 'enableall']); // Disabilita tutte le lavasciuga
     
     Route::delete('/{washer}', [WasherController::class, 'destroy']); // Elimina una lavasciuga
-    Route::delete('/', [WasherController::class, 'deleteall']); // Elimina tutte le lavasciuga
 });
 
 //WashingProgram routes
@@ -65,9 +76,9 @@ Route::group(['prefix' => 'washing_program'], function(){
     
     Route::post('/', [WashingProgramController::class, 'store']); // Aggiunge un programma lav
     
-    Route::patch('/{washer}', [WasherController::class, 'edit']); // Modifica un programma lav
+    Route::patch('/{washing_program}', [WashingProgramController::class, 'edit']); // Modifica un programma lav
 
-    Route::delete('/{washer}', [WashingProgramController::class, 'destroy']); // Elimina un programma lav
+    Route::delete('/{washing_program}', [WashingProgramController::class, 'destroy']); // Elimina un programma lav
     Route::delete('/', [WashingProgramController::class, 'deleteall']); // Elimina tutti i programmi lav
 });
 
@@ -78,10 +89,8 @@ Route::group(['prefix' => 'reservation'], function(){
     
     Route::post('/', [ReservationController::class, 'store']); // Aggiunge una prenotazione
     
-    Route::patch('/', [ReservationController::class, 'edit']); // Modifica una prenotazione
+    Route::patch('/{id}', [ReservationController::class, 'update']); // Modifica una prenotazione
 
     Route::delete('/', [ReservationController::class, 'deleteall']); // Elimina tutte le prenotazioni
     Route::delete('/{reservation}', [ReservationController::class, 'destroy']); // Elimina una prenotazione
-
-
 });

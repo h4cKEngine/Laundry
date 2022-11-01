@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\WashingProgramResource;
+use App\Models\WashingProgram;
 use Illuminate\Http\Request;
 
 class WashingProgramController extends Controller
@@ -11,9 +13,11 @@ class WashingProgramController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    // Visualizza tutti i programmi lavaggio
     public function index()
     {
-        //
+        return ['programma' => WashingProgramResource::collection(WashingProgram::all())];
     }
 
     /**
@@ -34,7 +38,23 @@ class WashingProgramController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nome' => 'string|required',
+            'prezzo' => 'integer|required',
+            'durata' => 'date_format:H:i:s|required'    // date_format:Y-m-d H:i:s 
+        ],[
+            'string' => 'Errore, inserire string',
+            'integer' => 'Errore, inserire integer',
+            'date_format' => 'Errore, inserire time',
+            'required' => 'Errore, inserire un campo'
+        ]);
+        
+        $query = WashingProgram::create([
+            'nome' => $request->nome,
+            'prezzo' => $request->prezzo,
+            'durata' => $request->durata
+        ]);
+        //return new WashingProgramResource($query);
     }
 
     /**
@@ -77,8 +97,9 @@ class WashingProgramController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    // Elimina programma lav
+    public function destroy(WashingProgram $washing_program)
     {
-        //
+        $washing_program->delete();
     }
 }
