@@ -86,9 +86,13 @@ class WashingProgramController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $washing_program)
     {
-        //
+        WashingProgram::where('id', '=', $washing_program)->update([
+            'nome' => $request->nome,
+            'prezzo' => $request-> prezzo,
+            'durata' => $request->durata
+        ]);
     }
 
     /**

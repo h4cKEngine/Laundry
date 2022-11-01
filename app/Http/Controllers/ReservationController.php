@@ -87,9 +87,9 @@ class ReservationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $reservation)
     {
-        Reservation::where('id', '=', $id)->update([
+        Reservation::where('id', '=', $reservation)->update([
             'orario' => $request->orario,
             //'id_user' => $request->id_user,
             'id_washer' => $request-> id_washer,
@@ -107,8 +107,8 @@ class ReservationController extends Controller
             $reservation->delete();
     }
 
-    // Elimina tutte le prenotazioni di tutti gli utenti, svuota la tabella reservations
-    public function deleteall(){
-        Reservation::truncate();
-    }
+    // // Elimina tutte le prenotazioni di tutti gli utenti, svuota la tabella reservations
+    // public function deleteall(){
+    //     Reservation::truncate();
+    // }
 }
