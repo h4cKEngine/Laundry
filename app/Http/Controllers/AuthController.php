@@ -47,17 +47,15 @@ class AuthController extends Controller
         $user = User::where('email', $request['email'])->firstOrFail();
 
         $token = $user->createToken('auth_token')->plainTextToken;
-
+        
         return response()->json([
             'access_token' => $token,
             'token_type' => 'Bearer',
         ]);
     }
-
+       
     public function logout(Request $request)
-    {   // Revoke the token that was used to authenticate the current request...
-        //$request->user()->currentAccessToken()->delete();
-
+    { 
         // Get bearer token from the request
         $accessToken = $request->bearerToken();
         // Get access token from database

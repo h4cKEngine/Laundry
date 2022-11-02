@@ -40,21 +40,13 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
-// Route::group(['middleware' => 'auth'], function () {
-//     Route::get('/user', function() {
-//     });
-// });
-
 // Accesso tramite Sanctum
-Route::group(['prefix'=>'auth'], function(){
-    Route::get('/me', function(Request $request){
-        return $request->user();
-    });
-
+Route::group(['prefix' => 'auth'], function(){
     Route::post('/register', [AuthController::class, 'register']);
 
     Route::post('/login', [AuthController::class, 'login']);
-    Route::post('/logout', [AuthController::class, 'logout']);
+
+    Route::delete('/logout', [AuthController::class, 'logout']);
 });
 
 // User routes

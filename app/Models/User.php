@@ -9,10 +9,10 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
 // Creazione classe astratta enum per selezione del ruolo
-abstract class enumUser {
-    public const user = 0;
-    public const admin = 1;
-}
+// abstract class enumUser {
+//     public const user = 0;
+//     public const admin = 1;
+// }
 
 class User extends Authenticatable
 {
@@ -57,9 +57,9 @@ class User extends Authenticatable
         return $this->hasMany(Reservation::class, 'id_user', 'id');
     }
 
-    public function isAdmin(){
-        return $this->ruolo == enumUser::admin;
-    }
+    // public function isAdmin(){
+    //     return $this->ruolo == enumUser::admin;
+    // }
 
     /**
      * The attributes that should be hidden for serialization.
