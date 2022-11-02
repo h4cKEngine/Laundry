@@ -7,6 +7,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Laravel\Sanctum\PersonalAccessToken;
 use Throwable;
 
 class AuthController extends Controller
@@ -29,21 +30,21 @@ class AuthController extends Controller
             'ruolo' => $validatedData['ruolo']
         ]);
 
-        $token = $user->createToken('auth_token')->plainTextToken;
+        // $token = $user->createToken('auth_token')->plainTextToken;
 
-        return response()->json([
-            'access_token' => $token,
-            'token_type' => 'Bearer',
-        ]);
+        // return response()->json([
+        //     'access_token' => $token,
+        //     'token_type' => 'Bearer',
+        // ]);
     }
 
     public function login(Request $request)
     {
-        if (!Auth::attempt($request->only('id', 'email', 'password'))) {
+        if (!Auth::attempt($request->only('email', 'password'))) {
             return response()->json(['message' => 'Informazioni di Login errate'], 401);
         }
 
-        $user = User::where('id', $request['id'])->firstOrFail();
+        $user = User::where('email', $request['email'])->firstOrFail();
 
         $token = $user->createToken('auth_token')->plainTextToken;
 
@@ -54,7 +55,14 @@ class AuthController extends Controller
     }
 
     public function logout(Request $request)
-    {
-        $request->user()->currentAccessToken()->delete();
+    {   // Revoke the token that was used to authenticate the current request...
+        //$request->user()->currentAccessToken()->delete();
+
+        // Get bearer token from the request
+        $accessToken = $request->bearerToken();
+        // Get access token from database
+        $token = PersonalAccessToken::findToken($accessToken);
+        // Revoke token
+        $token->delete();
     }
 }
