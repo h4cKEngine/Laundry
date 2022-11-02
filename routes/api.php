@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WasherController;
 use App\Http\Controllers\WashingProgramController;
@@ -46,8 +47,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::group(['prefix'=>'auth'], function(){
     Route::post('/register', [AuthController::class, 'register']);
-    
+
     Route::post('/login', [AuthController::class, 'login']);
+    Route::post('/logout', [AuthController::class, 'logout']);
 });
 
 // User routes
