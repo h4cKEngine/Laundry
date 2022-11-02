@@ -44,6 +44,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //     });
 // });
 
+Route::group(['prefix'=>'auth'], function(){
+    Route::post('/register', [AuthController::class, 'register']);
+    
+    Route::post('/login', [AuthController::class, 'login']);
+});
+
 // User routes
 Route::group(['prefix' => 'user'], function(){
     Route::get('/', [UserController::class, 'index']); // Visualizza tutti gli utenti
