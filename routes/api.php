@@ -68,7 +68,7 @@ Route::group(['prefix' => 'user'], function(){
 Route::group(['prefix' => 'reservation'], function(){
     Route::get('/', [ReservationController::class, 'index'])->middleware('role'); // Visualizza tutte le prenotazioni
     
-    Route::post('/', [ReservationController::class, 'store'])->middleware('adminrole'); // Aggiunge una prenotazione
+    Route::post('/', [ReservationController::class, 'store'])->middleware('role'); // Aggiunge una prenotazione
     
     Route::patch('/{reservation}', [ReservationController::class, 'update'])->middleware('adminrole'); // Modifica una prenotazione
 
@@ -78,7 +78,7 @@ Route::group(['prefix' => 'reservation'], function(){
 
 // Washer routes
 Route::group(['prefix' => 'washer'], function(){
-    Route::get('/', [WasherController::class, 'index']); // Visualizza tutte le lavasciuga
+    Route::get('/', [WasherController::class, 'index'])->middleware('role'); // Visualizza tutte le lavasciuga
     
     Route::post('/', [WasherController::class, 'store'])->middleware('adminrole'); // Aggiunge una lavasciuga
     
@@ -93,7 +93,7 @@ Route::group(['prefix' => 'washer'], function(){
 
 //WashingProgram routes
 Route::group(['prefix' => 'washing_program'], function(){
-    Route::get('/', [WashingProgramController::class, 'index']); // Visualizza tutti i programmi lav
+    Route::get('/', [WashingProgramController::class, 'index'])->middleware('role');; // Visualizza tutti i programmi lav
     
     Route::post('/', [WashingProgramController::class, 'store'])->middleware('adminrole'); // Aggiunge un programma lav
     

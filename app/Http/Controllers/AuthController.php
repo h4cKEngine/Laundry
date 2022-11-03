@@ -11,12 +11,7 @@ use Laravel\Sanctum\PersonalAccessToken;
 use Throwable;
 
 class AuthController extends Controller
-{   
-    // Costruttore
-    public function __construct() {
-        $this->middleware('auth:api', ['except' => ['login', 'register']]);
-    }
-
+{  
     // Funzione di registrazione e query di creazione
     public function register(Request $request)
     {   

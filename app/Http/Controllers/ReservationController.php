@@ -43,7 +43,7 @@ class ReservationController extends Controller
             'id_user' => 'integer|required',
             'id_washer' => 'integer|required',
             'id_washing_program' => 'integer|required',
-            'stato' => 'boolean|required'
+            'stato' => 'boolean'
         ],[
             'date' => 'Errore, inserire datetime',
             'integer' => 'Errore, inserire integer',
