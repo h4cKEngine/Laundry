@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\PermissionException;
+use App\Http\Middleware\Role as MiddlewareRole;
 use App\Http\Resources\WasherResource;
 use Illuminate\Http\Request;
 use App\Models\Washer;
+use GuzzleHttp\Middleware;
 
 class WasherController extends Controller
 {
@@ -108,19 +111,29 @@ class WasherController extends Controller
         $washer->delete();
     }
 
-    public function disableall()
-    {   
-        $array = Washer::all();
-        foreach ($array as $item => $value) {
-            $array[$item]->update(['stato' => 0]);
+    public function disableAll(Request $request)
+    {           
+        $role = new MiddlewareRole;
+        if($role->checkAdmin($request)){
+            $array = Washer::all();
+            foreach ($array as $item => $value) {
+                $array[$item]->update(['stato' => 0]);
+            }
+            return "Washer Disabilitate";
         }
+        throw new PermissionException();
     }
 
-    public function enableall()
+    public function enableAll(Request $request)
     {   
-        $array = Washer::all();
-        foreach ($array as $item => $value) {
-            $array[$item]->update(['stato' => 1]);
+        $role = new MiddlewareRole;
+        if($role->checkAdmin($request)){
+            $array = Washer::all();
+            foreach ($array as $item => $value) {
+                $array[$item]->update(['stato' => 1]);
+            }
+            return "Washer Abilitate";
         }
+        throw new PermissionException();
     }
 }

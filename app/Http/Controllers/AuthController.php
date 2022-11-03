@@ -55,7 +55,7 @@ class AuthController extends Controller
         $token = $user->createToken('auth_token')->plainTextToken;
         
         // Restituzione di un json come risposta tramite codice HTTP di conferma (200)
-        return response("Credentials Accepted", 200)->json([
+        return response()->json([
             'access_token' => $token,
             'token_type' => 'Bearer', // I Bearer Token sono un tipo particolare di Access Token, 
             // usati per ottenere l'autorizzazione ad accedere ad una risorsa protetta da un Authorization Server

@@ -81,8 +81,8 @@ Route::group(['prefix' => 'washer'], function(){
     Route::patch('/{washer}/enable', [WasherController::class, 'abilitaStato']); // Attiva una lavasciuga (già esistente)
     Route::patch('/{washer}/disable', [WasherController::class, 'disabilitaStato']); // Disabilita una lavasciuga (già esistente)
     
-    Route::put('/disableall', [WasherController::class, 'disableall']); // Abilita tutte le lavasciuga
-    Route::put('/enableall', [WasherController::class, 'enableall']); // Disabilita tutte le lavasciuga
+    Route::put('/disableall', [WasherController::class, 'disableAll']); // Abilita tutte le lavasciuga
+    Route::put('/enableall', [WasherController::class, 'enableAll']); // Disabilita tutte le lavasciuga
     
     Route::delete('/{washer}', [WasherController::class, 'destroy']); // Elimina una lavasciuga
 });

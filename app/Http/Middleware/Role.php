@@ -19,18 +19,10 @@ class Role
      * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
-    public function tokenCheck(Request $request)
+    public function CheckAdmin(Request $request)
     {
-        try{
-            $tokenable = PersonalAccessToken::find($request->bearerToken()); //record della tabella personal access
-            if($tokenable->tokenable->ruolo == 1){ //Controllo se l'utente è un Admin
-                return $request;
-            }
-            return response()->json(["Errore" => 'Permessi insufficienti.'], 403);
-            
-        }catch(\Exception $e){
-            throw new PermissionException();
-        }
+            $token = PersonalAccessToken::find($request->bearerToken()); // record della tabella personal access
+            return $token->tokenable->ruolo;
     }
 
     public function handle(Request $request, Closure $next, User $user)
