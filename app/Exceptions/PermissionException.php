@@ -7,6 +7,6 @@ use Exception;
 class PermissionException extends Exception
 {
     public function render(){
-        return response()->json(['errore' => 'Permessi insufficienti']);
+        return response()->json(['errore' => 'Permessi insufficienti'], 403);
     }
 }

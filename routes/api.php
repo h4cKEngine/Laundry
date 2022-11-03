@@ -52,11 +52,13 @@ Route::group(['prefix' => 'auth'], function(){
 // User routes
 Route::group(['prefix' => 'user'], function(){
     Route::get('/', [UserController::class, 'index']); // Visualizza tutti gli utenti
-    Route::get('/{user}/reservation/', [UserController::class, 'show']); // Visualizza tutte le prenotazioni dell'utente selezionato
+    Route::get('/{user}/reservation/', [UserController::class, 'show'])->middleware('role'); // Visualizza tutte le prenotazioni dell'utente selezionato
     
     Route::post('/', [UserController::class, 'store']);
-    
-    Route::delete('/{user}', [UserController::class, 'destroy']); // Elimina un utente
+
+    Route::patch('/{user}', [UserController::class, 'disable']); // Disattiva un utente
+
+    //Route::delete('/{user}', [UserController::class, 'destroy']); // Elimina un utente
     Route::delete('/{user}/reservation/', [UserController::class, 'cancellaTuttePrenotazioniUtente']); // Elimina tutte le prenotazioni dell'utente selezionato
 });
 
@@ -64,7 +66,7 @@ Route::group(['prefix' => 'user'], function(){
 Route::group(['prefix' => 'reservation'], function(){
     Route::get('/', [ReservationController::class, 'index']); // Visualizza tutte le prenotazioni
     
-    Route::post('/', [ReservationController::class, 'store']); // Aggiunge una prenotazione
+    Route::post('/', [ReservationController::class, 'store'])->middleware('role'); // Aggiunge una prenotazione
     
     Route::patch('/{reservation}', [ReservationController::class, 'update']); // Modifica una prenotazione
 

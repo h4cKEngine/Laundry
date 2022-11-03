@@ -19,13 +19,16 @@ class Role
      * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
-    public function CheckAdmin(Request $request)
+    public function handle(Request $request, Closure $next)
     {
-            $token = PersonalAccessToken::find($request->bearerToken()); // record della tabella personal access
-            return $token->tokenable->ruolo;
-    }
+        if(!$request->bearerToken()) // Token inesistente
+            return response()->json(["error"=>'Non autenticato.'], 403); // Error 403 Unathorized
+        // 0 per user 1 per Admin
+        $token = PersonalAccessToken::find($request->bearerToken());
 
-    public function handle(Request $request, Closure $next, User $user)
-    {
+        if($this->token || $token->tokenable->id == $request->route()->parameter('user')->id){
+            return $next($request); // Risposta dell'api
+        }
+        throw new PermissionException();
     }
 }

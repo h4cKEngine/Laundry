@@ -42,7 +42,8 @@ class User extends Authenticatable
         'password',
         'nome',
         'cognome',
-        'ruolo'
+        'ruolo',
+        'stato'
     ];
 
     protected $guarded = [

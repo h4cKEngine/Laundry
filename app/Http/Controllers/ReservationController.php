@@ -42,10 +42,12 @@ class ReservationController extends Controller
             'orario' => 'date|required',
             'id_user' => 'integer|required',
             'id_washer' => 'integer|required',
-            'id_washing_program' => 'integer|required'
+            'id_washing_program' => 'integer|required',
+            'stato' => 'boolean|required'
         ],[
             'date' => 'Errore, inserire datetime',
             'integer' => 'Errore, inserire integer',
+            'boolean' => 'Errore inserire boolean',
             'required' => 'Errore, inserire un campo'
         ]);
         
@@ -53,7 +55,8 @@ class ReservationController extends Controller
             'orario' => $request->orario,
             'id_user' => $request->id_user,
             'id_washer' => $request->id_washer,
-            'id_washing_program' => $request->id_washing_program
+            'id_washing_program' => $request->id_washing_program,
+            'stato' => $request->stato
         ]);
         //return new ReservationResource($query);
     }
@@ -93,7 +96,8 @@ class ReservationController extends Controller
             'orario' => $request->orario,
             //'id_user' => $request->id_user,
             'id_washer' => $request-> id_washer,
-            'id_washing_program' => $request->id_washing_program
+            'id_washing_program' => $request->id_washing_program,
+            'stato' => $request->stato
         ]);
     }
 

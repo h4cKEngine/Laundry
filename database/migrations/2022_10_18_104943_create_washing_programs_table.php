@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('nome');
             $table->integer('prezzo');
             $table->time('durata');
+            $table->boolean('stato')->default(1);
         });
     }
 

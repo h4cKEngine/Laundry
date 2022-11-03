@@ -7,18 +7,15 @@ use App\Http\Middleware\Role as MiddlewareRole;
 use App\Http\Resources\WasherResource;
 use Illuminate\Http\Request;
 use App\Models\Washer;
-use GuzzleHttp\Middleware;
 
 class WasherController extends Controller
 {
-    public function abilitaStato(Washer $washer){
+    public function abilitaStato(Request $request, Washer $washer){
         $washer->update(['stato' => 1]);
-        //return new WasherResource($washer);
     }
 
-    public function disabilitaStato(Washer $washer){
+    public function disabilitaStato(Request $request, Washer $washer){
         $washer->update(['stato' => 0]);
-        //return new WasherResource($washer);
     }
 
      /**
@@ -86,7 +83,7 @@ class WasherController extends Controller
     {
         $request->validate([
             'marca' => 'string|required',
-            'stato' => 'boolean|required'
+            'stato' => 'required'
         ],[
             'string' => 'Errore, inserire string',
             'boolean' => 'Errore, inserire integer',
@@ -106,34 +103,24 @@ class WasherController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Washer $washer)
+    public function destroy(Request $request, Washer $washer)
     {
         $washer->delete();
     }
 
     public function disableAll(Request $request)
-    {           
-        $role = new MiddlewareRole;
-        if($role->checkAdmin($request)){
-            $array = Washer::all();
-            foreach ($array as $item => $value) {
-                $array[$item]->update(['stato' => 0]);
-            }
-            return "Washer Disabilitate";
+    {
+        $array = Washer::all();
+        foreach ($array as $item => $value) {
+            $array[$item]->update(['stato' => 0]);
         }
-        throw new PermissionException();
     }
 
     public function enableAll(Request $request)
-    {   
-        $role = new MiddlewareRole;
-        if($role->checkAdmin($request)){
-            $array = Washer::all();
-            foreach ($array as $item => $value) {
-                $array[$item]->update(['stato' => 1]);
-            }
-            return "Washer Abilitate";
+    {
+        $array = Washer::all();
+        foreach ($array as $item => $value) {
+            $array[$item]->update(['stato' => 1]);
         }
-        throw new PermissionException();
     }
 }

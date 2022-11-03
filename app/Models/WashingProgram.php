@@ -14,7 +14,8 @@ class WashingProgram extends Model
     protected $fillable = [
         'nome',
         'prezzo',
-        'durata'
+        'durata',
+        'stato'
     ];
 
     protected $guarded = [

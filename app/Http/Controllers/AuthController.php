@@ -26,7 +26,8 @@ class AuthController extends Controller
             'password' => 'required|string|min:8',
             'nome' => 'required|string|max:255',
             'cognome' => 'required|string|max:255',
-            'ruolo' => 'required|boolean'
+            'ruolo' => 'boolean',
+            'stato' => 'boolean'
         ]);
 
         // Query di creazione
@@ -35,7 +36,8 @@ class AuthController extends Controller
             'password' => Hash::make($validatedData['password']), // Utilizzo di una password cifrata tramite algoritmo di hash Bcrypt
             'nome' => $validatedData['nome'],
             'cognome' => $validatedData['cognome'],
-            'ruolo' => $validatedData['ruolo']
+            'ruolo' => $validatedData['ruolo'],
+            'stato' => $validatedData['stato']
         ]);
     }
 
@@ -57,7 +59,8 @@ class AuthController extends Controller
         // Restituzione di un json come risposta tramite codice HTTP di conferma (200)
         return response()->json([
             'access_token' => $token,
-            'token_type' => 'Bearer', // I Bearer Token sono un tipo particolare di Access Token, 
+            'token_type' => 'Bearer', 
+            // I Bearer Token sono un tipo particolare di Access Token, 
             // usati per ottenere l'autorizzazione ad accedere ad una risorsa protetta da un Authorization Server
         ]);
     }
