@@ -91,7 +91,8 @@ class WashingProgramController extends Controller
         WashingProgram::where('id', '=', $washing_program)->update([
             'nome' => $request->nome,
             'prezzo' => $request-> prezzo,
-            'durata' => $request->durata
+            'durata' => $request->durata,
+            'stato' => $request->stato
         ]);
     }
 
@@ -105,5 +106,31 @@ class WashingProgramController extends Controller
     public function destroy(WashingProgram $washing_program)
     {
         $washing_program->delete();
+    }
+
+    public function disable(WashingProgram $washing_program)
+    {
+        $washing_program->update(['stato' => 0]);
+    }
+
+    public function enable(WashingProgram $washing_program)
+    {
+        $washing_program->update(['stato' => 1]);
+    }
+
+    public function disableAll(Request $request)
+    {
+        $array = WashingProgram::all();
+        foreach ($array as $item => $value) {
+            $array[$item]->update(['stato' => 0]);
+        }
+    }
+
+    public function enableAll(Request $request)
+    {
+        $array = WashingProgram::all();
+        foreach ($array as $item => $value) {
+            $array[$item]->update(['stato' => 1]);
+        }
     }
 }

@@ -17,10 +17,26 @@ class WasherController extends Controller
     public function disabilitaStato(Request $request, Washer $washer){
         $washer->update(['stato' => 0]);
     }
-
+    
+    public function disableAll(Request $request)
+    {
+        $array = Washer::all();
+        foreach ($array as $item => $value) {
+            $array[$item]->update(['stato' => 0]);
+        }
+    }
+    
+    public function enableAll(Request $request)
+    {
+        $array = Washer::all();
+        foreach ($array as $item => $value) {
+            $array[$item]->update(['stato' => 1]);
+        }
+    }
+    
      /**
-     * Display a listing of the resource.
-     *
+      * Display a listing of the resource.
+      *
      * @return \Illuminate\Http\Response
      */
     public function index()
@@ -108,19 +124,4 @@ class WasherController extends Controller
         $washer->delete();
     }
 
-    public function disableAll(Request $request)
-    {
-        $array = Washer::all();
-        foreach ($array as $item => $value) {
-            $array[$item]->update(['stato' => 0]);
-        }
-    }
-
-    public function enableAll(Request $request)
-    {
-        $array = Washer::all();
-        foreach ($array as $item => $value) {
-            $array[$item]->update(['stato' => 1]);
-        }
-    }
 }

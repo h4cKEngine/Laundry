@@ -100,13 +100,18 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, User $user)
+    public function destroy(User $user)
     {
         $user->delete();
     }
     
-    public function disable(Request $request, User $user)
+    public function disable(User $user)
     {
-        $user->delete();
+        $user->update(['stato' => 0]);
+    }
+
+    public function enable(User $user)
+    {
+        $user->update(['stato' => 1]);
     }
 }
