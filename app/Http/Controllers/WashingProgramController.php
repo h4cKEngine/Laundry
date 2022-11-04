@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\WashingProgramResource;
+use App\Models\User;
 use App\Models\WashingProgram;
 use Illuminate\Http\Request;
 
@@ -108,29 +109,24 @@ class WashingProgramController extends Controller
         $washing_program->delete();
     }
 
-    public function disable(WashingProgram $washing_program)
+    public function status(Request $request, User $user)
     {
-        $washing_program->update(['stato' => 0]);
+        $request->validate([
+            'status' => 'required|boolean'
+        ]);
+
+        $user->update(['stato' => $request->status]);
     }
 
-    public function enable(WashingProgram $washing_program)
-    {
-        $washing_program->update(['stato' => 1]);
-    }
+    public function statusAll(Request $request)
+    {   
+        $request->validate([
+            'status' => 'required|boolean'
+        ]);
 
-    public function disableAll(Request $request)
-    {
         $array = WashingProgram::all();
         foreach ($array as $item => $value) {
-            $array[$item]->update(['stato' => 0]);
-        }
-    }
-
-    public function enableAll(Request $request)
-    {
-        $array = WashingProgram::all();
-        foreach ($array as $item => $value) {
-            $array[$item]->update(['stato' => 1]);
+            $array[$item]->update(['stato' => $request->status]);
         }
     }
 }

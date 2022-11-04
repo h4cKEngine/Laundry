@@ -25,7 +25,6 @@ class ReservationController extends Controller
         return ['prenotazioni' => ReservationResource::collection(Reservation::all())];
     }
 
-
     /**
      * Store a newly created resource in storage.
      *
@@ -36,7 +35,7 @@ class ReservationController extends Controller
     {
         $request->validate([
             'orario' => 'date|date_format:d-m-Y H:i:s|required',
-            // Prendilo dal token, 'id_user' => 'integer|required',
+            // Si può ottenere dal token, 'id_user' => 'integer|required',
             'id_washer' => 'exists:washers,id|required',
             'id_washing_program' => 'exists:washing_programs,id|required',
         ],[
@@ -45,12 +44,6 @@ class ReservationController extends Controller
             'boolean' => 'Errore inserire boolean',
             'required' => 'Errore, inserire un campo'
         ]);
-
-        
-        /**
-         *Query da emulare
-        
-         */
         
         $programma = WashingProgram::findOrFail($request->id_washing_program);
         
@@ -79,9 +72,8 @@ class ReservationController extends Controller
                                                                                                     );
                                                                                                 })->where(DB::raw('DATE(orario)'), $giorno_richiesto);
                                         
-        // Se non ci sono che si sovrappongono all'orario richiesto dall'utente, creo la prenotazione!
-        
-        if(!$prenotazioni_sovrapponibili->count()){
+        // Se non ci sono che si sovrappongono all'orario richiesto dall'utente, creo la prenotazione
+        if(!$prenotazioni_sovrapponibili->count()){ // $prenotazioni_sovrapponibili == 0 nessuna prenotazione da conflitto
             $query = Reservation::create([
                 'orario' => date("Y-m-d H:i:s", $data_richiesta),
                 'id_user' => $user->id,
@@ -92,7 +84,6 @@ class ReservationController extends Controller
         }else{
             return response()->json(['error' => 'Prenotazione non effettuabile, slot non disponibile causa sovrapposizioni.']);
         }
-
     }
 
     /**
@@ -124,14 +115,25 @@ class ReservationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $reservation)
-    {
-        Reservation::where('id', '=', $reservation)->update([
+    public function update(Request $request)
+    {   
+        $request->validate([
+            'orario' => 'date|date_format:d-m-Y H:i:s|required',
+            //'id_user' => 'integer|required',
+            'id_washer' => 'exists:washers,id|required',
+            'id_washing_program' => 'exists:washing_programs,id|required',
+        ],[
+            'date' => 'Errore, inserire datetime',
+            'integer' => 'Errore, inserire integer',
+            'boolean' => 'Errore inserire boolean',
+            'required' => 'Errore, inserire un campo'
+        ]);
+
+        Reservation::where('id', '=', $request->reservation)->update([
             'orario' => $request->orario,
             //'id_user' => $request->id_user,
             'id_washer' => $request-> id_washer,
             'id_washing_program' => $request->id_washing_program,
-            'stato' => $request->stato
         ]);
     }
 
@@ -141,12 +143,7 @@ class ReservationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Reservation $reservation){ // Usare Sanctum
-            $reservation->delete();
+    public function destroy(Request $request){ 
+            $request->reservation->delete();
     }
-
-    // // Elimina tutte le prenotazioni di tutti gli utenti, svuota la tabella reservations
-    // public function deleteall(){
-    //     Reservation::truncate();
-    // }
 }

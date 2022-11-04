@@ -24,17 +24,17 @@ use Illuminate\Support\Facades\Route;
 
     GET
     Route::get('/url{parameter}', [Controller::class, 'functionName']);
-    
+
     POST
     Route::post('/url{parameter}', [Controller::class, 'functionName']);
 
     UPDATE
     Route::put('/url{parameter}', [Controller::class, 'functionName']);
-    
-    PATCH - piccole modifiche
-    
+
+    PATCH
+
     Route::patch('/url{parameter}', [Controller::class, 'functionName']);
-    
+
     DELETE
     Route::delete('/url{parameter}', [Controller::class, 'functionName']);
 
@@ -44,11 +44,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 //'prova/{numero?}' --> il ? indica che il paramentro è opzionale, $numero = 2 è il valore di default
-Route::get('prova/{numero?}', function ($numero = 2) { 
-    for($i=0; $i<10; $i=$i+1){
-        echo "$i * $numero = ". $i * $numero ."<br>";
-        }
-});
+// Route::get('prova/{numero?}', function ($numero = 2) {
+//     for($i=0; $i<10; $i=$i+1){
+//         echo "$i * $numero = ". $i * $numero ."<br>";
+//         }
+// });
 
 Route::get('/', function () {
     return view('welcome');

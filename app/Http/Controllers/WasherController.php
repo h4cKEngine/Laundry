@@ -10,31 +10,28 @@ use App\Models\Washer;
 
 class WasherController extends Controller
 {
-    public function abilitaStato(Request $request, Washer $washer){
-        $washer->update(['stato' => 1]);
-    }
+    public function status(Request $request, Washer $washer)
+    {
+        $request->validate([
+            'status' => 'required|boolean'
+        ]);
 
-    public function disabilitaStato(Request $request, Washer $washer){
-        $washer->update(['stato' => 0]);
+        $washer->update(['stato' => $request->status]);
     }
     
-    public function disableAll(Request $request)
+    public function statusAll(Request $request)
     {
+        $request->validate([
+            'status' => 'required|boolean'
+        ]);
+
         $array = Washer::all();
         foreach ($array as $item => $value) {
-            $array[$item]->update(['stato' => 0]);
+            $array[$item]->update(['stato' => $request->status]);
         }
     }
     
-    public function enableAll(Request $request)
-    {
-        $array = Washer::all();
-        foreach ($array as $item => $value) {
-            $array[$item]->update(['stato' => 1]);
-        }
-    }
-    
-     /**
+    /**
       * Display a listing of the resource.
       *
      * @return \Illuminate\Http\Response
@@ -119,9 +116,9 @@ class WasherController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, Washer $washer)
+    public function destroy(Request $request)
     {
-        $washer->delete();
+        $request->washer->delete();
     }
 
 }

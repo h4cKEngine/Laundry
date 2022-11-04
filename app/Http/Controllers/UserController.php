@@ -28,13 +28,13 @@ class UserController extends Controller
     }
 
     // Cancella tutte le prenotazioni dell'utente selezionato
-    public function cancellaTuttePrenotazioniUtente(User $user)
+    public function deleteAll(User $user)
     {
         $user->prenotazione()->delete();
     }
 
     // Cancella la singola prenotazione dell'utente selezionato
-    public function cancellaPrenotazioneUtente(User $user)
+    public function delete(User $user)
     {
         $user->prenotazione->delete();
     }
@@ -113,5 +113,4 @@ class UserController extends Controller
 
         $user->update(['stato' => $request->status]);
     }
-
 }
