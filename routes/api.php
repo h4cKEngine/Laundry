@@ -54,7 +54,9 @@ Route::group(['prefix' => 'user'], function(){
     Route::group(['prefix' =>'/{user}'], function(){
         Route::patch('/', [UserController::class, 'status'])->middleware('adminrole'); // Attiva/Disattiva un utente
 
-        // Route::delete('/{user}', [UserController::class, 'destroy'])->middleware('adminrole'); // Elimina un utente
+        Route::put('/', [UserController::class, 'statusAll'])->middleware('adminrole'); // Attiva/Disattiva tutti gli utenti
+        
+        Route::delete('/', [UserController::class, 'destroy'])->middleware('adminrole'); // Elimina un utente
         // URI: /api/user/{user}/reservation
         Route::group(['prefix' => 'reservation'], function(){
             Route::get('/', [UserController::class, 'show'])->middleware('role'); // Visualizza tutte le prenotazioni dell'utente
@@ -71,16 +73,17 @@ Route::group(['prefix' => 'user'], function(){
 });
 
 // Washer routes
+// URI: /api/{washer}/
 Route::group(['prefix' => 'washer'], function(){
-    Route::get('/', [WasherController::class, 'index']); // Visualizza tutte le lavasciuga
+    Route::get('/', [WasherController::class, 'index'])->middleware('role'); // Visualizza tutte le lavasciuga
     
     Route::post('/', [WasherController::class, 'store'])->middleware('adminrole'); // Aggiunge una lavasciuga
     
-    Route::patch('/', [WasherController::class, 'status'])->middleware('adminrole'); // Attiva/Disabilita una lavasciuga (già esistente)
+    Route::patch('/{washer}', [WasherController::class, 'status'])->middleware('adminrole'); // Attiva/Disabilita una lavasciuga (già esistente)
     
     Route::put('/', [WasherController::class, 'statusAll'])->middleware('adminrole'); // Abilita/Disabilita tutte le lavasciuga
 
-    Route::delete('/', [WasherController::class, 'destroy'])->middleware('adminrole'); // Elimina una lavasciuga
+    Route::delete('/{washer}', [WasherController::class, 'destroy'])->middleware('adminrole'); // Elimina una lavasciuga
 });
 
 // WashingProgram routes
@@ -89,12 +92,13 @@ Route::group(['prefix' => 'washing_program'], function(){
     
     Route::post('/', [WashingProgramController::class, 'store'])->middleware('adminrole'); // Aggiunge un programma lav
 
-    Route::put('/', [WashingProgramController::class, 'statusAll'])->middleware('adminrole'); // Abilita/Disabilita tutte le lavasciuga
+    Route::put('/', [WashingProgramController::class, 'statusAll'])->middleware('adminrole'); // Abilita/Disabilita tutte i programmi lav
     
     Route::group(['prefix' => '{washing_program}'], function(){
         Route::patch('/', [WashingProgramController::class, 'status'])->middleware('adminrole'); // Abilita/Disabilita un programma lav
         Route::patch('/update', [WashingProgramController::class, 'update'])->middleware('adminrole'); // Modifica un programma lav
-    });
-    //Route::delete('/{washing_program}', [WashingProgramController::class, 'destroy'])->middleware('adminrole'); // Elimina un programma lav
+
+        Route::delete('/', [WashingProgramController::class, 'destroy'])->middleware('adminrole'); // Elimina un programma lav
+    });  
 });
 

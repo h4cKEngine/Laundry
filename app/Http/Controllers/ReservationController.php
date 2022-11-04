@@ -143,7 +143,7 @@ class ReservationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request){ 
-            $request->reservation->delete();
+    public function destroy(Reservation $reservation){ 
+            $reservation->delete();
     }
 }

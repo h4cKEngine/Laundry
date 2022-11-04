@@ -109,13 +109,13 @@ class WashingProgramController extends Controller
         $washing_program->delete();
     }
 
-    public function status(Request $request, User $user)
+    public function status(Request $request, WashingProgram $washing_program)
     {
         $request->validate([
             'status' => 'required|boolean'
         ]);
 
-        $user->update(['stato' => $request->status]);
+        $washing_program->update(['stato' => $request->status]);
     }
 
     public function statusAll(Request $request)

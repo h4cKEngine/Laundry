@@ -113,4 +113,16 @@ class UserController extends Controller
 
         $user->update(['stato' => $request->status]);
     }
+
+    public function statusAll(Request $request)
+    {
+        $request->validate([
+            'status' => 'required|boolean'
+        ]);
+
+        $array = User::all();
+        foreach ($array as $item => $value) {
+            $array[$item]->update(['stato' => $request->status]);
+        }
+    }
 }

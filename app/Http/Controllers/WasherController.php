@@ -116,9 +116,9 @@ class WasherController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request)
+    public function destroy(Washer $washer)
     {
-        $request->washer->delete();
+        $washer->delete();
     }
 
 }
