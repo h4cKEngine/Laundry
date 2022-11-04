@@ -105,13 +105,13 @@ class UserController extends Controller
         $user->delete();
     }
     
-    public function disable(User $user)
+    public function status(Request $request, User $user)
     {
-        $user->update(['stato' => 0]);
+        $request->validate([
+            'status' => 'required|boolean'
+        ]);
+
+        $user->update(['stato' => $request->status]);
     }
 
-    public function enable(User $user)
-    {
-        $user->update(['stato' => 1]);
-    }
 }

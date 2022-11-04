@@ -53,7 +53,3 @@ Route::get('prova/{numero?}', function ($numero = 2) {
 Route::get('/', function () {
     return view('welcome');
 });
-
-Route::get('/', [WasherController::class, 'abilitaStato']);
-
-Route::get('/', [WasherController::class, 'disabilitaStato']);

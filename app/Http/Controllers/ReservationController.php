@@ -6,8 +6,12 @@ use App\Http\Resources\UserResource;
 use App\Http\Resources\ReservationResource;
 
 use App\Models\Reservation;
-
+use App\Models\User;
+use App\Models\WashingProgram;
+use DateTime;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Nette\Utils\Arrays;
 
 class ReservationController extends Controller
 {
@@ -21,14 +25,6 @@ class ReservationController extends Controller
         return ['prenotazioni' => ReservationResource::collection(Reservation::all())];
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create(){
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -36,29 +32,67 @@ class ReservationController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, User $user)
     {
         $request->validate([
-            'orario' => 'date|required',
-            'id_user' => 'integer|required',
-            'id_washer' => 'integer|required',
-            'id_washing_program' => 'integer|required',
-            'stato' => 'boolean'
+            'orario' => 'date|date_format:d-m-Y H:i:s|required',
+            // Prendilo dal token, 'id_user' => 'integer|required',
+            'id_washer' => 'exists:washers,id|required',
+            'id_washing_program' => 'exists:washing_programs,id|required',
         ],[
             'date' => 'Errore, inserire datetime',
             'integer' => 'Errore, inserire integer',
             'boolean' => 'Errore inserire boolean',
             'required' => 'Errore, inserire un campo'
         ]);
+
         
-        $query = Reservation::create([
-            'orario' => $request->orario,
-            'id_user' => $request->id_user,
-            'id_washer' => $request->id_washer,
-            'id_washing_program' => $request->id_washing_program,
-            'stato' => $request->stato
-        ]);
-        //return new ReservationResource($query);
+        /**
+         *Query da emulare
+        
+         */
+        
+        $programma = WashingProgram::findOrFail($request->id_washing_program);
+        
+        $data_richiesta = strtotime($request->orario);
+        
+        $giorno_richiesto = date("Y-m-d", $data_richiesta);
+
+        $ora_inizio_richiesta = date("H:i:s", $data_richiesta);
+
+        $ora_fine_prevista = $data_richiesta + strtotime($programma->durata);
+        $ora_fine_prevista = date("H:i:s", $ora_fine_prevista);
+
+        $prenotazioni_sovrapponibili = DB::table('reservations')->select('*')
+                                                                                                ->join('washing_programs', 'washing_programs.id', '=', 'reservations.id_washing_program')
+                                                                                                ->where('id_washer', $request->id_washer)
+                                                                                                ->where(function($query) use($ora_inizio_richiesta, $ora_fine_prevista){
+                                                                                                    $betweenConds = [DB::raw('CAST("' . $ora_inizio_richiesta . '" AS time)'), DB::raw('CAST("' . $ora_fine_prevista . '" AS time)')];
+                                                                                                    $query->whereBetween(
+                                                                                                        DB::raw('TIME(orario)'), 
+                                                                                                        $betweenConds
+                                                                                                    );
+
+                                                                                                    $query->OrWhereBetween(
+                                                                                                        DB::raw('ADDTIME(TIME(orario), washing_programs.durata)'), 
+                                                                                                        $betweenConds
+                                                                                                    );
+                                                                                                })->where(DB::raw('DATE(orario)'), $giorno_richiesto);
+                                        
+        // Se non ci sono che si sovrappongono all'orario richiesto dall'utente, creo la prenotazione!
+        
+        if(!$prenotazioni_sovrapponibili->count()){
+            $query = Reservation::create([
+                'orario' => date("Y-m-d H:i:s", $data_richiesta),
+                'id_user' => $user->id,
+                'id_washer' => $request->id_washer,
+                'id_washing_program' => $request->id_washing_program,
+            ]);
+            return new ReservationResource($query);
+        }else{
+            return response()->json(['error' => 'Prenotazione non effettuabile, slot non disponibile causa sovrapposizioni.']);
+        }
+
     }
 
     /**
