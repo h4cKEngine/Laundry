@@ -53,12 +53,13 @@ Route::group(['prefix' => 'user'], function(){
     // URI: /api/user/{user}/
     Route::group(['prefix' =>'/{user}'], function(){
         Route::patch('/', [UserController::class, 'status'])->middleware('adminrole'); // Attiva/Disattiva un utente
-        
+
+        // Route::delete('/{user}', [UserController::class, 'destroy'])->middleware('adminrole'); // Elimina un utente
         // URI: /api/user/{user}/reservation
         Route::group(['prefix' => 'reservation'], function(){
             Route::get('/', [UserController::class, 'show'])->middleware('role'); // Visualizza tutte le prenotazioni dell'utente
             
-            Route::post('/', [ReservationController::class, 'store'])->middleware('role'); // Aggiunge una prenotazione
+            Route::post('/', [ReservationController::class, 'store'])->middleware('role'); // Crea una prenotazione
             
             Route::patch('/', [ReservationController::class, 'update'])->middleware('adminrole'); // Modifica una prenotazione
             
@@ -67,12 +68,11 @@ Route::group(['prefix' => 'user'], function(){
             Route::delete('/all', [UserController::class, 'deleteAll'])->middleware('role'); // Elimina tutte le prenotazioni dell'utente selezionato
         });
     });
-    //Route::delete('/{user}', [UserController::class, 'destroy'])->middleware('adminrole'); // Elimina un utente
 });
 
 // Washer routes
 Route::group(['prefix' => 'washer'], function(){
-    Route::get('/', [WasherController::class, 'index'])->middleware('role'); // Visualizza tutte le lavasciuga
+    Route::get('/', [WasherController::class, 'index']); // Visualizza tutte le lavasciuga
     
     Route::post('/', [WasherController::class, 'store'])->middleware('adminrole'); // Aggiunge una lavasciuga
     

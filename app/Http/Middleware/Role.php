@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Exceptions\PermissionDenyException;
 use App\Exceptions\PermissionException;
 use App\Http\Controllers\AuthController;
 use App\Models\User;
@@ -22,11 +23,11 @@ class Role
     public function handle(Request $request, Closure $next)
     {
         if(!$request->bearerToken()) // Token inesistente
-            return response()->json(["error"=>'Non autenticato.'], 403); // Error 403 Unathorized
+            throw new PermissionDenyException();
         
-        // 0 per user 1 per Admin
+        // Acquisisce il token
         $token = PersonalAccessToken::find($request->bearerToken());
-        
+        // 0 per user, 1 per Admin
         if($token->tokenable->ruolo || $token->tokenable->id == $request->route()->parameter('user')->id){
             return $next($request); // Risposta dell'api
         }
