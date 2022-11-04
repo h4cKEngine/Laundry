@@ -49,32 +49,36 @@ Route::group(['prefix' => 'auth'], function(){
 
     Route::post('/login', [AuthController::class, 'login']); // Login
 
-    Route::delete('/logout', [AuthController::class, 'logout']); // Logout
+    Route::delete('/logout', [AuthController::class, 'logout'])->middleware('role'); // Logout
 });
 
 // User routes
 Route::group(['prefix' => 'user'], function(){
     Route::get('/', [UserController::class, 'index'])->middleware('adminrole'); // Visualizza tutti gli utenti
-    Route::get('/{user}/reservation/', [UserController::class, 'show'])->middleware('role'); // Visualizza tutte le prenotazioni dell'utente selezionato
+    
+    // URI: /api/user/{user}/
+    Route::group(['prefix' =>'/{user}'], function(){
+        Route::patch('/', [UserController::class, 'status'])->middleware('adminrole'); // Attiva un utente
 
-    Route::patch('/{user}', [UserController::class, 'enable'])->middleware('adminrole'); // Attiva un utente
-    Route::patch('/{user}', [UserController::class, 'disable'])->middleware('adminrole'); // Disattiva un utente
+        // URI: /api/user/{user}/reservation
+        Route::group(['prefix' => 'reservation'], function(){
+            Route::get('/', [UserController::class, 'prenotazioni'])->middleware('role'); // Visualizza tutte le prenotazioni
+            Route::post('/', [ReservationController::class, 'store'])->middleware('role'); // Aggiunge una prenotazione
+            
+            Route::patch('/{reservation}', [ReservationController::class, 'update'])->middleware('adminrole'); // Modifica una prenotazione
+            
+            Route::delete('/{reservation}', [ReservationController::class, 'destroy'])->middleware('role'); // Elimina una prenotazione
+            //Route::delete('/', [ReservationController::class, 'deleteAll']); // Elimina tutte le prenotazioni
+        });
+    });
+
 
     //Route::delete('/{user}', [UserController::class, 'destroy']); // Elimina un utente
     Route::delete('/{user}/reservation/', [UserController::class, 'cancellaTuttePrenotazioniUtente'])->middleware('role'); // Elimina tutte le prenotazioni dell'utente selezionato
 });
 
 // Reservation routes
-Route::group(['prefix' => 'reservation'], function(){
-    Route::get('/', [ReservationController::class, 'index'])->middleware('role'); // Visualizza tutte le prenotazioni
-    
-    Route::post('/', [ReservationController::class, 'store'])->middleware('role'); // Aggiunge una prenotazione
-    
-    Route::patch('/{reservation}', [ReservationController::class, 'update'])->middleware('adminrole'); // Modifica una prenotazione
 
-    //Route::delete('/', [ReservationController::class, 'deleteAll']); // Elimina tutte le prenotazioni
-    Route::delete('/{reservation}', [ReservationController::class, 'destroy'])->middleware('role'); // Elimina una prenotazione
-});
 
 // Washer routes
 Route::group(['prefix' => 'washer'], function(){
