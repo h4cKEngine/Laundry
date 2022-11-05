@@ -27,7 +27,8 @@ class UserSeeder extends Seeder
                 'password' => Hash::make('c'),
                 'nome' => fake()->firstName,
                 'cognome' => fake()->lastName,
-                'ruolo' => 0
+                'ruolo' => 0,
+                'deleted_at' => '2022-11-05 10:04:18'
             ]);
         }
 
@@ -37,7 +38,8 @@ class UserSeeder extends Seeder
                 'password' => Hash::make('ciao'),
                 'nome' => fake()->firstName,
                 'cognome' => fake()->lastName,
-                'ruolo' => 1
+                'ruolo' => 1,
+                'deleted_at' => '2022-11-05 10:04:18'
             ]
         );
     }

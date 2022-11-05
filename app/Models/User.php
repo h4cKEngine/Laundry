@@ -45,6 +45,10 @@ class User extends Authenticatable
         'cognome',
         'ruolo'
     ];
+    
+    protected $dates = [
+        'deleted_at'
+    ];
 
     protected $guarded = [
         'id'
