@@ -16,21 +16,21 @@ class WashingProgramSeeder extends Seeder
     {
         \App\Models\WashingProgram::create([
             'nome' => fake()->lastName(),
-            'prezzo' => fake()->rand(0, 5),
+            'prezzo' => rand(0, 5),
             'durata' => "01:00:00",
             'stato' => 1
         ]);
 
         \App\Models\WashingProgram::create([
             'nome' => fake()->lastName(),
-            'prezzo' => fake()->rand(0, 5),
+            'prezzo' => rand(0, 5),
             'durata' => "01:00:00",
             'stato' => 1
         ]);
         
         \App\Models\WashingProgram::create([
             'nome' => fake()->lastName(),
-            'prezzo' => fake()->rand(0, 5),
+            'prezzo' => rand(0, 5),
             'durata' => "01:00:00",
             'stato' => 1
         ]);
