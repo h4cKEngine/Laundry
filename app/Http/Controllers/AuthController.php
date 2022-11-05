@@ -69,7 +69,5 @@ class AuthController extends Controller
         $token = PersonalAccessToken::findToken($accessToken);
         // Rimuove il token
         $token->delete();
-        // Effettua la disconnessione dell'utente
-        //Auth::logout();
     }
 }

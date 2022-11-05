@@ -108,6 +108,6 @@ class UserController extends Controller
     
     public function restore(User $user)
     {
-        $user->restore();
+        $user->restore(); //Problema
     }
 }
