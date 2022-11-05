@@ -42,7 +42,7 @@ Route::group(['prefix' => 'auth'], function(){
 
     Route::post('/login', [AuthController::class, 'login']); // Login
 
-    Route::delete('/logout', [AuthController::class, 'logout'])->middleware('role')->middleware('auth:sanctum'); // Logout tramite Sanctum
+    Route::delete('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum'); // Logout tramite Sanctum
 });
 
 // Verifica di accesso tramite Sanctum

@@ -22,7 +22,7 @@ class AuthController extends Controller
             'nome' => 'required|string|max:255',
             'cognome' => 'required|string|max:255',
             'ruolo' => 'boolean',
-            'stato' => 'boolean'
+            'deleted_at' => 'string'
         ]);
 
         // Query di creazione
@@ -32,7 +32,7 @@ class AuthController extends Controller
             'nome' => $validatedData['nome'],
             'cognome' => $validatedData['cognome'],
             'ruolo' => $validatedData['ruolo'],
-            'stato' => $validatedData['stato']
+            'deleted_at' => $validatedData['deleted_at']
         ]);
     }
 
@@ -70,6 +70,6 @@ class AuthController extends Controller
         // Rimuove il token
         $token->delete();
         // Effettua la disconnessione dell'utente
-        Auth::logout();
+        //Auth::logout();
     }
 }
