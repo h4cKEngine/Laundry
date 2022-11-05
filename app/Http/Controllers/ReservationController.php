@@ -7,8 +7,10 @@ use App\Http\Resources\ReservationResource;
 
 use App\Models\Reservation;
 use App\Models\User;
+use App\Models\Washer;
 use App\Models\WashingProgram;
 use DateTime;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Nette\Utils\Arrays;
@@ -128,6 +130,16 @@ class ReservationController extends Controller
             'boolean' => 'Errore inserire boolean',
             'required' => 'Errore, inserire un campo'
         ]);
+
+        $lavatrice = Washer::find($request->id_washer);
+        if(!$lavatrice->stato){
+            throw new Exception("Lavatrice non disponibile");
+        }
+
+        $programma = WashingProgram::find($request->id_washing_program);
+        if(!$programma->stato){
+            throw new Exception("Programma lav non disponibile");
+        }
 
         Reservation::where('id', '=', $request->reservation)->update([
             'orario' => $request->orario,

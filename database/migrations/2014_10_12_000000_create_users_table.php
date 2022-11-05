@@ -20,7 +20,9 @@ return new class extends Migration
             $table->string('nome');
             $table->string('cognome');
             $table->boolean('ruolo')->default(0);
-            $table->boolean('stato')->default(1);
+
+            // $table->boolean('stato')->default(1);
+            $table->softDeletes();
         });
     }
 

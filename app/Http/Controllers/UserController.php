@@ -28,7 +28,7 @@ class UserController extends Controller
     }
 
     // Cancella tutte le prenotazioni dell'utente selezionato
-    public function deleteAll(User $user)
+    public function deletePrenAll(User $user)
     {
         $user->prenotazione()->delete();
     }
@@ -102,27 +102,12 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
+        $user->tokens()->delete();
         $user->delete();
     }
     
-    public function status(Request $request, User $user)
+    public function restore(User $user)
     {
-        $request->validate([
-            'status' => 'required|boolean'
-        ]);
-
-        $user->update(['stato' => $request->status]);
-    }
-
-    public function statusAll(Request $request)
-    {
-        $request->validate([
-            'status' => 'required|boolean'
-        ]);
-
-        $array = User::all();
-        foreach ($array as $item => $value) {
-            $array[$item]->update(['stato' => $request->status]);
-        }
+        $user->restore();
     }
 }

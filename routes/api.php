@@ -35,76 +35,78 @@ use Illuminate\Support\Facades\Route;
 // ->middleware('role') controlla se l'user è un admin o è lo stesso utente che può effettuare accesso alla risorsa
 // ->middleware('adminrole') controlla se l'user è un admin
 
-// Accesso tramite Sanctum
+// Authorization routes
 // URI: /api/auth/
 Route::group(['prefix' => 'auth'], function(){
     Route::post('/register', [AuthController::class, 'register']); // Registrazione
 
     Route::post('/login', [AuthController::class, 'login']); // Login
 
-    Route::delete('/logout', [AuthController::class, 'logout'])->middleware('role'); // Logout
+    Route::delete('/logout', [AuthController::class, 'logout'])->middleware('role')->middleware('auth:sanctum'); // Logout tramite Sanctum
 });
 
-// User routes
-// URI: /api/user/
-Route::group(['prefix' => 'user'], function(){
-    Route::get('/', [UserController::class, 'index'])->middleware('adminrole'); // Visualizza tutti gli utenti
+// Verifica di accesso tramite Sanctum
+Route::group(['middleware' => 'auth:sanctum'], function(){
 
-    Route::get('/reservation/all', [ReservationController::class, 'index'])->middleware('adminrole'); // Visualizza tutte le prenotazioni
-    
-    // URI: /api/user/{user}/
-    Route::group(['prefix' =>'/{user}'], function(){
-        Route::patch('/', [UserController::class, 'status'])->middleware('adminrole'); // Attiva/Disattiva un utente
+    // User routes
+    // URI: /api/user/
+    Route::group(['prefix' => 'user'], function(){
+        Route::get('/', [UserController::class, 'index'])->middleware('adminrole'); // Visualizza tutti gli utenti
 
-        Route::put('/', [UserController::class, 'statusAll'])->middleware('adminrole'); // Attiva/Disattiva tutti gli utenti
+        Route::get('/reservation/all', [ReservationController::class, 'index'])->middleware('adminrole'); // Visualizza tutte le prenotazioni
         
-        Route::delete('/', [UserController::class, 'destroy'])->middleware('adminrole'); // Elimina un utente
+        // URI: /api/user/{user}/
+        Route::group(['prefix' =>'/{user}'], function(){
+            Route::patch('/', [UserController::class, 'restore'])->middleware('adminrole'); // Annulla Soft Delete un utente
+            
+            Route::delete('/', [UserController::class, 'destroy'])->middleware('adminrole'); // Soft Delete un utente
+            
+            // URI: /api/user/{user}/reservation
+            Route::group(['prefix' => 'reservation'], function(){
+                Route::get('/', [UserController::class, 'show'])->middleware('role'); // Visualizza tutte le prenotazioni dell'utente
+                
+                Route::post('/', [ReservationController::class, 'store'])->middleware('role'); // Crea una prenotazione
+                
+                Route::patch('/', [ReservationController::class, 'update'])->middleware('adminrole'); // Modifica una prenotazione
+                
+                Route::delete('/', [ReservationController::class, 'destroy'])->middleware('role'); // Elimina una prenotazione
+                
+                Route::delete('/all', [UserController::class, 'deletePrenAll'])->middleware('role'); // Elimina tutte le prenotazioni dell'utente selezionato
+            });
+        });
+    });
+
+
+    // Washer routes
+    // URI: /api/washer/
+    Route::group(['prefix' => 'washer'], function(){
+        Route::get('/', [WasherController::class, 'index']); // Visualizza tutte le lavasciuga
         
-        // URI: /api/user/{user}/reservation
-        Route::group(['prefix' => 'reservation'], function(){
-            Route::get('/', [UserController::class, 'show'])->middleware('role'); // Visualizza tutte le prenotazioni dell'utente
-            
-            Route::post('/', [ReservationController::class, 'store'])->middleware('role'); // Crea una prenotazione
-            
-            Route::patch('/', [ReservationController::class, 'update'])->middleware('adminrole'); // Modifica una prenotazione
-            
-            Route::delete('/', [ReservationController::class, 'destroy'])->middleware('role'); // Elimina una prenotazione
-            
-            Route::delete('/all', [UserController::class, 'deleteAll'])->middleware('role'); // Elimina tutte le prenotazioni dell'utente selezionato
+        Route::post('/', [WasherController::class, 'store'])->middleware('adminrole'); // Crea una lavasciuga
+        
+        Route::put('/', [WasherController::class, 'statusAll'])->middleware('adminrole'); // Abilita/Disabilita tutte le lavasciuga
+        
+        // URI: /api/{washer}/
+        Route::patch('/{washer}', [WasherController::class, 'status'])->middleware('adminrole'); // Attiva/Disabilita la lavasciuga
+
+        Route::delete('/{washer}', [WasherController::class, 'destroy'])->middleware('adminrole'); // Elimina la lavasciuga
+    });
+
+    // WashingProgram routes
+    // URI: /api/washing_program/
+    Route::group(['prefix' => 'washing_program'], function(){
+        Route::get('/', [WashingProgramController::class, 'index']); // Visualizza tutti i programmi lav
+        
+        Route::post('/', [WashingProgramController::class, 'store'])->middleware('adminrole'); // Crea il programma lav
+
+        Route::put('/', [WashingProgramController::class, 'statusAll'])->middleware('adminrole'); // Abilita/Disabilita tutte i programmi lav
+        
+        // URI: /api/washing_program/{washing_program}
+        Route::group(['prefix' => '{washing_program}'], function(){
+            Route::patch('/', [WashingProgramController::class, 'status'])->middleware('adminrole'); // Abilita/Disabilita il programma lav
+            Route::patch('/update', [WashingProgramController::class, 'update'])->middleware('adminrole'); // Modifica il programma lav
+
+            Route::delete('/', [WashingProgramController::class, 'destroy'])->middleware('adminrole'); // Elimina il programma lav
         });
     });
 });
-
-// Washer routes
-// URI: /api/washer/
-Route::group(['prefix' => 'washer'], function(){
-    Route::get('/', [WasherController::class, 'index'])->middleware('role'); // Visualizza tutte le lavasciuga
-    
-    Route::post('/', [WasherController::class, 'store'])->middleware('adminrole'); // Crea una lavasciuga
-    
-    Route::put('/', [WasherController::class, 'statusAll'])->middleware('adminrole'); // Abilita/Disabilita tutte le lavasciuga
-    
-    // URI: /api/{washer}/
-    Route::patch('/{washer}', [WasherController::class, 'status'])->middleware('adminrole'); // Attiva/Disabilita la lavasciuga
-
-    Route::delete('/{washer}', [WasherController::class, 'destroy'])->middleware('adminrole'); // Elimina la lavasciuga
-});
-
-// WashingProgram routes
-// URI: /api/washing_program/
-Route::group(['prefix' => 'washing_program'], function(){
-    Route::get('/', [WashingProgramController::class, 'index'])->middleware('role'); // Visualizza tutti i programmi lav
-    
-    Route::post('/', [WashingProgramController::class, 'store'])->middleware('adminrole'); // Crea il programma lav
-
-    Route::put('/', [WashingProgramController::class, 'statusAll'])->middleware('adminrole'); // Abilita/Disabilita tutte i programmi lav
-    
-    // URI: /api/washing_program/{washing_program}
-    Route::group(['prefix' => '{washing_program}'], function(){
-        Route::patch('/', [WashingProgramController::class, 'status'])->middleware('adminrole'); // Abilita/Disabilita il programma lav
-        Route::patch('/update', [WashingProgramController::class, 'update'])->middleware('adminrole'); // Modifica il programma lav
-
-        Route::delete('/', [WashingProgramController::class, 'destroy'])->middleware('adminrole'); // Elimina il programma lav
-    });  
-});
-
