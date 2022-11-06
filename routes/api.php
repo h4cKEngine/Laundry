@@ -53,6 +53,8 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::group(['prefix' => 'user'], function(){
         Route::get('/', [UserController::class, 'index'])->middleware('adminrole'); // Visualizza tutti gli utenti
 
+        Route::get('/trash', [UserController::class, 'trashed'])->middleware('adminrole'); // Visualizza tutti gli utenti nel cestino
+
         Route::get('/reservation/all', [ReservationController::class, 'index'])->middleware('adminrole'); // Visualizza tutte le prenotazioni
         
         // URI: /api/user/{user}/

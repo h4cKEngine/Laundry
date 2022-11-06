@@ -48,7 +48,12 @@ class UserController extends Controller
     // Visualizza tutti gli utenti
     public function index(Request $request)
     {
-        return ['utente' => UserResource::collection(User::all())];
+        return ['utenti' => UserResource::collection(User::all())];
+    }
+
+    public function trashed()
+    {
+        return User::onlyTrashed()->get();
     }
 
     /**
@@ -106,8 +111,9 @@ class UserController extends Controller
         $user->delete();
     }
     
-    public function restore(User $user)
-    {
-        $user->restore(); //Problema
+    public function restore($user)
+    {   
+        $utente = User::withTrashed()->findOrFail($user);
+        $utente->restore();
     }
 }
