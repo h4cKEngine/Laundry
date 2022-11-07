@@ -1,9 +1,7 @@
 <?php
 
 namespace App\Http\Resources;
-
 use Illuminate\Http\Resources\Json\JsonResource;
-
 class UserResource extends JsonResource
 {
     /**
@@ -20,10 +18,7 @@ class UserResource extends JsonResource
             'nome' => ucfirst($this->nome),
             'cognome' => ucfirst($this->cognome),
             'ruolo' => $this->ruolo,
-            //'_links' => $this->links()
+            '_links' => $this->links()
         ];
     }
-
-    // Funzione per la restituzione di tutti gli admin
-    // $this->ruolo == 1
 }
