@@ -56,21 +56,25 @@ class ReservationController extends Controller
         $ora_fine_prevista = date("H:i:s", $data_richiesta + strtotime($programma->durata));
 
         $prenotazioni_sovrapponibili = DB::table('reservations')->select('*')
-                                                                                                ->join('washing_programs', 'washing_programs.id', '=', 'reservations.id_washing_program')
-                                                                                                ->where('id_washer', $request->id_washer)
-                                                                                                ->where(function($query) use($ora_inizio_richiesta, $ora_fine_prevista){
-                                                                                                    $betweenConds = [DB::raw('CAST("' . $ora_inizio_richiesta . '" AS time)'), DB::raw('CAST("' . $ora_fine_prevista . '" AS time)')];
-                                                                                                    $query->whereBetween(
-                                                                                                        DB::raw('TIME(orario)'), 
-                                                                                                        $betweenConds
-                                                                                                    );
+                                                        ->join('washing_programs', 'washing_programs.id', '=', 'reservations.id_washing_program')
+                                                        ->where('id_washer', $request->id_washer)
+                                                        ->where(function($query) use($ora_inizio_richiesta, $ora_fine_prevista){
+                                                            $betweenConds = [
+                                                                DB::raw('CAST("' . $ora_inizio_richiesta . '" AS time)'), 
+                                                                DB::raw('CAST("' . $ora_fine_prevista . '" AS time)')
+                                                            ];
+                                                            
+                                                            $query->whereBetween(
+                                                                DB::raw('TIME(orario)'), 
+                                                                $betweenConds
+                                                            );
 
-                                                                                                    $query->OrWhereBetween(
-                                                                                                        DB::raw('ADDTIME(TIME(orario), washing_programs.durata)'), 
-                                                                                                        $betweenConds
-                                                                                                    );
-                                                                                                })->where(DB::raw('DATE(orario)'), $giorno_richiesto);
-                                        
+                                                            $query->OrWhereBetween(
+                                                                DB::raw('ADDTIME(TIME(orario), washing_programs.durata)'), 
+                                                                $betweenConds
+                                                            );
+                                                        })->where(DB::raw('DATE(orario)'), $giorno_richiesto);
+                    
         // Se non ci sono che si sovrappongono all'orario richiesto dall'utente, creo la prenotazione
         if(!$prenotazioni_sovrapponibili->count()){ // $prenotazioni_sovrapponibili == 0 nessuna prenotazione da conflitto
             $query = Reservation::create([
