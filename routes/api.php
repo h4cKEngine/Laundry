@@ -39,7 +39,6 @@ use Illuminate\Support\Facades\Route;
 // URI: /api/auth/
 Route::group(['prefix' => 'auth'], function(){
     Route::post('/register', [AuthController::class, 'register']); // Registrazione
-
     Route::post('/login', [AuthController::class, 'login']); // Login
 
     Route::delete('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum'); // Logout tramite Sanctum
@@ -47,12 +46,10 @@ Route::group(['prefix' => 'auth'], function(){
 
 // Verifica di accesso tramite Sanctum
 Route::group(['middleware' => 'auth:sanctum'], function(){
-
     // User routes
     // URI: /api/user/
     Route::group(['prefix' => 'user'], function(){
         Route::get('/', [UserController::class, 'index'])->middleware('adminrole'); // Visualizza tutti gli utenti
-
         Route::get('/trash', [UserController::class, 'trashed'])->middleware('adminrole'); // Visualizza tutti gli utenti nel cestino
 
         Route::get('/reservation/all', [ReservationController::class, 'index'])->middleware('adminrole'); // Visualizza tutte le prenotazioni
@@ -77,7 +74,6 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
             });
         });
     });
-
 
     // Washer routes
     // URI: /api/washer/

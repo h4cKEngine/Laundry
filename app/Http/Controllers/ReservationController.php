@@ -48,15 +48,12 @@ class ReservationController extends Controller
         ]);
         
         $programma = WashingProgram::findOrFail($request->id_washing_program);
-        
-        $data_richiesta = strtotime($request->orario);
-        
-        $giorno_richiesto = date("Y-m-d", $data_richiesta);
 
+        $data_richiesta = strtotime($request->orario);
+        $giorno_richiesto = date("Y-m-d", $data_richiesta);
         $ora_inizio_richiesta = date("H:i:s", $data_richiesta);
 
-        $ora_fine_prevista = $data_richiesta + strtotime($programma->durata);
-        $ora_fine_prevista = date("H:i:s", $ora_fine_prevista);
+        $ora_fine_prevista = date("H:i:s", $data_richiesta + strtotime($programma->durata));
 
         $prenotazioni_sovrapponibili = DB::table('reservations')->select('*')
                                                                                                 ->join('washing_programs', 'washing_programs.id', '=', 'reservations.id_washing_program')
