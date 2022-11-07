@@ -22,6 +22,9 @@ class Reservation extends Model
         'id'
     ];
 
+    public function utente(){
+        return $this->belongsTo(User::class, 'id_user',  'id');
+    }
 
     public function lavasciugaPrenota(){
         return $this->belongsTo(Washer::class,  'id_lav', 'id');
@@ -31,7 +34,4 @@ class Reservation extends Model
         return $this->belongsTo(WashingProgram::class, 'id_progr_lav', 'id');
     }
 
-    public function utente(){
-        return $this->belongsTo(User::class, 'id_user',  'id');
-    }
 }
