@@ -28,7 +28,7 @@ class UserSeeder extends Seeder
                 'nome' => fake()->firstName,
                 'cognome' => fake()->lastName,
                 'ruolo' => 0,
-                'deleted_at' => '2022-11-05 10:04:18'
+                'deleted_at' => NULL
             ]);
         }
 
@@ -39,7 +39,7 @@ class UserSeeder extends Seeder
                 'nome' => fake()->firstName,
                 'cognome' => fake()->lastName,
                 'ruolo' => 1,
-                'deleted_at' => '2022-11-05 10:04:18'
+                'deleted_at' => NULL
             ]
         );
     }
