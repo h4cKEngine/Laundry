@@ -18,7 +18,7 @@ class UserResource extends JsonResource
             'nome' => ucfirst($this->nome),
             'cognome' => ucfirst($this->cognome),
             'ruolo' => $this->ruolo,
-            '_links' => $this->links()
+            //'_links' => $this->links()
         ];
     }
 }
