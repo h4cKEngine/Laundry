@@ -32,12 +32,6 @@ class UserController extends Controller
     {
         $user->prenotazione()->delete();
     }
-
-    // Cancella la singola prenotazione dell'utente selezionato
-    public function delete(User $user)
-    {
-        $user->prenotazione->delete();
-    }
     
     /**
      * Display a listing of the resource.

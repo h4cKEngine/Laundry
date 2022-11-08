@@ -68,7 +68,7 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
                 
                 Route::patch('/', [ReservationController::class, 'update'])->middleware('adminrole'); // Modifica una prenotazione
                 
-                Route::delete('/', [ReservationController::class, 'destroy'])->middleware('role'); // Elimina una prenotazione
+                Route::delete('/{reservation}', [ReservationController::class, 'delete'])->middleware('role'); // Elimina una prenotazione
                 
                 Route::delete('/all', [UserController::class, 'deletePrenAll'])->middleware('role'); // Elimina tutte le prenotazioni dell'utente selezionato
             });

@@ -91,10 +91,10 @@ class ReservationController extends Controller
                                                                 DB::raw('ADDTIME(TIME(orario), washing_programs.durata)'), 
                                                                 $betweenConds
                                                             );
-                                                        })->whereBetween('orario', ["08:00", "20:00"])
-                                                          
-                                                           ->where(DB::raw('DATE(orario)'), $giorno_richiesto);
-                    // ->where(DB::raw('"' . $giorno_settimana . '"> 0 AND "' . $giorno_settimana . '" < 6'))S
+                                                        })->where(DB::raw('DATE(orario)'), $giorno_richiesto)
+                                                        ->whereRaw('CAST("' . $ora_inizio_richiesta . '" AS time)' . ">TIME('08:00:00') AND " . 'CAST("' . $ora_inizio_richiesta . '" AS time)' . "<TIME('20:00:00')");
+                    //
+                    // ->where(DB::raw('"' . $giorno_settimana . '"> 0 AND "' . $giorno_settimana . '" < 6'))
         // Se non ci sono che si sovrappongono all'orario richiesto dall'utente, creo la prenotazione
         if(!$prenotazioni_sovrapponibili->count()){ // $prenotazioni_sovrapponibili == 0 nessuna prenotazione da conflitto
             $query = Reservation::create([
