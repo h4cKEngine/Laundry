@@ -71,7 +71,7 @@ class ReservationController extends Controller
             5 => 'FRIDAY',
             6 => 'SATURDAY',
         ];
-        $giorno_settimana = Carbon::createFromFormat("d/m/Y", $giorno_richiesto)->dayOfWeek; // numero giorno della settimana
+        $giorno_settimana = Carbon::createFromFormat("Y-m-d", $giorno_richiesto)->dayOfWeek; // numero giorno della settimana
 
         $prenotazioni_sovrapponibili = DB::table('reservations')->select('*')
                                                         ->join('washing_programs', 'washing_programs.id', '=', 'reservations.id_washing_program')
