@@ -33,5 +33,4 @@ class Reservation extends Model
     public function prenotazioneProgrLav(){
         return $this->belongsTo(WashingProgram::class, 'id_progr_lav', 'id');
     }
-
 }
