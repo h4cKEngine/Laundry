@@ -24,7 +24,7 @@ class Role
         // Acquisisce il token
         $token = PersonalAccessToken::find($request->bearerToken());
         // 0 per user, 1 per Admin
-        if($token->tokenable->ruolo || $token->tokenable->id == $request->route()->parameter('user')->id){ 
+        if($token->tokenable->ruolo || $token->tokenable->id == $request->route()->parameter('user')->id){
             return $next($request); // Risposta dell'api
         }
         throw new PermissionException();

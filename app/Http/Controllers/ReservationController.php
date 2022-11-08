@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Exception;
 use Carbon\Carbon;
+use Nette\Utils\Json;
 
 class ReservationController extends Controller
 {
@@ -51,27 +52,18 @@ class ReservationController extends Controller
         $data_richiesta = strtotime($request->orario);
         $giorno_richiesto = date("Y-m-d", $data_richiesta);
         $ora_inizio_richiesta = date("H:i:s", $data_richiesta);
+        if( !($data_richiesta >= strtotime($giorno_richiesto . " 08:00:00") && $data_richiesta <= strtotime($giorno_richiesto . " 20:00:00")) ){
+            return response()->json(["Orario non compreso nell'intervallo orario 8:00 - 20:00"]);
+        }
+
+        $weekend = [0, 6];
+        $giorno_settimana = Carbon::createFromFormat("Y-m-d", $giorno_richiesto)->dayOfWeek; // numero giorno della settimana
+
+        if( in_array($giorno_settimana, $weekend) ){
+            return response()->json(["Giorno selezionato non disponibile: Sabato e Domenica locale chiuso"]);
+        }
 
         $ora_fine_prevista = date("H:i:s", $data_richiesta + strtotime($programma->durata));
-
-        /** Query in SQL
-         * `SELECT reservations.* FROM reservations INNER JOIN washing_programs ON washing_programs.id = reservations.id_washing_program
-         * WHERE id_washer = {id_washer} AND (
-         * ({orario_inizio} BETWEEN {orario_fine} AND {orario_fine_prevista}) OR 
-         * (ADDTIME(TIME(orario), washing_programs.durata) BETWEEN CAST('17:00:00' AS time) AND CAST('18:00:00' AS time))
-         * ) AND orario BETWEEN TIME("08:00") AND TIME("20:00") AND {numeroGiornoSettimana} > 0 AND {numeroGiornoSettimana} < 6 AND DATE(orario) = '2022-11-04';
-        */
-
-        $weekMap = [
-            0 => 'SUNDAY',
-            1 => 'MONDAY',
-            2 => 'TUESDAY',
-            3 => 'WEDNESDAY',
-            4 => 'THURSDAY',
-            5 => 'FRIDAY',
-            6 => 'SATURDAY',
-        ];
-        $giorno_settimana = Carbon::createFromFormat("Y-m-d", $giorno_richiesto)->dayOfWeek; // numero giorno della settimana
 
         $prenotazioni_sovrapponibili = DB::table('reservations')->select('*')
                                                         ->join('washing_programs', 'washing_programs.id', '=', 'reservations.id_washing_program')
@@ -90,10 +82,8 @@ class ReservationController extends Controller
                                                             $query->OrWhereBetween(
                                                                 DB::raw('ADDTIME(TIME(orario), washing_programs.durata)'), 
                                                                 $betweenConds
-                                                            );
-                                                        })->where(DB::raw('DATE(orario)'), $giorno_richiesto)
-                                                        ->whereRaw('CAST("' . $ora_inizio_richiesta . '" AS time)' . ">TIME('08:00:00') AND " . 'CAST("' . $ora_inizio_richiesta . '" AS time)' . "<TIME('20:00:00')");
-                    //
+                                                            );    
+                                                        })->where(DB::raw('DATE(orario)'), $giorno_richiesto);
                     // ->where(DB::raw('"' . $giorno_settimana . '"> 0 AND "' . $giorno_settimana . '" < 6'))
         // Se non ci sono che si sovrappongono all'orario richiesto dall'utente, creo la prenotazione
         if(!$prenotazioni_sovrapponibili->count()){ // $prenotazioni_sovrapponibili == 0 nessuna prenotazione da conflitto
