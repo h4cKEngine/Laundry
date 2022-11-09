@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Exception;
 use Carbon\Carbon;
-use Nette\Utils\Json;
 
 class ReservationController extends Controller
 {
@@ -105,9 +104,9 @@ class ReservationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Reservation $reservation)
+    public function show(User $user, Reservation $reservation)
     {
-       //
+       return new ReservationResource($reservation);
     }
 
     /**

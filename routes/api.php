@@ -48,21 +48,24 @@ Route::group(['prefix' => 'auth'], function(){
 Route::group(['middleware' => 'auth:sanctum'], function(){
     // User routes
     // URI: /api/user/
-    Route::group(['prefix' => 'user'], function(){
-        Route::get('/', [UserController::class, 'index'])->middleware('adminrole'); // Visualizza tutti gli utenti
+    Route::group(['prefix' => 'user', 'as' => 'user.'], function(){
+        Route::get('/', [UserController::class, 'index'])->middleware('adminrole')->name("index"); // Visualizza tutti gli utenti
         Route::get('/trash', [UserController::class, 'trashed'])->middleware('adminrole'); // Visualizza tutti gli utenti nel cestino
 
         Route::get('/reservation/all', [ReservationController::class, 'index'])->middleware('adminrole'); // Visualizza tutte le prenotazioni
         
         // URI: /api/user/{user}/
         Route::group(['prefix' =>'/{user}'], function(){
+            Route::get('/', [UserController::class, 'show'])->middleware('role')->name("show"); // Visualizza l'utente
+            
             Route::patch('/', [UserController::class, 'restore'])->middleware('adminrole'); // Annulla Soft Delete un utente
             
             Route::delete('/', [UserController::class, 'destroy'])->middleware('adminrole'); // Soft Delete un utente
             
             // URI: /api/user/{user}/reservation
-            Route::group(['prefix' => 'reservation'], function(){
-                Route::get('/', [UserController::class, 'show'])->middleware('role'); // Visualizza tutte le prenotazioni dell'utente
+            Route::group(['prefix' => 'reservation', 'as' => 'reservation.'], function(){
+                Route::get('/', [UserController::class, 'reservationsUser'])->middleware('role'); // Visualizza tutte le prenotazioni dell'utente
+                Route::get('/{reservation}', [ReservationController::class, 'show'])->middleware('role')->name("show"); // Visualizza la prenotazione dell'utente
                 
                 Route::post('/', [ReservationController::class, 'store'])->middleware('role'); // Crea una prenotazione
                 

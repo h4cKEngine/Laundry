@@ -1,9 +1,13 @@
 <?php
 
 namespace App\Http\Resources;
+
+use GDebrauwer\Hateoas\Traits\HasLinks;
 use Illuminate\Http\Resources\Json\JsonResource;
+
 class UserResource extends JsonResource
 {
+    use HasLinks;
     /**
      * Transform the resource into an array.
      *
@@ -18,7 +22,7 @@ class UserResource extends JsonResource
             'nome' => ucfirst($this->nome),
             'cognome' => ucfirst($this->cognome),
             'ruolo' => $this->ruolo,
-            //'_links' => $this->links()
+            '_links' => $this->links()
         ];
     }
 }

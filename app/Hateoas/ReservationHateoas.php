@@ -3,6 +3,7 @@
 namespace App\Hateoas;
 
 use App\Models\Reservation;
+use App\Models\User;
 use GDebrauwer\Hateoas\Link;
 use GDebrauwer\Hateoas\Traits\CreatesLinks;
 
@@ -12,6 +13,6 @@ class ReservationHateoas
 
     public function self(Reservation $reservation) : ?Link
     {
-        //
+        return $this->link("user.reservation.show", ['reservation' => $reservation, 'user' => $reservation->utente->id]);
     }
 }

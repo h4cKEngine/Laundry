@@ -2,16 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Exceptions\PermissionException;
 use App\Http\Resources\ReservationResource;
 use App\Http\Resources\UserResource;
 
-use App\Models\Reservation;
 use App\Models\User;
 
 use Illuminate\Http\Request;
-
-use App\Http\Middleware\Role as MiddlewareRole;
 
 class UserController extends Controller
 {   
@@ -23,6 +19,11 @@ class UserController extends Controller
      */
     // Visualizza tutte le prenotazioni dell'utente selezionato
     public function show(User $user)
+    {
+        return new UserResource($user);
+    }
+
+    public function reservationsUser(User $user)
     {
         return ReservationResource::collection($user->prenotazione);
     }
