@@ -12,6 +12,6 @@ class WashingProgramHateoas
 
     public function self(WashingProgram $washingProgram) : ?Link
     {
-        //
+        return $this->link("washing_program.index", []);
     }
 }

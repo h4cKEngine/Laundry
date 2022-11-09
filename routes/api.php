@@ -79,8 +79,8 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
 
     // Washer routes
     // URI: /api/washer/
-    Route::group(['prefix' => 'washer'], function(){
-        Route::get('/', [WasherController::class, 'index']); // Visualizza tutte le lavasciuga
+    Route::group(['prefix' => 'washer', 'as' => 'washer.'], function(){
+        Route::get('/', [WasherController::class, 'index'])->name("index"); // Visualizza tutte le lavasciuga
         
         Route::post('/', [WasherController::class, 'store'])->middleware('adminrole'); // Crea una lavasciuga
         
@@ -94,8 +94,8 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
 
     // WashingProgram routes
     // URI: /api/washing_program/
-    Route::group(['prefix' => 'washing_program'], function(){
-        Route::get('/', [WashingProgramController::class, 'index']); // Visualizza tutti i programmi lav
+    Route::group(['prefix' => 'washing_program', 'as' => 'washing_program.'], function(){
+        Route::get('/', [WashingProgramController::class, 'index'])->name("index"); // Visualizza tutti i programmi lav
         
         Route::post('/', [WashingProgramController::class, 'store'])->middleware('adminrole'); // Crea il programma lav
 

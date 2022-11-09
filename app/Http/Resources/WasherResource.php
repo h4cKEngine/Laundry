@@ -18,11 +18,9 @@ class WasherResource extends JsonResource
     {
        
         return [
-            //'squadra casa' => ucwords($this->hostT->club->nome, " "),
-            //'squadra ospite' => ucwords($this->guestT->club->nome, " "),
-            //'risultato' => $this->risCasa . " - " . $this->risOspite,
-            //'data' => date('d-m-Y', strtotime($this->data)),
-            //'ora inizio' => substr($this->oraInizio, 0, 5),
+            'id' => $this->id,
+            'marca' => ucfirst($this->marca),
+            'stato' => $this->stato,
             '_links' => $this->links()
         ];
     }

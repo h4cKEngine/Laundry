@@ -10,8 +10,8 @@ class WasherHateoas
 {
     use CreatesLinks;
 
-    public function self(Washer $washer) : ?Link
+    public function self() : ?Link
     {
-        //
+        return $this->link("washer.index", []);
     }
 }
