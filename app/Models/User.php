@@ -9,13 +9,6 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-// esempio Creazione classe astratta enum per selezione del ruolo
-// abstract class enumUser {
-//     public const user = 0;
-//     public const admin = 1;
-//     public function isAdmin();
-// }
-
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
@@ -80,3 +73,10 @@ class User extends Authenticatable
         $this->numero = $num;
     }
 }
+
+// esempio Creazione classe astratta enum per selezione del ruolo
+// abstract class enumUser {
+//     public const user = 0;
+//     public const admin = 1;
+//     public function isAdmin();
+// }

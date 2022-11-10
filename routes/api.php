@@ -6,6 +6,7 @@ use App\Http\Controllers\WasherController;
 use App\Http\Controllers\WashingProgramController;
 use App\Http\Controllers\ReservationController;
 use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
