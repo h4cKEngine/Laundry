@@ -18,8 +18,6 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-
-    
     public $timestamps = false;
     
     protected $fillable = [
@@ -46,10 +44,6 @@ class User extends Authenticatable
         return $this->hasMany(Reservation::class, 'id_user', 'id');
     }
     
-    // public function isAdmin(){
-    //     return $this->ruolo == enumUser::admin;
-    // }
-        
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -62,7 +56,7 @@ class User extends Authenticatable
      * @var array<string, string>
      */
     
-    //Examples Getter and Setter
+    // ----------------- Examples Getter and Setter ------------------ //
     private $numero;
     
     public function getElem(){
@@ -72,6 +66,10 @@ class User extends Authenticatable
     public function setElem($num){
         $this->numero = $num;
     }
+
+    // public function isAdmin(){
+    //     return $this->ruolo == enumUser::admin;
+    // }
 }
 
 // esempio Creazione classe astratta enum per selezione del ruolo

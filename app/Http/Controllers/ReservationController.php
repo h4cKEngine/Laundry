@@ -11,6 +11,7 @@ use App\Models\WashingProgram;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use App\Exceptions\ReservationException;
 use Exception;
 use Carbon\Carbon;
 
@@ -33,7 +34,8 @@ class ReservationController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request, User $user)
-    {
+    {   
+        // Validazione dei campi e errori
         $request->validate([
             'orario' => 'date|date_format:d-m-Y H:i:s|required',
             // Si può ottenere dal token, 'id_user' => 'integer|required',
@@ -94,7 +96,7 @@ class ReservationController extends Controller
             ]);
             return new ReservationResource($query);
         }else{
-            return response()->json(['error' => 'Prenotazione non effettuabile, slot non disponibile causa sovrapposizioni.']);
+           throw new ReservationException;
         }
     }
 

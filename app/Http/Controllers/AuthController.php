@@ -4,11 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Exception;
+use Throwable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Sanctum\PersonalAccessToken;
-use Throwable;
 
 class AuthController extends Controller
 {  
@@ -55,7 +55,13 @@ class AuthController extends Controller
         return response()->json([
             'access_token' => $token,
             'token_type' => 'Bearer', 
-            // I Bearer Token sono un tipo particolare di Access Token, 
+            // I Bearer Token sono un tipo particolare di Access Token, che utilizzano JWT:
+
+            /*Ogni JWT è suddiviso in tre parti e ogni parte è separata da un punto ( xxxxx.yyyyy.zzzzz ):
+                - Header: contiene informazioni sul tipo di token JWT e sull’algoritmo di hashing utilizzato, ad esempio HMAC SHA256 o RSA.
+                - Payload: contiene tutte le informazioni che si desidera trasferire all’utente, ad esempio l’identificatore utente.
+                - Signature: protegge il token ed è un hash dell’intestazione e del payload codificati, insieme a una chiave.*/
+            
             // usati per ottenere l'autorizzazione ad accedere ad una risorsa protetta da un Authorization Server
         ]);
     }
