@@ -36,7 +36,16 @@
             $NumdayOfTheWeek = Carbon::createFromFormat("d/m/Y", $giorno_richiesto)->dayOfWeek; // numero del giorno della settimana
             $dayOfTheWeek = Carbon::createFromFormat("d/m/Y", $giorno_richiesto)->format('l'); // giorno della settimana
             //$weekday = $weekMap[$dayOfTheWeek];
-            echo $NumdayOfTheWeek . " " . $dayOfTheWeek;
+            //echo $NumdayOfTheWeek . " " . $dayOfTheWeek;
+
+            $data_richiesta = date("13-11-2022 12:00:00");
+            $data_richiesta = strtotime($data_richiesta);
+
+            $oggi = Carbon::now();
+            echo $data_richiesta . " " . $oggi;
+            
+            // if($data_richiesta < $oggi)
+            //     echo " Errore data e ora passati";
        ?>
     </body>
 </html>

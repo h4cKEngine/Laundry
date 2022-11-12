@@ -54,17 +54,20 @@ class ReservationController extends Controller
         $ora_inizio_richiesta = date("H:i:s", $data_richiesta);
         $ora_fine_prevista = date("H:i:s", $data_richiesta + strtotime($programma->durata));
 
+        // Controlla se la Data e L'Ora richiesti sono antecedenti o successivi a quelli correnti
+        $oggi = strtotime(Carbon::now());
+        if($data_richiesta < $oggi)
+            return response()->json(["Data e Ora antecedente a quella attuale"]);
+
         // Controlla se l'Orario è compreso nell'intervallo orario
-        if( !($data_richiesta >= strtotime($giorno_richiesto . " 08:00:00") && $data_richiesta <= strtotime($giorno_richiesto . " 20:00:00")) ){
+        if( !($data_richiesta >= strtotime($giorno_richiesto . " 08:00:00") && $data_richiesta <= strtotime($giorno_richiesto . " 20:00:00")) )
             return response()->json(["Orario non compreso nell'intervallo orario 8:00 - 20:00"]);
-        }
 
         $weekend = [0, 6];
         $giorno_settimana = Carbon::createFromFormat("Y-m-d", $giorno_richiesto)->dayOfWeek; // numero giorno della settimana
         // Controlla se il giorno selezionato è valido
-        if( in_array($giorno_settimana, $weekend) ){
+        if( in_array($giorno_settimana, $weekend) )
             return response()->json(["Giorno selezionato non disponibile: Sabato e Domenica locale chiuso"]);
-        }
 
         $prenotazioni_sovrapponibili = DB::table('reservations')->select('*')
                                                         ->join('washing_programs', 'washing_programs.id', '=', 'reservations.id_washing_program')
