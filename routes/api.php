@@ -93,16 +93,16 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::group(['prefix' => 'washing_program', 'as' => 'washing_program.'], function(){
         Route::get('/', [WashingProgramController::class, 'index'])->name("index"); // Visualizza tutti i programmi lav
         
-        Route::post('/', [WashingProgramController::class, 'store'])->middleware('adminrole'); // Crea il programma lav
+        Route::post('/', [WashingProgramController::class, 'store'])->middleware('adminrole')->name("store"); // Crea il programma lav
 
-        Route::put('/', [WashingProgramController::class, 'statusAll'])->middleware('adminrole'); // Abilita/Disabilita tutte i programmi lav
+        Route::put('/', [WashingProgramController::class, 'statusAll'])->middleware('adminrole')->name("statusAll"); // Abilita/Disabilita tutte i programmi lav
         
         // URI: /api/washing_program/{washing_program}
         Route::group(['prefix' => '{washing_program}'], function(){
-            Route::patch('/', [WashingProgramController::class, 'status'])->middleware('adminrole'); // Abilita/Disabilita il programma lav
-            Route::patch('/update', [WashingProgramController::class, 'update'])->middleware('adminrole'); // Modifica il programma lav
+            Route::patch('/', [WashingProgramController::class, 'status'])->middleware('adminrole')->name("status"); // Abilita/Disabilita il programma lav
+            Route::put('/', [WashingProgramController::class, 'update'])->middleware('adminrole')->name("update"); // Modifica il programma lav
 
-            Route::delete('/', [WashingProgramController::class, 'destroy'])->middleware('adminrole'); // Elimina il programma lav
+            Route::delete('/', [WashingProgramController::class, 'destroy'])->middleware('adminrole')->name("destroy"); // Elimina il programma lav
         });
     });
 });

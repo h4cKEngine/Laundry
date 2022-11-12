@@ -42,11 +42,13 @@ class WashingProgramController extends Controller
         $request->validate([
             'nome' => 'string|required',
             'prezzo' => 'integer|required',
-            'durata' => 'date_format:H:i:s|required'    // date_format:Y-m-d H:i:s 
+            'durata' => 'date_format:H:i:s|required', // date_format:Y-m-d H:i:s 
+            'stato' => 'boolean'   
         ],[
             'string' => 'Errore, inserire string',
             'integer' => 'Errore, inserire integer',
             'date_format' => 'Errore, inserire time',
+            'boolean' => 'Errore, inserire boolean',
             'required' => 'Errore, inserire un campo'
         ]);
         
@@ -55,7 +57,7 @@ class WashingProgramController extends Controller
             'prezzo' => $request->prezzo,
             'durata' => $request->durata
         ]);
-        //return new WashingProgramResource($query);
+        return new WashingProgramResource($query);
     }
 
     /**
@@ -87,14 +89,53 @@ class WashingProgramController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $washing_program)
-    {
-        WashingProgram::where('id', '=', $washing_program)->update([
+    public function update(Request $request,WashingProgram $washing_program)
+    {   
+        $request->validate([
+            'nome' => 'string|required',
+            'prezzo' => 'integer|required',
+            'durata' => 'date_format:H:i:s|required',
+            'stato' => 'boolean'
+        ],[
+            'string' => 'Errore, inserire string',
+            'integer' => 'Errore, inserire integer',
+            'boolean' => 'Errore, inserire boolean',
+            'required' => 'Errore, inserire un campo'
+        ]);
+
+        $washing_program->update([
             'nome' => $request->nome,
             'prezzo' => $request-> prezzo,
             'durata' => $request->durata,
             'stato' => $request->stato
         ]);
+        return new WashingProgramResource($washing_program);
+    }
+
+    public function status(Request $request, WashingProgram $washing_program)
+    {
+        $request->validate([
+            'stato' => 'boolean|required'
+        ], [
+            'boolean' => 'Errore, inserire boolean',
+            'required' => 'Errore, inserire un campo'
+        ]);
+        
+        $washing_program->update(['stato' => $request->stato]);
+        return new WashingProgramResource($washing_program);
+    }
+    
+    public function statusAll(Request $request)
+    {   
+        $request->validate([
+            'stato' => 'boolean|required'
+        ]);
+        
+        $array = WashingProgram::all();
+        foreach ($array as $item => $value) {
+            $array[$item]->update(['stato' => $request->stato]);
+        }
+        return WashingProgramResource::collection(WashingProgram::all());
     }
 
     /**
@@ -105,28 +146,8 @@ class WashingProgramController extends Controller
      */
     // Elimina programma lav
     public function destroy(WashingProgram $washing_program)
-    {
-        $washing_program->delete();
-    }
-
-    public function status(Request $request, WashingProgram $washing_program)
-    {
-        $request->validate([
-            'status' => 'required|boolean'
-        ]);
-
-        $washing_program->update(['stato' => $request->status]);
-    }
-
-    public function statusAll(Request $request)
     {   
-        $request->validate([
-            'status' => 'required|boolean'
-        ]);
-
-        $array = WashingProgram::all();
-        foreach ($array as $item => $value) {
-            $array[$item]->update(['stato' => $request->status]);
-        }
+        $washing_program->delete();
+        return WashingProgramResource::collection(WashingProgram::all());
     }
 }

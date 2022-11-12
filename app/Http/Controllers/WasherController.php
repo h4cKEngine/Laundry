@@ -13,22 +13,22 @@ class WasherController extends Controller
     public function status(Request $request, Washer $washer)
     {
         $request->validate([
-            'status' => 'required|boolean'
+            'stato' => 'required|boolean'
         ]);
 
-        $washer->update(['stato' => $request->status]);
+        $washer->update(['stato' => $request->stato]);
         return new WasherResource($washer);
     }
     
     public function statusAll(Request $request)
     {
         $request->validate([
-            'status' => 'required|boolean'
+            'stato' => 'required|boolean'
         ]);
 
         $array = Washer::all();
         foreach ($array as $item => $value) {
-            $array[$item]->update(['stato' => $request->status]);
+            $array[$item]->update(['stato' => $request->stato]);
         }
         return Washer::all();
     }
@@ -121,6 +121,7 @@ class WasherController extends Controller
     public function destroy(Washer $washer)
     {
         $washer->delete();
+        return WasherResource::collection(Washer::all());
     }
 
 }

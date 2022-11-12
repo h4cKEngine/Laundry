@@ -21,7 +21,7 @@ class WashingProgramResource extends JsonResource
             'nome' => ucfirst($this->nome),
             'prezzo' => $this->prezzo,
             'durata' => $this->durata,
-            'stato' => $this->ruolo,
+            'stato' => $this->stato,
             '_links' => $this->links()
         ];
     }
