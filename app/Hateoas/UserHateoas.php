@@ -20,4 +20,9 @@ class UserHateoas
     {
         return $this->link("user.indexUser", ['user' => $user]); 
     }
+
+    public function deletePrenAll(User $user) : ?Link
+    {
+        return $this->link("user.reservation.deletePrenAll", ['user' => $user]);
+    }
 }

@@ -36,4 +36,9 @@ class ReservationHateoas
         return $this->link("user.reservation.update", ['reservation' => $reservation, 'user' => $reservation->utente->id]);
     }
 
+    public function destroy(Reservation $reservation) : ?Link
+    {
+        return $this->link("user.reservation.destroy", ['user' => $reservation->utente->id, 'reservation' => $reservation]);
+    }
+
 }

@@ -176,7 +176,6 @@ class ReservationController extends Controller
                                                         ->join('washing_programs', 'washing_programs.id', '=', 'reservations.id_washing_program')
                                                         ->where('id_washer', $request->id_washer)
                                                         ->where(DB::raw('DATE(orario)'), $giorno_richiesto)
-                                                        //WHERE reservation.id IS NOT id_prenotazione
                                                         ->where('reservations.id', '<>', $prenotazione->id)
                                                         ->where(function($query) use($ora_inizio_richiesta, $ora_fine_prevista){
                                                             $betweenConds = [
@@ -239,7 +238,7 @@ class ReservationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Reservation $reservation){ 
+    public function destroy(User $user, Reservation $reservation){ 
             $reservation->delete();
     }
 }
