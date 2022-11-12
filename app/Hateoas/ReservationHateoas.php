@@ -16,8 +16,24 @@ class ReservationHateoas
         return $this->link("user.reservation.show", ['reservation' => $reservation, 'user' => $reservation->utente->id]);
     }
 
-    public function showReservation(Reservation $reservation) : ?Link
+    public function index(Reservation $reservation) : ?Link
     {
-        return $this->link("user.reservation.showReservation", ['user' => $reservation->utente->id]);
+        return $this->link("user.indexReservation", ['reservation' => $reservation, 'user' => $reservation->utente->id]);
     }
+
+    public function showReservationsUser(Reservation $reservation) : ?Link
+    {
+        return $this->link("user.reservation.showReservationsUser", ['user' => $reservation->utente->id]);
+    }
+
+    public function store(Reservation $reservation) : ?Link
+    {
+        return $this->link("user.reservation.store", ['reservation' => $reservation, 'user' => $reservation->utente->id]);
+    }
+
+    public function update(Reservation $reservation) : ?Link
+    {
+        return $this->link("user.reservation.update", ['reservation' => $reservation, 'user' => $reservation->utente->id]);
+    }
+
 }

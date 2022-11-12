@@ -42,7 +42,13 @@
             $data_richiesta = strtotime($data_richiesta);
 
             $oggi = Carbon::now();
-            echo $data_richiesta . " " . $oggi;
+            //echo $data_richiesta . " " . $oggi;
+
+            $orario_corrente = DB::table('reservations')->where('id', '=', 18)->select('orario');
+            $oggi = strtotime(Carbon::now());
+            return $orario_corrente;
+            if(strtotime($orario_corrente) < $oggi)
+                throw new Exception("Prenotazione scaduta");
             
             // if($data_richiesta < $oggi)
             //     echo " Errore data e ora passati";

@@ -16,4 +16,8 @@ class UserHateoas
         return $this->link("user.show", ['user' => $user]); 
     }
 
+    public function index(User $user) : ?Link
+    {
+        return $this->link("user.indexUser", ['user' => $user]); 
+    }
 }

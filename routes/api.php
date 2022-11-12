@@ -45,10 +45,10 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     // User routes
     // URI: /api/user/
     Route::group(['prefix' => 'user', 'as' => 'user.'], function(){
-        Route::get('/', [UserController::class, 'index'])->middleware('adminrole')->name("index"); // Visualizza tutti gli utenti
+        Route::get('/', [UserController::class, 'index'])->middleware('adminrole')->name("indexUser"); // Visualizza tutti gli utenti
         Route::get('/trashed', [UserController::class, 'trashed'])->middleware('adminrole'); // Visualizza tutti gli utenti nel cestino
 
-        Route::get('/reservation/all', [ReservationController::class, 'index'])->middleware('adminrole'); // Visualizza tutte le prenotazioni
+        Route::get('/reservation/all', [ReservationController::class, 'index'])->middleware('adminrole')->name("indexReservation"); // Visualizza tutte le prenotazioni
         
         // URI: /api/user/{user}/
         Route::group(['prefix' =>'/{user}'], function(){
@@ -60,12 +60,12 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
             
             // URI: /api/user/{user}/reservation
             Route::group(['prefix' => 'reservation', 'as' => 'reservation.'], function(){
-                Route::get('/', [UserController::class, 'reservationsUser'])->middleware('role')->name("showReservation"); // Visualizza tutte le prenotazioni dell'utente
+                Route::get('/', [UserController::class, 'reservationsUser'])->middleware('role')->name("showReservationsUser"); // Visualizza tutte le prenotazioni dell'utente
                 Route::get('/{reservation}', [ReservationController::class, 'show'])->middleware('role')->name("show"); // Visualizza la prenotazione dell'utente
                 
-                Route::post('/', [ReservationController::class, 'store'])->middleware('role'); // Crea una prenotazione
+                Route::post('/', [ReservationController::class, 'store'])->middleware('role')->name("store"); // Crea una prenotazione
                 
-                Route::patch('/', [ReservationController::class, 'update'])->middleware('adminrole'); // Modifica una prenotazione
+                Route::patch('/{reservation}', [ReservationController::class, 'update'])->middleware('adminrole')->name("update"); // Modifica una prenotazione
                 
                 Route::delete('/all', [UserController::class, 'deletePrenAll'])->middleware('role'); // Elimina tutte le prenotazioni dell'utente selezionato
                 Route::delete('/{reservation}', [ReservationController::class, 'destroy'])->middleware('role'); // Elimina una prenotazione

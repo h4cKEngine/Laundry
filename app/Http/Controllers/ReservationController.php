@@ -33,7 +33,7 @@ class ReservationController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, User $user)
+    public function store(Request $request, User $user, Reservation $reservation)
     {   
         // Validazione dei campi e errori
         $request->validate([
@@ -47,6 +47,14 @@ class ReservationController extends Controller
             'boolean' => 'Errore inserire boolean',
             'required' => 'Errore, inserire un campo'
         ]);
+
+        $lavatrice = Washer::find($request->id_washer);
+        if(!$lavatrice->stato)
+            throw new Exception("Lavatrice non disponibile");
+        
+        $programma = WashingProgram::find($request->id_washing_program);
+        if(!$programma->stato)
+            throw new Exception("Programma lavaggio non disponibile");
         
         $programma = WashingProgram::findOrFail($request->id_washing_program);
         $data_richiesta = strtotime($request->orario);
@@ -57,15 +65,15 @@ class ReservationController extends Controller
         // Controlla se la Data e L'Ora richiesti sono antecedenti o successivi a quelli correnti
         $oggi = strtotime(Carbon::now());
         if($data_richiesta < $oggi)
-            return response()->json(["Data e Ora antecedente a quella attuale"]);
+            return response()->json(["Data e Ora antecedente a quella attuali"]);
 
         // Controlla se l'Orario è compreso nell'intervallo orario
         if( !($data_richiesta >= strtotime($giorno_richiesto . " 08:00:00") && $data_richiesta <= strtotime($giorno_richiesto . " 20:00:00")) )
             return response()->json(["Orario non compreso nell'intervallo orario 8:00 - 20:00"]);
 
+        // Controlla se il giorno selezionato è valido
         $weekend = [0, 6];
         $giorno_settimana = Carbon::createFromFormat("Y-m-d", $giorno_richiesto)->dayOfWeek; // numero giorno della settimana
-        // Controlla se il giorno selezionato è valido
         if( in_array($giorno_settimana, $weekend) )
             return response()->json(["Giorno selezionato non disponibile: Sabato e Domenica locale chiuso"]);
 
@@ -103,6 +111,106 @@ class ReservationController extends Controller
         }
     }
 
+    
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, User $user, Reservation $reservation)
+    {   
+        $request->validate([
+            'orario' => 'date|date_format:d-m-Y H:i:s|required',
+            //'id_user' => 'integer|required',
+            'id_washer' => 'exists:washers,id|required',
+            'id_washing_program' => 'exists:washing_programs,id|required',
+        ],[
+            'integer' => 'Errore, inserire integer',
+            'date' => 'Errore, inserire datetime',
+            'required' => 'Errore, inserire un campo'
+        ]);
+
+        $prenotazione = Reservation::find($reservation->id);
+        if(!$prenotazione)
+            throw new Exception("Prenotazione non trovata");
+        
+        $oggi = strtotime(Carbon::now());
+        if(strtotime($prenotazione->orario) < $oggi)
+            throw new Exception("Prenotazione scaduta");
+        
+        $lavatrice = Washer::find($request->id_washer);
+        if(!$lavatrice->stato)
+            throw new Exception("Lavatrice non disponibile");
+        
+        $programma = WashingProgram::find($request->id_washing_program);
+        if(!$programma->stato)
+            throw new Exception("Programma lavaggio non disponibile");
+    
+        
+        $programma = WashingProgram::findOrFail($request->id_washing_program);
+        $data_richiesta = strtotime($request->orario);
+        $giorno_richiesto = date("Y-m-d", $data_richiesta);
+        $ora_inizio_richiesta = date("H:i:s", $data_richiesta);
+        $ora_fine_prevista = date("H:i:s", $data_richiesta + strtotime($programma->durata));
+
+
+        // Controlla se la Data e L'Ora richiesti sono antecedenti o successivi a quelli correnti
+        $oggi = strtotime(Carbon::now());
+        if($data_richiesta < $oggi)
+            return response()->json(["Data e Ora antecedente a quella attuali"]);
+
+        // Controlla se l'Orario è compreso nell'intervallo orario
+        if( !($data_richiesta >= strtotime($giorno_richiesto . " 08:00:00") && $data_richiesta <= strtotime($giorno_richiesto . " 20:00:00")) )
+            return response()->json(["Orario non compreso nell'intervallo orario 8:00 - 20:00"]);
+
+        // Controlla se il giorno selezionato è valido
+        $weekend = [0, 6];
+        $giorno_settimana = Carbon::createFromFormat("Y-m-d", $giorno_richiesto)->dayOfWeek; // numero giorno della settimana
+        if( in_array($giorno_settimana, $weekend) )
+            return response()->json(["Giorno selezionato non disponibile: Sabato e Domenica locale chiuso"]);
+
+
+        $prenotazioni_sovrapponibili = DB::table('reservations')->select('*')
+                                                        ->join('washing_programs', 'washing_programs.id', '=', 'reservations.id_washing_program')
+                                                        ->where('id_washer', $request->id_washer)
+                                                        ->where(DB::raw('DATE(orario)'), $giorno_richiesto)
+                                                        //WHERE reservation.id IS NOT id_prenotazione
+                                                        ->where('reservations.id', '<>', $prenotazione->id)
+                                                        ->where(function($query) use($ora_inizio_richiesta, $ora_fine_prevista){
+                                                            $betweenConds = [
+                                                                DB::raw('CAST("' . $ora_inizio_richiesta . '" AS time)'), 
+                                                                DB::raw('CAST("' . $ora_fine_prevista . '" AS time)')
+                                                            ];
+                                                            
+                                                            $query->whereBetween(
+                                                                DB::raw('TIME(orario)'), 
+                                                                $betweenConds
+                                                            );
+
+                                                            $query->OrWhereBetween(
+                                                                DB::raw('ADDTIME(TIME(orario), washing_programs.durata)'), 
+                                                                $betweenConds
+                                                            );    
+                                                        });
+        
+        if(!$prenotazioni_sovrapponibili->count()){ 
+            $query = Reservation::create([
+                'orario' => date("Y-m-d H:i:s", $data_richiesta),
+                'id_user' => $user->id,
+                'id_washer' => $request->id_washer,
+                'id_washing_program' => $request->id_washing_program,
+            ]);
+
+            // Elimina la precedente prenotazione
+            $prenotazione->delete();
+            return new ReservationResource($query);
+        }else{
+            return new Exception("Non ho fatto niente");
+        }
+}
+
     /**
      * Display the specified resource.
      *
@@ -124,46 +232,7 @@ class ReservationController extends Controller
     {
         //
     }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request)
-    {   
-        $request->validate([
-            'orario' => 'date|date_format:d-m-Y H:i:s|required',
-            //'id_user' => 'integer|required',
-            'id_washer' => 'exists:washers,id|required',
-            'id_washing_program' => 'exists:washing_programs,id|required',
-        ],[
-            'date' => 'Errore, inserire datetime',
-            'integer' => 'Errore, inserire integer',
-            'boolean' => 'Errore inserire boolean',
-            'required' => 'Errore, inserire un campo'
-        ]);
-
-        $lavatrice = Washer::find($request->id_washer);
-        if(!$lavatrice->stato){
-            throw new Exception("Lavatrice non disponibile");
-        }
-
-        $programma = WashingProgram::find($request->id_washing_program);
-        if(!$programma->stato){
-            throw new Exception("Programma lav non disponibile");
-        }
-
-        Reservation::where('id', '=', $request->reservation)->update([
-            'orario' => $request->orario,
-            //'id_user' => $request->id_user,
-            'id_washer' => $request-> id_washer,
-            'id_washing_program' => $request->id_washing_program,
-        ]);
-    }
-
+    
     /**
      * Remove the specified resource from storage.
      *

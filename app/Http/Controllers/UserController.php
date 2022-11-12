@@ -100,13 +100,13 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy(User $user) // Soft Delete di un User
     {
         $user->tokens()->delete();
         $user->delete();
     }
     
-    public function restore($user)
+    public function restore($user) // Annulla Soft Delete
     {   
         $utente = User::withTrashed()->findOrFail($user);
         $utente->restore();
