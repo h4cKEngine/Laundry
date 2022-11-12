@@ -28,11 +28,6 @@ use Illuminate\Support\Facades\Route;
  * 
  */
 
-// Sanctum
-// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
-
 // ->middleware('role') controlla se l'user è un admin o è lo stesso utente che può effettuare accesso alla risorsa
 // ->middleware('adminrole') controlla se l'user è un admin
 
@@ -65,7 +60,7 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
             
             // URI: /api/user/{user}/reservation
             Route::group(['prefix' => 'reservation', 'as' => 'reservation.'], function(){
-                Route::get('/', [UserController::class, 'reservationsUser'])->middleware('role'); // Visualizza tutte le prenotazioni dell'utente
+                Route::get('/', [UserController::class, 'reservationsUser'])->middleware('role')->name("showReservation"); // Visualizza tutte le prenotazioni dell'utente
                 Route::get('/{reservation}', [ReservationController::class, 'show'])->middleware('role')->name("show"); // Visualizza la prenotazione dell'utente
                 
                 Route::post('/', [ReservationController::class, 'store'])->middleware('role'); // Crea una prenotazione
