@@ -78,14 +78,14 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::group(['prefix' => 'washer', 'as' => 'washer.'], function(){
         Route::get('/', [WasherController::class, 'index'])->name("index"); // Visualizza tutte le lavasciuga
         
-        Route::post('/', [WasherController::class, 'store'])->middleware('adminrole'); // Crea una lavasciuga
+        Route::post('/', [WasherController::class, 'store'])->middleware('adminrole')->name("store"); // Crea una lavasciuga
         
-        Route::put('/', [WasherController::class, 'statusAll'])->middleware('adminrole'); // Abilita/Disabilita tutte le lavasciuga
+        Route::put('/', [WasherController::class, 'statusAll'])->middleware('adminrole')->name("statusAll"); // Abilita/Disabilita tutte le lavasciuga
         
         // URI: /api/{washer}/
-        Route::patch('/{washer}', [WasherController::class, 'status'])->middleware('adminrole'); // Attiva/Disabilita la lavasciuga
+        Route::patch('/{washer}', [WasherController::class, 'status'])->middleware('adminrole')->name("status"); // Attiva/Disabilita la lavasciuga
 
-        Route::delete('/{washer}', [WasherController::class, 'destroy'])->middleware('adminrole'); // Elimina la lavasciuga
+        Route::delete('/{washer}', [WasherController::class, 'destroy'])->middleware('adminrole')->name("destroy"); // Elimina la lavasciuga
     });
 
     // WashingProgram routes

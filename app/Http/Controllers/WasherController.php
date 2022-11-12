@@ -17,6 +17,7 @@ class WasherController extends Controller
         ]);
 
         $washer->update(['stato' => $request->status]);
+        return new WasherResource($washer);
     }
     
     public function statusAll(Request $request)
@@ -29,6 +30,7 @@ class WasherController extends Controller
         foreach ($array as $item => $value) {
             $array[$item]->update(['stato' => $request->status]);
         }
+        return Washer::all();
     }
     
     /**
@@ -107,7 +109,7 @@ class WasherController extends Controller
             'marca' => $request->marca,
             'stato' => $request->stato
         ]);
-        //return new WasherResource($query);
+        return new WasherResource($queryWasher);
     }
 
     /**
