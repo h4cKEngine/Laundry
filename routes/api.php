@@ -100,7 +100,7 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
         // URI: /api/washing_program/{washing_program}
         Route::group(['prefix' => '{washing_program}'], function(){
             Route::patch('/', [WashingProgramController::class, 'status'])->middleware('adminrole')->name("status"); // Abilita/Disabilita il programma lav
-            Route::put('/', [WashingProgramController::class, 'update'])->middleware('adminrole')->name("update"); // Modifica il programma lav
+            Route::patch('/', [WashingProgramController::class, 'update'])->middleware('adminrole')->name("update"); // Modifica il programma lav
 
             Route::delete('/', [WashingProgramController::class, 'destroy'])->middleware('adminrole')->name("destroy"); // Elimina il programma lav
         });

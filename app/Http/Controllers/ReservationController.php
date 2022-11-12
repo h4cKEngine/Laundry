@@ -110,7 +110,6 @@ class ReservationController extends Controller
            throw new ReservationException;
         }
     }
-
     
     /**
      * Update the specified resource in storage.
@@ -206,7 +205,7 @@ class ReservationController extends Controller
             $prenotazione->delete();
             return new ReservationResource($query);
         }else{
-            return new Exception("Non ho fatto niente");
+            return new Exception("Ho fatto solo così");
         }
 }
 
