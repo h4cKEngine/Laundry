@@ -30,11 +30,6 @@ class WashingProgramHateoas
         return $this->link("washing_program.statusAll", []);
     }
 
-    public function status(WashingProgram $washingProgram) : ?Link
-    {
-        return $this->link("washing_program.status", ['washing_program' => $washingProgram]);
-    }
-
     public function update(WashingProgram $washingProgram) : ?Link
     {
         return $this->link("washing_program.update", ['washing_program' => $washingProgram]);

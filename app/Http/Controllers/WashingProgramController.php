@@ -111,19 +111,6 @@ class WashingProgramController extends Controller
         ]);
         return new WashingProgramResource($washing_program);
     }
-
-    public function status(Request $request, WashingProgram $washing_program)
-    {
-        $request->validate([
-            'stato' => 'boolean|required'
-        ], [
-            'boolean' => 'Errore, inserire boolean',
-            'required' => 'Errore, inserire un campo'
-        ]);
-        
-        $washing_program->update(['stato' => $request->stato]);
-        return new WashingProgramResource($washing_program);
-    }
     
     public function statusAll(Request $request)
     {   
