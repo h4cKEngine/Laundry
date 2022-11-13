@@ -30,7 +30,7 @@ class WasherController extends Controller
         foreach ($array as $item => $value) {
             $array[$item]->update(['stato' => $request->stato]);
         }
-        return Washer::all();
+        return WasherResource::collection(Washer::all());
     }
     
     /**

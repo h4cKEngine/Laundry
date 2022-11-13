@@ -112,7 +112,7 @@ class WashingProgramController extends Controller
         return new WashingProgramResource($washing_program);
     }
     
-    public function statusAll(Request $request, WashingProgram $washing_program)
+    public function statusAll(Request $request)
     {   
         $request->validate([
             'stato' => 'boolean|required'
@@ -122,7 +122,7 @@ class WashingProgramController extends Controller
         foreach ($array as $item => $value) {
             $array[$item]->update(['stato' => $request->stato]);
         }
-        return new WashingProgramResource($washing_program);
+        return WashingProgramResource::collection(WashingProgram::all());
     }
 
     /**
