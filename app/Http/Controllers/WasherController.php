@@ -121,7 +121,6 @@ class WasherController extends Controller
     public function destroy(Washer $washer)
     {
         $washer->delete();
-        return WasherResource::collection(Washer::all());
     }
 
 }

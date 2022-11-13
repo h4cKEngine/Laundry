@@ -89,7 +89,7 @@ class WashingProgramController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,WashingProgram $washing_program)
+    public function update(Request $request, WashingProgram $washing_program)
     {   
         $request->validate([
             'nome' => 'string|required',
@@ -112,7 +112,7 @@ class WashingProgramController extends Controller
         return new WashingProgramResource($washing_program);
     }
     
-    public function statusAll(Request $request)
+    public function statusAll(Request $request, WashingProgram $washing_program)
     {   
         $request->validate([
             'stato' => 'boolean|required'
@@ -122,7 +122,7 @@ class WashingProgramController extends Controller
         foreach ($array as $item => $value) {
             $array[$item]->update(['stato' => $request->stato]);
         }
-        return WashingProgramResource::collection(WashingProgram::all());
+        return new WashingProgramResource($washing_program);
     }
 
     /**
@@ -135,6 +135,5 @@ class WashingProgramController extends Controller
     public function destroy(WashingProgram $washing_program)
     {   
         $washing_program->delete();
-        return WashingProgramResource::collection(WashingProgram::all());
     }
 }
