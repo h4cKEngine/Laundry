@@ -10,10 +10,10 @@ class WashingProgramHateoas
 {
     use CreatesLinks;
 
-    public function self(WashingProgram  $washingProgram) : ?Link
-    {
-        return $this->link("");
-    }
+    // public function self(WashingProgram  $washingProgram) : ?Link
+    // {
+    //     return $this->link("washing_program.show", []);
+    // }
 
     public function index(WashingProgram $washingProgram) : ?Link
     {
