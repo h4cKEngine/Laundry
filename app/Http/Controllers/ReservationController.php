@@ -207,7 +207,7 @@ class ReservationController extends Controller
         }else{
             return new Exception("Ho fatto solo così");
         }
-}
+    }
 
     /**
      * Display the specified resource.
