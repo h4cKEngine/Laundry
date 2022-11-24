@@ -165,7 +165,7 @@ class ReservationController extends Controller
             return response()->json(["Orario non compreso nell'intervallo orario 8:00 - 20:00"]);
 
         // Controlla se il giorno selezionato è valido
-        $weekend = [0, 6];
+        $weekend = [0, 6]; // 0 == domenica  -  6 == sabato
         $giorno_settimana = Carbon::createFromFormat("Y-m-d", $giorno_richiesto)->dayOfWeek; // numero giorno della settimana
         if( in_array($giorno_settimana, $weekend) )
             return response()->json(["Giorno selezionato non disponibile: Sabato e Domenica locale chiuso"]);
@@ -192,7 +192,7 @@ class ReservationController extends Controller
                                                                 $betweenConds
                                                             );    
                                                         });
-        
+        // Controlla se ci sono prenotazioni disponibili
         if(!$prenotazioni_sovrapponibili->count()){ 
             $query = Reservation::create([
                 'orario' => date("Y-m-d H:i:s", $data_richiesta),
@@ -205,7 +205,7 @@ class ReservationController extends Controller
             $prenotazione->delete();
             return new ReservationResource($query);
         }else{
-            return new Exception("Ho fatto solo così");
+            return new Exception("Prenotazione sovrapposta ad una già esistente");
         }
     }
 

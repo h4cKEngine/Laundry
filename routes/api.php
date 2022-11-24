@@ -83,10 +83,12 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
         Route::put('/', [WasherController::class, 'statusAll'])->middleware('adminrole')->name("statusAll"); // Abilita/Disabilita tutte le lavasciuga
         
         // URI: /api/washer/{washer}/
-        Route::patch('/{washer}', [WasherController::class, 'status'])->middleware('adminrole')->name("status"); // Attiva/Disabilita la lavasciuga
+        Route::group(['prefix' => '{washer}'], function(){
+            Route::patch('/', [WasherController::class, 'status'])->middleware('adminrole')->name("status"); // Attiva/Disabilita la lavasciuga
 
-        Route::delete('/{washer}', [WasherController::class, 'destroy'])->middleware('adminrole')->name("destroy"); // Elimina la lavasciuga
-    });
+            Route::delete('/', [WasherController::class, 'destroy'])->middleware('adminrole')->name("destroy"); // Elimina la lavasciuga
+            });
+        });
 
     // WashingProgram routes
     // URI: /api/washing_program/
