@@ -2,8 +2,10 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     @include("head")
     <head>
+        <link rel="stylesheet" type="text/css" href="{{ asset('./css/user.css') }}" >
         <title>User</title>
     </head>
+
     <body class="antialiased">
             @include("navbar")
 

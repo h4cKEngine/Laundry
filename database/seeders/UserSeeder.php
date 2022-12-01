@@ -24,7 +24,7 @@ class UserSeeder extends Seeder
             \App\Models\User::firstOrCreate([
                 'email' => $email,
             ], [
-                'password' => Hash::make('ciao'),
+                'password' => Hash::make('Ciao1234'),
                 'nome' => fake()->firstName,
                 'cognome' => fake()->lastName,
                 'ruolo' => 0,
@@ -35,7 +35,7 @@ class UserSeeder extends Seeder
         \App\Models\User::firstOrCreate([
             'email' => 'ignazio@gmail.com',
         ], [
-                'password' => Hash::make('ciao1234'),
+                'password' => Hash::make('Ciao1234'),
                 'nome' => fake()->firstName,
                 'cognome' => fake()->lastName,
                 'ruolo' => 1,
