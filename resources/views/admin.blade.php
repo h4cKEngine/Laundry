@@ -9,6 +9,7 @@
         <!-- Styles -->
         <link rel="stylesheet" href="css/app.css">
         <link rel="stylesheet" href="css/normalize.css">
+        
     </head>
     <body class="antialiased">
 

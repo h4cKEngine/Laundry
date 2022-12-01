@@ -1,0 +1,25 @@
+#progr_lav {
+    display: flex;
+    justify-content: left;
+    width: 100%;
+    margin: 8px;
+}
+
+#progr_lav a {
+    outline: none;
+    padding: 0.75rem 1.25rem;
+    margin: 1.2rem 0.75rem;
+    text-shadow: 0;
+    text-align: center;
+    text-decoration: none;
+    border: none;
+    border-radius: 40px;
+    cursor: pointer;
+    color: #F3EFF5;
+    background: #1ABC9D;
+    font-family: Comic Sans MS;
+    font-size: 24px;
+    font-weight: bold;
+    transition: all 0.25s ease;
+    user-select: none;
+}

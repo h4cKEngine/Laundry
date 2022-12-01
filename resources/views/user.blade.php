@@ -1,17 +1,32 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+    @include("head")
     <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>User</title>
-        <!-- Fonts -->
-        <link href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
-        <!-- Styles -->
-        <link rel="stylesheet" href="css/app.css">
-        <link rel="stylesheet" href="css/normalize.css">
-
     </head>
     <body class="antialiased">
+            @include("navbar")
 
+            <!-- Prenotazioni Disponibili -->
+            <h1> <b>Available Reservations:</b> </h1>
+            <form id="progr_lav_available" action="./api/prenotazioni.php">
+                <label for="datepicker">Date</label>
+                <label for="timepicker">Time*</label>
+                <label for="sel_progr_lav">Washing Program</label>
+                <label></label>
+            
+                <input type="date" id="datepicker" format="DD/MM/YYYY" required/>
+                <input type="time" id="timepicker" required>
+                <select name="sel_progr_lav" id="sel_progr_lav"></select>
+            
+                <input type="submit" value="Reserve">
+            
+                <span id="error_message_date"></span>
+                <span id="error_message_time"></span>
+            </form>
+            
+            <h1> <b>Reservations:</b> </h1>
+            <div id="progr_lav"></div>
+            
     </body>
 </html>
