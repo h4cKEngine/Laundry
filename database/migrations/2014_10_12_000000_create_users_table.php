@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('nome');
             $table->string('cognome');
+            $table->string('matricola');
             $table->boolean('ruolo')->default(0);
             $table->softDeletes();
         });

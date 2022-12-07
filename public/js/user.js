@@ -26,17 +26,18 @@ $('#prenotabtn').click(function(){
     });
 });
 
+// Seleziona il programma lavaggio
 function selectionWashingProgram(){
     $('#sel_progr_lav').append('<option value=0>--Pick one--</option>');
 
     $.ajax({
-        url: "/laundry/api/programma_lav.php",
+        url: "/api/washing_program",
         type: 'GET',
         dataType: "json",
         success: function(response){
             for(i in response){
                 console.log(response[i]);
-                $('#sel_progr_lav').append('<option value=' + response[i]['ID_progr_lav'] + '>' + response[i]['nome_progr_lav'] + ' ' + response[i]['tempo_lav'] + '</option>');
+                $('#sel_progr_lav').append('<option value=' + response[i]['id'] + '>' + response[i]['nome'] + ' ' + response[i]['durata'] + response[i]['prezzo'] + '</option>');
            }
         },
         error: function(){
@@ -45,10 +46,10 @@ function selectionWashingProgram(){
     });
 }
 
-//Visualizza le prenotazioni in generale
+// Visualizza le prenotazioni in generale
 function viewReservation(){
     $.ajax({
-        url: "/laundry/api/prenotazioni.php",
+        url: "/api/",
         type: 'GET',
         dataType: "json",
         success: function(response){
@@ -56,9 +57,8 @@ function viewReservation(){
                 for(i in response){
                     var tempo_inizio = new Date(response[i]['tempo_inizio']);
                     var tempo_fine = new Date(response[i]['tempo_fine']);
-                    var nome = response[i]['ID_utenteFK'];
-                    btn = `<a>` + "<h4>Reserved by "+ nome + "</h4>"  + tempo_inizio.getHours() + ":" + String(tempo_inizio.getMinutes()).padStart(2, "0") + 
-                            "<br>" + tempo_fine.getHours() + ":" + String(tempo_fine.getMinutes()).padStart(2, "0") + `</a>`;
+                    
+                    btn = `<a>` + "<h4>Reserved by "+ response[i]['id_user'] + "</h4>"  + response[i]['orario'] + `<br>` + "Washer: " + response[i]['id_washer'] `</a>`;
                     $("#progr_lav").append(btn);
                 };
                 noWeekend();
@@ -73,7 +73,7 @@ function viewReservation(){
     });
 }
 
-//Controlla che il tempo rientri nel range prestabilito
+// Controlla che il tempo rientri nel range prestabilito
 function timeCheck(){
     $('#timepicker').on('input', function(){
         let t = $(this).val();
@@ -94,11 +94,11 @@ function timeCheck(){
     })
 }
 
-//Controlla se il giorno selezionato è un sabato o una domenica
+// Controlla se il giorno selezionato è un sabato o una domenica
 function noWeekend(){
     $('#datepicker').on('input', function(){
         var day = new Date(this.value).getUTCDay();
-        if([6,0].includes(day)){ //Domenica= 0, Sabato= 6
+        if([6,0].includes(day)){ // Domenica= 0, Sabato= 6
             this.value = '';
             $("#error_message_date").css("display", "inline");
             $("#error_message_date").css("color", "red");
@@ -110,7 +110,7 @@ function noWeekend(){
     });
 }
 
-//Ottiene la data odierna
+// Ottiene la data odierna
 function getToday(){
     var today = new Date();
     var dd = String(today.getDate()).padStart(2, '0');
@@ -121,7 +121,7 @@ function getToday(){
     return today;
 }
 
-//Ottiene la data a n giorni rispetto l'odierna
+// Ottiene la data a n giorni rispetto l'odierna
 function addDaysToDate(date, days){
     var day = new Date(date);
     day.setDate(day.getDate() + days);
