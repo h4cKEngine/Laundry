@@ -9,7 +9,7 @@
     <body class="antialiased">
         <h1>Pagina Login</h1>
         <!-- Form Login -->
-        <form class="form" id="loginform" action="./php/login_backend.php" method="POST">
+        <form class="form" id="loginform" action="./api/auth/login" method="POST">
             <a href="./" id="arrow"><i class="fa-solid fa-arrow-left-long fa-2xl"></i></a>
             <h1>Login</h1>
             <input type="email" id="email" name="email" class="zocial-dribbble" required placeholder="Email" />

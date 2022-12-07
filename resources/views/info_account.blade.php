@@ -12,7 +12,7 @@
         </tr>
         <tr>
             <?php
-                echo "<td>" . $info_utente['ID_utente'] . "</td>" . 
+                echo "<td>" . $info_utente['matricola'] . "</td>" . 
                         "<td>" . $info_utente['email'] . "</td>" . 
                         "<td>" . $info_utente['nazionalita'] . "</td>";
             ?>
