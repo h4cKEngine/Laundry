@@ -17,7 +17,7 @@ class UserSeeder extends Seeder
     {
         $users = [
             'ajeje@gmail.com',
-            'pdor@gmail.com'
+            'mrflanagan@gmail.com'
         ];
 
         foreach ($users as $email) {
@@ -28,6 +28,8 @@ class UserSeeder extends Seeder
                 'nome' => fake()->firstName,
                 'cognome' => fake()->lastName,
                 'ruolo' => 0,
+                'matricola' => fake()->numberBetween(1, 599999),
+                'nazionalita' => 'italian',
                 'deleted_at' => NULL
             ]);
         }
@@ -39,6 +41,8 @@ class UserSeeder extends Seeder
                 'nome' => fake()->firstName,
                 'cognome' => fake()->lastName,
                 'ruolo' => 1,
+                'matricola' => fake()->numberBetween(1, 599999),
+                'nazionalita' => 'italian',
                 'deleted_at' => NULL
             ]
         );

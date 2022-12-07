@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('nome');
             $table->string('cognome');
             $table->string('matricola');
+            $table->string('nazionalita');
             $table->boolean('ruolo')->default(0);
             $table->softDeletes();
         });

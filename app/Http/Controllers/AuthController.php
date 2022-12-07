@@ -22,6 +22,8 @@ class AuthController extends Controller
             'nome' => 'required|string|max:255',
             'cognome' => 'required|string|max:255',
             'ruolo' => 'boolean',
+            'nazionalita' => 'string',
+            'matricola' => 'string',
             'deleted_at' => 'string'
         ]);
 
@@ -32,6 +34,8 @@ class AuthController extends Controller
             'nome' => $validatedData['nome'],
             'cognome' => $validatedData['cognome'],
             'ruolo' => $validatedData['ruolo'],
+            'matricola' => $validatedData['matricola'],
+            'nazionalita' => $validatedData['nazionalita'],
             'deleted_at' => $validatedData['deleted_at']
         ]);
     }
@@ -42,7 +46,7 @@ class AuthController extends Controller
         // Il metodo attempt() accetta un array associativo come primo argomento. Il valore della password verrà sottoposto a hash. 
         // Gli altri valori nell'array verranno utilizzati per trovare l'utente nella tabella del database.
         if (!Auth::attempt($request->only('email', 'password'))) {
-            return response()->json(['message' => 'Informazioni di Login errate'], 401);
+            return response()->json(['access' => False, 'message' => 'Informazioni di Login errate'], 401);
         }
 
         // Query di selezione del primo record dalla tabella users attraverso email. firstOrFail() selezione del primo record oppure errore
@@ -53,6 +57,7 @@ class AuthController extends Controller
         
         // Restituzione di un json come risposta tramite codice HTTP di conferma (200)
         return response()->json([
+            'access' => True,
             'access_token' => $token,
             'token_type' => 'Bearer', 
             // I Bearer Token sono un tipo particolare di Access Token, che utilizzano JWT:
@@ -75,5 +80,7 @@ class AuthController extends Controller
         $token = PersonalAccessToken::findToken($accessToken);
         // Rimuove il token
         $token->delete();
-    }
+        
+        return response()->json(['access' => False]);
+    }   
 }

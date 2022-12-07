@@ -13,7 +13,7 @@
             <a href="./" id="arrow"><i class="fa-solid fa-arrow-left-long fa-2xl"></i></a>
             <h1>Login</h1>
             <input type="email" id="email" name="email" class="zocial-dribbble" required placeholder="Email" />
-            <input type="password" id="password" name=password_login required minlength="8" maxlength="16" pattten="^(?=.[a-z])(?=.[A-Z])(?=.[0-9])(?=.[!@#$%^&*_=+-]).{8,16}$"; placeholder="Password*"/>
+            <input type="password" id="password" name="password" required minlength="8" maxlength="16" pattten="^(?=.[a-z])(?=.[A-Z])(?=.[0-9])(?=.[!@#$%^&*_=+-]).{8,16}$"; placeholder="Password*"/>
             <span id="error_message"></span>
             <input type="submit" id="submitbtn" value="Login"/>
         </form>

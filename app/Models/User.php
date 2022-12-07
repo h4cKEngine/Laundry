@@ -26,6 +26,7 @@ class User extends Authenticatable
         'nome',
         'cognome',
         'matricola',
+        'nazionalita',
         'ruolo'
     ];
     

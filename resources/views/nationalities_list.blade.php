@@ -1,4 +1,4 @@
-<select id="nationalities" name="nationalities" required name="nationality">
+<select id="nationalities" name="nazionalita" required>
   <option value="">-- select one --</option>
   <option value="afghan">Afghan</option>
   <option value="albanian">Albanian</option>
