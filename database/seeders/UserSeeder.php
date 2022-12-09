@@ -28,7 +28,7 @@ class UserSeeder extends Seeder
                 'nome' => fake()->firstName,
                 'cognome' => fake()->lastName,
                 'ruolo' => 0,
-                'matricola' => fake()->numberBetween(1, 599999),
+                'matricola' => fake()->numberBetween(100000, 599999),
                 'nazionalita' => 'italian',
                 'deleted_at' => NULL
             ]);
@@ -41,7 +41,7 @@ class UserSeeder extends Seeder
                 'nome' => fake()->firstName,
                 'cognome' => fake()->lastName,
                 'ruolo' => 1,
-                'matricola' => fake()->numberBetween(1, 599999),
+                'matricola' => fake()->numberBetween(100000, 599999),
                 'nazionalita' => 'italian',
                 'deleted_at' => NULL
             ]

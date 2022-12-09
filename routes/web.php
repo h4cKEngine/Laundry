@@ -15,11 +15,11 @@ use Illuminate\Support\Facades\Route;
 
 /* HTTP METHODS
 
-    GET - Request a resurce
-    POST - Create a new resurce
-    PUT - Update a resurce
-    PATCH - Modify a resurce
-    DELETE - Delete a resurce
+    GET - Request a resource
+    POST - Create a new resource
+    PUT - Update a resource
+    PATCH - Modify a resource
+    DELETE - Delete a resource
     OPTIONS - Ask the server which verbs are allowed
 
     GET
@@ -32,7 +32,6 @@ use Illuminate\Support\Facades\Route;
     Route::put('/url{parameter}', [Controller::class, 'functionName']);
 
     PATCH
-
     Route::patch('/url{parameter}', [Controller::class, 'functionName']);
 
     DELETE
@@ -50,30 +49,36 @@ use Illuminate\Support\Facades\Route;
 //         }
 // });
 
-Route::get('/', function () {
-    return view('index');
-});
-
 Route::get('/welcome', function () {
     return view('welcome');
 });
 
-Route::get('/login', function () {
-    return view('login');
+Route::get('/carbon', function () {
+    return view('carbon');
 });
 
 Route::get('/signup', function () {
     return view('signup');
+})->name('register');
+
+Route::get('/login', function () {
+    return view('login');
+})->name('login');
+
+Route::get('/', function () {
+    return view('index');
 });
 
-Route::get('/user', function () {
-    return view('user');
-});
+Route::group(['prefix' => 'auth'], function(){
+    Route::get('/user', function () {
+        return view('user');
+    });
+    
+    Route::get('/admin', function () {
+        return view('admin');
+    });
 
-Route::get('/admin', function () {
-    return view('admin');
-});
-
-Route::get('/carbon', function () {
-    return view('carbon');
+    Route::get('/logout', function () {
+        return route('logout');
+    });
 });

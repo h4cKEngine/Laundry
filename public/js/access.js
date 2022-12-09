@@ -1,14 +1,16 @@
-document.getElementById("submitbtn").onclick = (event) => {
-    checkPassword(event);
-};
+$(document).ready(function() {
+    $('#submitbtn').click(function(event) {
+        checkPassword(event);
+    })
+});
 
 function checkPassword(e){
-    if (document.getElementById('password').value === document.getElementById('confirm_password').value) {
-        document.getElementById('error_message').style.color = 'green';
-        document.getElementById('error_message').innerHTML = 'password matching';
-    } else {
+    if ($("#password").val() != $("#confirm_password").val()) {
         e.preventDefault();
-        document.getElementById('error_message').style.color = 'red';
-        document.getElementById('error_message').innerHTML = 'password are not matching';
+        $('#error_message').css("color", "red");
+        $('#error_message').html('Password are not matching<br>The password must contain:<br>at least 8 characters including a number and an upppercase letter!');
+    } else {
+        $('#error_message').css("color", "green");
+        $('#error_message').html('Password matching!');
     }
 }
