@@ -2,6 +2,7 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     @include("head")
     <head>
+        <link rel="stylesheet" type="text/css" href="{{ asset('./css/user.css') }}" >
         <link rel="stylesheet" type="text/css" href="{{ asset('./css/admin.css') }}" >
         <title>Admin</title>
     </head>
