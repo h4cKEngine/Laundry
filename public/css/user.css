@@ -27,6 +27,14 @@ h1, h4 {
     user-select: none;
 }
 
+#progr_lav_available {
+    display: grid;
+    place-items: center;
+    grid-template-columns: auto auto auto auto auto;
+    max-width: 14rem;
+    user-select: none;
+}
+
 #datepicker {
     margin: 2rem 2rem;
     padding: 0.5rem 0.2rem;
@@ -48,13 +56,31 @@ h1, h4 {
     border-radius: 1rem;
     user-select: none;
 }
-#progr_lav_available {
-    display: grid;
-    place-items: center;
-    grid-template-columns: auto auto auto auto;
-    max-width: 14rem;
+
+#sel_washer {
+    max-width: 10rem;
+    min-width: 13rem;
+    margin: 2rem 1rem 2rem;
+    padding: 0.5rem 0.5rem;
+    width: auto;
+    font-family: COMIC SANS MS;
+    font-size: large;
+    border-radius: 1rem;
     user-select: none;
 }
+
+#sel_progr_lav {
+    max-width: 10rem;
+    min-width: 13rem;
+    margin: 2rem 1rem 2rem;
+    padding: 0.5rem 0.5rem;
+    width: auto;
+    font-family: COMIC SANS MS;
+    font-size: large;
+    border-radius: 1rem;
+    user-select: none;
+}
+
 
 #progr_lav_available input[type="submit"] {
     max-width: 8rem;
@@ -77,26 +103,14 @@ h1, h4 {
     background: #DEC237;
 }
 
-#sel_progr_lav {
-    max-width: 10rem;
-    min-width: 13rem;
-    margin: 2rem 1rem 2rem;
-    padding: 0.5rem 0.5rem;
-    width: auto;
-    font-family: COMIC SANS MS;
-    font-size: large;
-    border-radius: 1rem;
-    user-select: none;
-}
-
-#error_message_data {
-    grid-column: 0;
+#error_message_date {
+    grid-column: 2;
     text-align: center;
     padding: 0.5rem 0.5rem;
 }
 
 #error_message_time {
-    grid-column: 2;
+    grid-column: 3;
     text-align: center;
     padding: 0.5rem 0.5rem;
 }

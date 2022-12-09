@@ -14,11 +14,13 @@
             <form id="progr_lav_available" action="./api/prenotazioni.php">
                 <label for="datepicker">Date</label>
                 <label for="timepicker">Time*</label>
+                <label for="sel_washer">Washer</label>
                 <label for="sel_progr_lav">Washing Program</label>
                 <label></label>
             
                 <input type="date" id="datepicker" format="DD/MM/YYYY" required/>
                 <input type="time" id="timepicker" required>
+                <select name="sel_washer" id="sel_washer"></select>
                 <select name="sel_progr_lav" id="sel_progr_lav"></select>
             
                 <input type="submit" value="Reserve">
