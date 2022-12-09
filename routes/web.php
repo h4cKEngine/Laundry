@@ -69,7 +69,7 @@ Route::get('/', function () {
     return view('index');
 });
 
-//Route::group(['prefix' => 'auth'], function(){
+Route::group(['prefix' => 'auth'], function(){
     Route::get('/user', function () {
         return view('user');
     });
@@ -78,7 +78,7 @@ Route::get('/', function () {
         return view('admin');
     });
 
-    // Route::get('/logout', function () {
-    //     return route('logout');
-    // });
-//});
+    Route::get('/logout', function () {
+        return route('logout');
+    });
+});
