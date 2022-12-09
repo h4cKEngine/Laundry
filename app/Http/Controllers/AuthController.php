@@ -79,7 +79,7 @@ class AuthController extends Controller
         //     // usati per ottenere l'autorizzazione ad accedere ad una risorsa protetta da un Authorization Server
         // ], 200);
 
-        //header("location: /auth/user");
+        header("location: /auth/user");
     }
     
     // Funzione di logout e rimozione token
