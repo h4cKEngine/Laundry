@@ -52,17 +52,9 @@ class AuthController extends Controller
     {   
         // Il metodo attempt() accetta un array associativo come primo argomento. Il valore della password verrà sottoposto a hash. 
         // Gli altri valori nell'array verranno utilizzati per trovare l'utente nella tabella del database.
-        if ( !Auth::attempt($request->only('email', 'password')) )
-            return response()->json(['access' => False, 'message' => 'Informazioni di Login errate'], 401);
-        
-        //$request->session()->regenerate(); // Rigenerazione della sessione dell'utenteper prevenire il session fixation:
-        
-        // Query di selezione per il controllo della prima occorrenza record dalla tabella users attraverso email. firstOrFail() selezione del primo record oppure errore
-        $user = User::where('email', $request['email'])->firstOrFail();
-
-        // Generazione del token
-        if ($user)
-            $token = $user->createToken('auth_token')->plainTextToken;
+        // if ( !) )
+        //     return response()->json(['access' => False, 'message' => 'Informazioni di Login errate'], 401);
+    
         
         // Restituzione di un json come risposta tramite codice HTTP di conferma (200)
         // response()->json([
@@ -77,21 +69,62 @@ class AuthController extends Controller
         //         - Signature: protegge il token ed è un hash dell’intestazione e del payload codificati, insieme a una chiave.*/
             
         //     // usati per ottenere l'autorizzazione ad accedere ad una risorsa protetta da un Authorization Server
-        // ], 200);
+        // ], 200); 
 
-        header("location: /user");
+        $authentication = Auth::attempt([
+            'email' => $request->email,
+            'password' => $request->password
+        ]);
+
+        if(!$authentication)
+            return redirect()->back()->withErrors([
+                'status' => 'error',
+                'message' => 'Credenziali errate.',
+            ]); // Error 401
+
+        // Rigenerazione della sessione per prevenire il session fixation
+        $request->session()->regenerate();
+        
+        // Query di selezione per il controllo della prima occorrenza record dalla tabella users attraverso email. 
+        $user = User::where('email', $request['email'])->firstOrFail(); //firstOrFail() selezione del primo record oppure errore
+        
+        // Generazione del token
+        if ($user){
+            $token = $user->createToken($user->email)->plainTextToken;
+
+            return response()->json([
+                'status' => 'ok',
+                'message' => 'Login effettuato con successo',
+                'token' => $token // Creazione Bearer Token
+            ], 200);
+        }
+     
+        // Reindirizzamento in base al ruolo
+        // switch (auth()->user()->ruolo) {
+        //     case 0:
+        //         return redirect("/user");
+        //     case 1:
+        //         return redirect("/admin");
+        //     default:
+        //         return redirect("/login");
+        // }
     }
     
     // Funzione di logout e rimozione token
     public function logout(Request $request)
-    { 
+    {    
         // Ottiene il token dalla request
         $accessToken = $request->bearerToken();
         // Ottiene il token dal db
         $token = PersonalAccessToken::findToken($accessToken);
         // Rimuove il token
         $token->delete();
-        
-        return response()->json(['access' => False]);
+
+        // Rigenerazione Sessione
+        $request->session()->regenerate();
+        // Logout
+        Auth::logout();
+
+        return redirect('/');
     }
 }

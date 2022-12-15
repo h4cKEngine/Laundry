@@ -10,7 +10,7 @@
     <body class="antialiased">
         <h1>Pagina Signup</h1>
         <!-- Form Registrazione -->
-        <form class="form" id="signupform" action="./api/auth/register" method="POST">
+        <form class="form" id="signupform" action="/register" method="POST">
             <a href="./" id="arrow"><i class="fa-solid fa-arrow-left-long fa-2xl"></i></a>
             <h1>Sign Up</h1>
             <input type="email" name="email" class="zocial-dribbble" required placeholder="Email" />

@@ -2,7 +2,7 @@
     <div id="nav-sx">
         <a id="hello-message">
             Vai
-            {{-- Welcome {{ dd(Auth::user()->nome) }} --}}
+            {{-- Welcome {{auth()->user()->nome}}  --}}
         </a>
     </div>
     <div id="nav-middle">    
@@ -18,7 +18,7 @@
         @elseif (Auth::user()->ruolo == 1)
             <a href="/admin">Admin Account</a>
         @endif
-        <a href="/logout">Logout</a>
+        <a href="/auth/logout">Logout</a>
     @else
         <a href="/signup">Signup</a>
         <a href="/login">Login</a>

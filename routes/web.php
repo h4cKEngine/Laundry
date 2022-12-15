@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,6 +43,37 @@ use Illuminate\Support\Facades\Route;
     Route::any(['GET', 'POST'], '/url', [Controller::class, 'functionName']);
 */
 
+Route::get('/', function () {
+    return view('index');
+})->name('home');
+
+// URI: /auth/
+Route::group(["prefix"=>"auth"], function(){
+    Route::post('/register', [AuthController::class, 'register']); // Registrazione
+    Route::post('/login', [AuthController::class, 'login']); // Login
+    
+    Route::post('/logout', [AuthController::class, 'logout'])->middleware("auth")->name('logout'); // Logout
+});
+
+// Registrazione
+Route::get('/signup', function () {
+    return view('signup');
+})->name('register');
+
+// Login
+Route::get('/login', function () {
+    return view('login');
+})->name('login');
+
+// Users
+Route::get('/user', function () {
+    return view('user');
+})->middleware('webrole:user');
+
+Route::get('/admin', function () {
+    return view('admin');
+})->middleware('webrole:admin');
+
 //'prova/{numero?}' --> il ? indica che il paramentro è opzionale, $numero = 2 è il valore di default
 // Route::get('prova/{numero?}', function ($numero = 2) {
 //     for($i=0; $i<10; $i=$i+1){
@@ -49,36 +81,6 @@ use Illuminate\Support\Facades\Route;
 //         }
 // });
 
-Route::get('/welcome', function () {
-    return view('welcome');
-});
-
-Route::get('/carbon', function () {
-    return view('carbon');
-});
-
-Route::get('/signup', function () {
-    return view('signup');
-})->name('register');
-
-Route::get('/login', function () {
-    return view('login');
-})->name('login');
-
-Route::get('/', function () {
-    return view('index');
-});
-
-Route::group(['prefix' => 'auth'], function(){
-    Route::get('/user', function () {
-        return view('user');
-    });
-    
-    Route::get('/admin', function () {
-        return view('admin');
-    });
-
-    Route::get('/logout', function () {
-        return route('logout');
-    });
-});
+// Route::get('/welcome', function () {
+//     return view('welcome');
+// });

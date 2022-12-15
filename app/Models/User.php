@@ -72,6 +72,15 @@ class User extends Authenticatable
     // public function isAdmin(){
     //     return $this->ruolo == enumUser::admin;
     // }
+
+    public function hasRole(String $role){
+        $roles = [
+            "user", "admin"
+        ];
+        
+        return array_search($role, $roles) == $this->ruolo;
+    }
+
 }
 
 // esempio Creazione classe astratta enum per selezione del ruolo
