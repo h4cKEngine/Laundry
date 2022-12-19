@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WasherController;
 use App\Http\Controllers\WashingProgramController;
@@ -32,14 +31,6 @@ use Illuminate\Support\Facades\Route;
 // ->middleware('adminrole') controlla se l'user è un admin
 
 // Authorization routes
-// URI: /api/auth/
-Route::group(['prefix' => 'auth'], function(){
-    Route::post('/register', [AuthController::class, 'register']); // Registrazione
-    Route::post('/login', [AuthController::class, 'login']); // Login
-
-    Route::delete('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum'); // Logout tramite Sanctum
-});
-
 // Verifica di accesso tramite Sanctum
 Route::group(['middleware' => 'auth:sanctum'], function(){
     // User routes

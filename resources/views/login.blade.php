@@ -9,17 +9,17 @@
     <body class="antialiased">
         <h1>Pagina Login</h1>
         <!-- Form Login -->
-        <form class="form" id="loginform" action="./api/auth/login" method="POST">
+        <form class="form" id="loginform" action="/auth/login" method="POST">
+            @csrf
             <a href="./" id="arrow"><i class="fa-solid fa-arrow-left-long fa-2xl"></i></a>
             <h1>Login</h1>
             <input type="email" id="email" name="email" class="zocial-dribbble" required placeholder="Email" />
-            <input type="password" id="password" name="password" required minlength="8" maxlength="16" pattten="^(?=.[a-z])(?=.[A-Z])(?=.[0-9])(?=.[!@#$%^&*_=+-]).{8,16}$"; placeholder="Password*"/>
+            <input type="password" id="password" name="password" required minlength="8" maxlength="16" pattten="^(?=.[a-z])(?=.[A-Z])(?=.[0-9])(?=.[!@#$%^&*_=+-]).{8,16}$"; placeholder="Password"/>
             <span id="error_message"></span>
-            <input type="submit" id="submitbtn" value="Login"/>
+            <input type="submit" value="Login"/>
+            <a class="redirect" href="/signup">Not a member? Signup here!</a>
         </form>
 
-        <ul class=passwordmustbe>*The password must contain:<br>
-            - at least 8 characters including a number and an upppercase letter
-        </ul>
+        <script src="{{ asset('./js/login.js') }}"></script>
     </body>
 </html>

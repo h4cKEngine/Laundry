@@ -8,7 +8,6 @@
 
     <body class="antialiased">
             @include("navbar")
-
             <!-- Prenotazioni Disponibili -->
             <h1> <b>Available Reservations:</b> </h1>
             <form id="progr_lav_available" action="./api/prenotazioni.php">

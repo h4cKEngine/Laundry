@@ -1,8 +1,12 @@
 <nav id="navbar">    
     <div id="nav-sx">
-        <a id="hello-message">
-            Welcome UserName
-        </a>
+    @auth 
+        @if (Auth::user()->ruolo == 0 || Auth::user()->ruolo == 1)
+            <a id="hello-message">Welcome {{auth()->user()->nome}}</a>
+        @endif
+    @endauth 
+            
+        
     </div>
     <div id="nav-middle">    
         <a href="./" id="icona">
@@ -10,17 +14,17 @@
         </a>
     </div>
     <div id="nav-dx">
-        @auth
-            @if (Auth::user()->ruolo == 0)
-                <a href="./user">Account</a>
-                <a href="./logout">Logout</a>
-            @elseif (Auth::user()->ruolo == 1)
-                <a href="./admin">Account</a>
-                <a href="./logout">Logout</a>
-            @endif
-        @else
-            <a href="./signup">Signup</a>
-            <a href="./login">Login</a>
-        @endauth 
+        {{-- {{ dd(Auth::user()) }} --}}
+    @auth
+        @if (Auth::user()->ruolo == 0)
+            <a href="/user">Account</a>
+        @elseif (Auth::user()->ruolo == 1)
+            <a href="/admin">Admin Account</a>
+        @endif
+        <a href="/auth/logout">Logout</a>
+    @else
+        <a href="/signup">Signup</a>
+        <a href="/login">Login</a>
+    @endauth 
     </div>
 </nav>

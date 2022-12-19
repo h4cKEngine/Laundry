@@ -19,7 +19,7 @@ class AdminRole
     public function handle(Request $request, Closure $next)
     {
         // Acquisisce il token
-        $token = PersonalAccessToken::find($request->bearerToken());
+        $token = PersonalAccessToken::findToken($request->bearerToken());
         // 0 per user, 1 per Admin
         if($token->tokenable->ruolo){
             return $next($request); // Risposta dell'api
