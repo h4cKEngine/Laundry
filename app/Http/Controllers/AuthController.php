@@ -86,7 +86,7 @@ class AuthController extends Controller
         $request->session()->regenerate();
         
         // Query di selezione per il controllo della prima occorrenza record dalla tabella users attraverso email. 
-        $user = User::where('email', $request['email'])->firstOrFail(); //firstOrFail() selezione del primo record oppure errore
+        $user = User::where('email', $request['email'])->firstOrFail(); // firstOrFail() selezione del primo record oppure errore
         
         // Generazione del token
         if ($user){
@@ -95,8 +95,8 @@ class AuthController extends Controller
             return response()->json([
                 'status' => 'ok',
                 'message' => 'Login effettuato con successo',
-                'token' => $token // Creazione Bearer Token
-            ], 200);
+                'bearer_token' => $token // Creazione Bearer Token
+            ]);
         }
      
         // Reindirizzamento in base al ruolo
@@ -114,7 +114,11 @@ class AuthController extends Controller
     public function logout(Request $request)
     {    
         // Ottiene il token dalla request
-        $accessToken = $request->bearerToken();
+        //$accessToken = $request->bearerToken();
+
+        // Ottiene il token dal cookie
+        $accessToken = $_COOKIE['bearer_token'];
+
         // Ottiene il token dal db
         $token = PersonalAccessToken::findToken($accessToken);
         // Rimuove il token
