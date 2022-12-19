@@ -1,9 +1,12 @@
 <nav id="navbar">    
     <div id="nav-sx">
-        <a id="hello-message">
-            Vai
-            {{-- Welcome {{auth()->user()->nome}}  --}}
-        </a>
+    @auth 
+        @if (Auth::user()->ruolo == 0 || Auth::user()->ruolo == 1)
+            <a id="hello-message">Welcome {{auth()->user()->nome}}</a>
+        @endif
+    @endauth 
+            
+        
     </div>
     <div id="nav-middle">    
         <a href="./" id="icona">
