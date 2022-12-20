@@ -38,7 +38,5 @@
             <div class="grid-item">Time</div>  
             <div class="grid-item">Washer</div>
             <div class="grid-item">Washing Program</div>
-          
-        </form>
     </body>
 </html>
