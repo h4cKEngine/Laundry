@@ -5,8 +5,7 @@
             <a id="hello-message">Welcome {{auth()->user()->nome}}</a>
         @endif
     @endauth 
-            
-        
+    
     </div>
     <div id="nav-middle">    
         <a href="./" id="icona">

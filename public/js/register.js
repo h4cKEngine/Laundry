@@ -1,13 +1,17 @@
 $(document).ready(function () {
-    $('#loginform').submit(function(event){
+    $('#signupform').submit(function(event){
         var form = new FormData(); // Oggetto FormData
         form.append('email', $("#email").val());
+        form.append('matricola', $("#matricola").val());
         form.append('password', $("#password").val());
+        form.append('nome', $("#nome").val());
+        form.append('cognome', $("#cognome").val());
+        form.append('nazionalita', $("#nazionalita").val());
         form.append('_token', $("meta[name='csrf-token']").attr("content"));
 
         $.ajax({
             type: 'POST',
-            url: '/auth/login',
+            url: '/auth/register',
             async: true,
             
             data: form,
@@ -28,4 +32,4 @@ $(document).ready(function () {
         event.preventDefault();
     });
 
-});
+});  
