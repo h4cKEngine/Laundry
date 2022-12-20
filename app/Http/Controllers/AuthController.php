@@ -86,14 +86,8 @@ class AuthController extends Controller
     
     // Funzione di logout e rimozione token
     public function logout(Request $request)
-    {    
-        // Ottiene il token dalla request
-        //$accessToken = $request->bearerToken();
-
-        // Ottiene il token dal cookie
-        $accessToken = $_COOKIE['bearer_token'];
-        // Rimuove il token
-        Auth::user()->tokens()->delete(); // Errore è normale in quanto VS code non riesce a trovare corrispondenza
+    {   // Rimuove il token
+        Auth::user()->tokens()->delete(); // Errore - è normale in quanto VS code non riesce a trovare corrispondenza
 
         // Rigenerazione Sessione
         $request->session()->regenerate();

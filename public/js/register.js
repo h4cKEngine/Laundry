@@ -25,7 +25,7 @@ $(document).ready(function () {
             },
 
             error: function (){
-                console.log("errore");
+                alert("Email or ID number already found!");
             }
         });
 
