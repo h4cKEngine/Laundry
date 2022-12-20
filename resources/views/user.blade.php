@@ -10,7 +10,8 @@
             @include("navbar")
             <!-- Prenotazioni Disponibili -->
             <h1> <b>Available Reservations:</b> </h1>
-            <form id="progr_lav_available" action="./api/prenotazioni.php">
+            <form id="progr_lav_available">
+                @csrf
                 <label for="datepicker">Date</label>
                 <label for="timepicker">Time*</label>
                 <label for="sel_washer">Washer</label>
