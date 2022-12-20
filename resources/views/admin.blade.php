@@ -30,5 +30,13 @@
             <span id="error_message_date"></span>
             <span id="error_message_time"></span>
         </form>
+
+        <h1> <b>All Reservations:</b> </h1>
+        <<div class="grid-container">
+            <div class="grid-item">User</div>
+            <div class="grid-item">Date</div>
+            <div class="grid-item">Time</div>  
+            <div class="grid-item">Washer</div>
+            <div class="grid-item">Washing Program</div>
     </body>
 </html>

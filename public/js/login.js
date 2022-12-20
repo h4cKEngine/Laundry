@@ -21,7 +21,7 @@ $(document).ready(function () {
             },
 
             error: function (){
-                console.log("errore");
+                alert("Not found!");
             }
         });
 
