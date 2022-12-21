@@ -29,7 +29,7 @@
             </form>
             
             <h1> <b>Reservations:</b> </h1>
-            <<div class="grid-container">
+            <div class="grid-container">
             <div class="grid-item">Date</div>
             <div class="grid-item">Time</div>  
             <div class="grid-item">Washer</div>
