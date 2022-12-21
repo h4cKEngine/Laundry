@@ -30,13 +30,38 @@
             <span id="error_message_date"></span>
             <span id="error_message_time"></span>
         </form>
-
+        
             <h1> <b>All Reservations:</b> </h1>
-            <div class="grid-container">
+            <h1>
+            <div class="grid-container-R">
             <div class="grid-item">User</div>
             <div class="grid-item">Date</div>
             <div class="grid-item">Time</div>  
             <div class="grid-item">Washer</div>
             <div class="grid-item">Washing Program</div>
+            </h1>
+            
+            <h1> <b>Washers Status:</b> </h1>
+            <form id="Washers_status">
+                <label for="sel_washer">Washer</label>
+                <label for="status">Status</label>
+                <label></label>
+            
+                <select name="sel_washer" id="sel_washer"></select>
+                <select class="form-control" name="status" id="status">
+                    <option value="1" @if (old('status') == 1) selected @endif>active</option>
+                    <option value="0" @if (old('status') == 0) selected @endif>deactivated</option>
+                </select>
+            
+                <input type="submit" value="Reserve">
+            </form>
+            
+            <h1> <b>Washers:</b> </h1>
+            <h1>
+            <div class="grid-container-W">
+            <div class="grid-item">Washer</div>
+            <div class="grid-item">brand</div>  
+            <div class="grid-item">Status</div>
+            </h1>
     </body>
 </html>
