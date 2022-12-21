@@ -12,7 +12,6 @@
 
         <h1> <b>Available Reservations:</b> </h1>
         <form id="progr_lav_available">
-            @csrf
             <label for='sel_user'>User</label>
             <label for="datepicker">Date</label>
             <label for="timepicker">Time*</label>
