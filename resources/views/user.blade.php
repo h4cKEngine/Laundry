@@ -11,6 +11,7 @@
             <!-- Prenotazioni Disponibili -->
             <h1> <b>Available Reservations:</b> </h1>
             <form id="progr_lav_available">
+            <form id="progr_lav_available">
                 @csrf
                 <label for="datepicker">Date</label>
                 <label for="timepicker">Time*</label>
@@ -30,10 +31,21 @@
             </form>
             
             <h1> <b>Reservations:</b> </h1>
-            <<div class="grid-container">
+            <h1>
+            <div class="grid-container-R">
             <div class="grid-item">Date</div>
             <div class="grid-item">Time</div>  
             <div class="grid-item">Washer</div>
             <div class="grid-item">Washing Program</div>
+            </h1>
+
+            <h1> <b>Washers:</b> </h1>
+            <h1>
+            <div class="grid-container-W">
+            <div class="grid-item">Washer</div>
+            <div class="grid-item">brand</div>  
+            <div class="grid-item">Status</div>
+            </h1>
+            
     </body>
 </html>
