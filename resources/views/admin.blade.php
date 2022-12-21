@@ -50,7 +50,7 @@
                 <select name="sel_washer" id="sel_washer"></select>
                 <select class="form-control" name="status" id="status">
                     <option value="1" @if (old('status') == 1) selected @endif>active</option>
-                    <option value="0" @if (old('status') == 0) selected @endif>deactivated</option>
+                    <option value="0" @if (old('status') == 0) selected @endif>deactivate</option>
                 </select>
             
                 <input type="submit" value="Reserve">
