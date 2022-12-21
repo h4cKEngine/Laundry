@@ -1,9 +1,7 @@
 <div id="info">
-    <h2>
-        <?php
-            echo "Info Account " . $info_utente["nome"] . " " . $info_utente["cognome"];
-        ?>
-    </h2>
+        @php
+            echo "<h2>Info Account " . Auth::user()->nome . " " . Auth::user()->cognnome . "</h2>";
+        @endphp
     <table>
         <tr>
             <th style="text-align: left;">ID number</th>
@@ -11,11 +9,11 @@
             <th style="text-align: left;">Nationality</th>
         </tr>
         <tr>
-            <?php
-                echo "<td>" . $info_utente['matricola'] . "</td>" . 
-                        "<td>" . $info_utente['email'] . "</td>" . 
-                        "<td>" . $info_utente['nazionalita'] . "</td>";
-            ?>
+            @php
+                echo "<td>" . Auth::user()->matricola . "</td>" . 
+                        "<td>" . Auth::user()->email . "</td>" . 
+                        "<td>" . Auth::user()->nazionalita . "</td>";   
+            @endphp
         </tr>
     </table>
 </div>
