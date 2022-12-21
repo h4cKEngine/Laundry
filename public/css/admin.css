@@ -18,13 +18,13 @@
     user-select: none;
 }
 
-.grid-container {
+.grid-container-R {
     display: grid;
     grid-template-columns: auto auto auto auto auto;
     padding: 10px;
     padding-left: 30px;
     justify-content: start;
-  }
+}
   .grid-item {
     background-color: rgba(255, 255, 255, 0.8);
     border: 1px solid rgba(0, 0, 0, 0.8);
@@ -32,4 +32,33 @@
     font-size: 18px;
     text-align: center;
     max-width: 100rem;
-  }
+}
+
+#Washers_status {
+    display: grid;
+    place-items: center;
+    grid-template-columns: auto auto auto;
+    max-width: 30rem;
+    user-select: none;
+}
+
+#Washers_status input[type="submit"] {
+    max-width: 8rem;
+    margin-right: auto;
+    text-shadow: 0;
+    text-align: center;
+    text-decoration: none;
+    font-family: COMIC SANS MS;
+    font-size: large;
+    padding: 0.95rem;
+    border: none;
+    border-radius: 40px;
+    cursor: pointer;
+    color: #F3EFF5;
+    background: #1ABC9D;
+}
+
+#Washers_status input[type="submit"]:hover {
+    color: #F3EFF5;
+    background: #DEC237;
+}
