@@ -29,7 +29,11 @@
             </form>
             
             <h1> <b>Reservations:</b> </h1>
-            <div id="progr_lav"></div>
+            <<div class="grid-container">
+            <div class="grid-item">Date</div>
+            <div class="grid-item">Time</div>  
+            <div class="grid-item">Washer</div>
+            <div class="grid-item">Washing Program</div>
             
     </body>
 </html>
