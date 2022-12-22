@@ -37,7 +37,7 @@
 #Washers_status {
     display: grid;
     place-items: center;
-    grid-template-columns: auto auto auto;
+    grid-template-columns: auto auto auto auto;
     max-width: 30rem;
     user-select: none;
 }
@@ -61,4 +61,26 @@
 #Washers_status input[type="submit"]:hover {
     color: #F3EFF5;
     background: #DEC237;
+}
+
+#sel_brand {
+    max-width: 10rem;
+    min-width: 13rem;
+    margin: 2rem 1rem 2rem;
+    padding: 0.5rem 0.5rem;
+    width: auto;
+    font-family: COMIC SANS MS;
+    font-size: large;
+    border-radius: 1rem;
+    user-select: none;
+}
+
+#status {
+    margin: 2rem 1rem 2rem;
+    padding: 0.5rem 0.5rem;
+    width: auto;
+    font-family: COMIC SANS MS;
+    font-size: large;
+    border-radius: 1rem;
+    user-select: none;
 }

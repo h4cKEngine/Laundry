@@ -44,10 +44,12 @@
             <h1> <b>Washers Status:</b> </h1>
             <form id="Washers_status">
                 <label for="sel_washer">Washer</label>
+                <label for="sel_brand">Brand</label>
                 <label for="status">Status</label>
                 <label></label>
             
                 <select name="sel_washer" id="sel_washer"></select>
+                <select name="sel_brand" id="sel_brand"></select>
                 <select class="form-control" name="status" id="status">
                     <option value="1" @if (old('status') == 1) selected @endif>active</option>
                     <option value="0" @if (old('status') == 0) selected @endif>deactivate</option>
@@ -56,12 +58,5 @@
                 <input type="submit" value="Reserve">
             </form>
             
-            <h1> <b>Washers:</b> </h1>
-            <h1>
-            <div class="grid-container-W">
-            <div class="grid-item">Washer</div>
-            <div class="grid-item">brand</div>  
-            <div class="grid-item">Status</div>
-            </h1>
     </body>
 </html>
