@@ -32,7 +32,7 @@
         </form>
         
                 <h1> <b>All Reservations:</b> </h1>
-                h1>
+                <h1>
             <div class="grid-container-R">
             <div class="grid-item">User</div>
             <div class="grid-item">Date</div>
@@ -43,6 +43,7 @@
             
             <h1> <b>Washers Status:</b> </h1>
             <form id="Washers_status">
+                @csrf
                 <label for="sel_washer">Washer</label>
                 <label for="sel_brand">Brand</label>
                 <label for="status">Status</label>

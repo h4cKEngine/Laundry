@@ -34,7 +34,7 @@
     max-width: 100rem;
 }
 
-#Washers_status {
+#washers_status {
     display: grid;
     place-items: center;
     grid-template-columns: auto auto auto auto;
@@ -42,7 +42,7 @@
     user-select: none;
 }
 
-#Washers_status input[type="submit"] {
+#washers_status input[type="submit"] {
     max-width: 8rem;
     margin-right: auto;
     text-shadow: 0;
@@ -58,7 +58,7 @@
     background: #1ABC9D;
 }
 
-#Washers_status input[type="submit"]:hover {
+#washers_status input[type="submit"]:hover {
     color: #F3EFF5;
     background: #DEC237;
 }
