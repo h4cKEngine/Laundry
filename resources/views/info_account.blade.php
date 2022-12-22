@@ -1,6 +1,6 @@
 <div id="info">
         @php
-            echo "<h2>Info Account " . Auth::user()->nome . " " . Auth::user()->cognnome . "</h2>";
+            echo "<h2>Info Account " . Auth::user()->nome . " " . Auth::user()->cognome . "</h2>";
         @endphp
     <table>
         <tr>

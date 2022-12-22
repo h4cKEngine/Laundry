@@ -8,6 +8,71 @@ $(document).ready(function(){
     viewReservation();
 });
 
+$('#prenotabtn').click(function(){
+    $.ajax({
+        url: "/laundry/api/prenotazioni.php",
+        type: 'POST',
+        data: {
+            ID_elettrodomenstico: "ciao",
+            dato2: "ciao2",
+        },
+        dataType: "json",
+        success: function(prenota){
+            prenota;
+        },
+        error: function(){
+            console.log("Error");
+        }
+    });
+});
+
+// Seleziona il programma lavaggio
+function selectionWashingProgram(){
+    $('#sel_progr_lav').append('<option value=0>--Pick one--</option>');
+
+    $.ajax({
+        url: "/api/washing_program",
+        type: 'GET',
+        dataType: "json",
+        success: function(response){
+            for(i in response){
+                console.log(response[i]);
+                $('#sel_progr_lav').append('<option value=' + response[i]['id'] + '>' + response[i]['nome'] + ' ' + response[i]['durata'] + response[i]['prezzo'] + '</option>');
+           }
+        },
+        error: function(){
+            console.log("No View");
+        }
+    });
+}
+
+// Visualizza le prenotazioni in generale
+function viewReservation(){
+    $.ajax({
+        url: "/api/",
+        type: 'GET',
+        dataType: "json",
+        success: function(response){
+            try {
+                for(i in response){
+                    var tempo_inizio = new Date(response[i]['tempo_inizio']);
+                    var tempo_fine = new Date(response[i]['tempo_fine']);
+                    
+                    btn = `<a>` + "<h4>Reserved by "+ response[i]['id_user'] + "</h4>"  + response[i]['orario'] + `<br>` + "Washer: " + response[i]['id_washer'] `</a>`;
+                    $("#progr_lav").append(btn);
+                };
+                noWeekend();
+                timeCheck();
+            } catch (e) {
+                console.log("Errore informazione errata", e);
+            }
+        },
+        error: function(){
+            console.log("No View");
+        }
+    });
+}
+
 // Controlla che il tempo rientri nel range prestabilito
 function timeCheck(){
     $('#timepicker').on('input', function(){
@@ -66,52 +131,4 @@ function addDaysToDate(date, days){
 
     day = yyyy + '-' + mm + '-' + dd;
     return day;
-}
-
-// Visualizza le prenotazioni in generale
-function viewReservation(){
-    var user = {
-        $('#user_id').get(),
-    };
-
-    $.ajax({
-        url: "/api/user/{user}/reservation",
-        type: 'GET',
-        dataType: "json",
-
-        success: function(result){
-            try {
-                
-
-                noWeekend();
-                timeCheck();
-            } catch (e) {
-                console.log("Errore informazione errata", e);
-            }
-        },
-
-        error: function(){
-            console.log("Nessuna Prenotazione Disponibile");
-        }
-    });
-}
-
-// Seleziona il programma lavaggio
-function selectionWashingProgram(){
-    $('#sel_progr_lav').append('<option value=0>--Pick one--</option>');
-
-    $.ajax({
-        url: "/api/washing_program",
-        type: 'GET',
-        dataType: "json",
-        success: function(response){
-            for(i in response){
-                console.log(response[i]);
-                $('#sel_progr_lav').append('<option value=' + response[i]['id'] + '>' + response[i]['nome'] + ' ' + response[i]['durata'] + response[i]['prezzo'] + '</option>');
-           }
-        },
-        error: function(){
-            console.log("No View");
-        }
-    });
 }

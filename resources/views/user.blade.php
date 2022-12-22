@@ -31,21 +31,23 @@
             </form>
             
             <h1> <b>Reservations:</b> </h1>
-            <h1>
-            <div class="grid-container-R">
-            <div class="grid-item">Date</div>
-            <div class="grid-item">Time</div>  
-            <div class="grid-item">Washer</div>
-            <div class="grid-item">Washing Program</div>
-            </h1>
+            <div>
+                <div class="grid-container-R">
+                <div class="grid-item">Date</div>
+                <div class="grid-item">Time</div>  
+                <div class="grid-item">Washer</div>
+                <div class="grid-item">Washing Program</div>
+            </div>
 
             <h1> <b>Washers:</b> </h1>
-            <h1>
-            <div class="grid-container-W">
-            <div class="grid-item">Washer</div>
-            <div class="grid-item">brand</div>  
-            <div class="grid-item">Status</div>
-            </h1>
+            <div>
+                <div class="grid-container-W">
+                <div class="grid-item">Washer</div>
+                <div class="grid-item">brand</div>  
+                <div class="grid-item">Status</div>
+            </div>
             
+            @include("info_account")
+            <script src="{{ asset('./js/user.js') }}"></script>
     </body>
 </html>
