@@ -70,12 +70,9 @@ function addDaysToDate(date, days){
 
 // Visualizza le prenotazioni in generale
 function viewReservation(){
-    var user = {
-        $('#user_id').get(),
-    };
-
+    var user = $('#user_id').val();
     $.ajax({
-        url: "/api/user/{user}/reservation",
+        url: `/api/user/${user}/reservation`,
         type: 'GET',
         dataType: "json",
 

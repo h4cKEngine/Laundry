@@ -20,8 +20,12 @@ $(document).ready(function () {
             cache: false,
 
             success: function (result) {
-                document.cookie = "bearer_token=" + result.bearer_token;
-                window.location.replace('/');
+                try {
+                    document.cookie = "bearer_token=" + result.bearer_token;
+                    window.location.replace('/');
+                }catch(e) {
+                    console.log("Errore informazioni errate", e)
+                }
             },
 
             error: function (){
