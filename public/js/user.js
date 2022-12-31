@@ -1,11 +1,20 @@
 $(document).ready(function(){ 
     var today = getToday();
     var day = addDaysToDate(today, 14); //Da un range fino alle 2 settimane successive
-    $('#datepicker').attr( 'min', today);
-    $('#datepicker').attr( 'max', day);
+    $('#datepicker').attr('min', today);
+    $('#datepicker').attr('max', day);
 
-    selectionWashingProgram();
-    viewReservation();
+    $.getScript("/js/cookie.js", function() {
+        console.log("Script cookie.js loaded but not necessarily executed.");
+
+        $btoken = readCookie('bearer_token');
+        //console.log("Bearer: " + $btoken);
+        
+        selectionWashingProgram($btoken);
+        selectionWasherStatus($btoken);
+        selectionWasher($btoken);
+        viewReservation($btoken);
+    });
 });
 
 // Controlla che il tempo rientri nel range prestabilito
@@ -69,19 +78,23 @@ function addDaysToDate(date, days){
 }
 
 // Visualizza le prenotazioni in generale
-function viewReservation(){
+function viewReservation($btoken){
     var user = $('#user_id').val();
     $.ajax({
         url: `/api/user/${user}/reservation`,
         type: 'GET',
+        headers: {
+            "Authorization": 'Bearer ' + $btoken,
+            'Accept' : 'application/json'
+        },
         dataType: "json",
+        data: $btoken,
 
-        success: function(result){
+        success: function(response){
             try {
-                
-
                 noWeekend();
                 timeCheck();
+                console.log("Success");
             } catch (e) {
                 console.log("Errore informazione errata", e);
             }
@@ -94,21 +107,80 @@ function viewReservation(){
 }
 
 // Seleziona il programma lavaggio
-function selectionWashingProgram(){
-    $('#sel_progr_lav').append('<option value=0>--Pick one--</option>');
-
+function selectionWashingProgram($btoken){
     $.ajax({
         url: "/api/washing_program",
         type: 'GET',
+        headers: {
+            "Authorization": 'Bearer ' + $btoken,
+            'Accept' : 'application/json'
+        },
         dataType: "json",
+        data: $btoken,
+
         success: function(response){
-            for(i in response){
-                console.log(response[i]);
-                $('#sel_progr_lav').append('<option value=' + response[i]['id'] + '>' + response[i]['nome'] + ' ' + response[i]['durata'] + response[i]['prezzo'] + '</option>');
+            res = response['programma'];           
+            for(let i in res){
+                $('#washing_program1').append('<option>' + 'ID: ' + res[i].id  + ' Mark: ' + res[i].nome + ' Prezzo: ' + res[i].prezzo + '</option>');
+            }
+        },
+        error: function(){
+            console.log("Error");
+        }
+    });
+}
+
+// Stampa la lista delle washer
+function selectionWasherStatus($btoken){
+    $.ajax({
+        url: "/api/washer",
+        type: 'GET', 
+        headers: {
+            "Authorization": 'Bearer ' + $btoken,
+            'Accept' : 'application/json'
+        },
+        dataType: "json",
+        data: $btoken,
+
+        success: function(response){
+            var res = response["lavasciuga"];
+            for(let i in res){
+                $('#w_name').append('<div>' + 'ID: ' + res[i].id  + ' Brand: ' + res[i].marca + '</div>');
+                if(res[i].stato){
+                    $('#w_status').append('<div> Status: Enabled</div>');
+                }else{
+                    $('#w_status').append('<div> Status: Disabled</div>');
+                }
            }
         },
         error: function(){
-            console.log("No View");
+            console.log("Error");
+        }
+    });
+}
+
+// Seleziona la washer
+function selectionWasher($btoken){
+    $.ajax({
+        url: "/api/washer",
+        type: 'GET', 
+        headers: {
+            "Authorization": 'Bearer ' + $btoken,
+            'Accept' : 'application/json'
+        },
+        dataType: "json",
+        data: $btoken,
+
+        success: function(response){
+            var res = response["lavasciuga"];
+            for(let i in res){
+                if(res[i].stato){
+                    $('#washer1').append('<option>' + 'ID: ' + res[i].id  + ' Brand: ' + res[i].marca + '</option>');
+                }
+           }
+        },
+        error: function(){
+            console.log("Error");
         }
     });
 }

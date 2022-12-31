@@ -67,15 +67,16 @@ class AuthController extends Controller
         // Generazione del Bearer token
         if ($user){
             $token = $user->createToken($user->email)->plainTextToken;
+            // Generazione del Cookie Bearer Token
+            setcookie('bearer_token', $token, time() + (86400 * 30), "/"); // $_COOKIE['bearer_token']
             
             // I Bearer Token sono un tipo particolare di Access Token, che utilizzano JWT:
-    
                 /*Ogni JSON Web Token è suddiviso in tre parti e ogni parte è separata da un punto ( xxxxx.yyyyy.zzzzz ):
                     - Header: contiene informazioni sul tipo di token JWT e sull’algoritmo di hashing utilizzato, ad esempio HMAC SHA256 o RSA.
                     - Payload: contiene tutte le informazioni che si desidera trasferire all’utente, ad esempio l’identificatore utente.
-                    - Signature: protegge il token ed è un hash dell’intestazione e del payload codificati, insieme a una chiave.*/
-                
-            // utilizzati per ottenere l'autorizzazione ad accedere ad una risorsa protetta
+                    - Signature: protegge il token ed è un hash dell’intestazione e del payload codificati, insieme a una chiave.        
+            utilizzati per ottenere l'autorizzazione ad accedere ad una risorsa protetta*/
+            
             return response()->json([
                 'status' => 'ok 200', // Status code 200
                 'message' => 'Login effettuato con successo',
@@ -88,6 +89,7 @@ class AuthController extends Controller
     public function logout(Request $request)
     {   // Rimuove il token
         Auth::user()->tokens()->delete(); // Errore - è normale in quanto VS code non riesce a trovare corrispondenza
+        setcookie("bearer_token", "", time() - 3600);
 
         // Rigenerazione Sessione
         $request->session()->regenerate();

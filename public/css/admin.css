@@ -1,4 +1,4 @@
-#progr_lav_available {
+#reservation_available {
     display: grid;
     place-items: center;
     grid-template-columns: auto auto auto auto auto auto;

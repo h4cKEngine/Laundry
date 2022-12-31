@@ -24,7 +24,7 @@
                 <input type="date" name="datepicker1" class="datepicker" format="DD/MM/YYYY" required/>
                 <input type="time" name="timepicker1" class="timepicker" required>
                 <select name="washer1" class="sel_washer"></select>
-                <select name="washing_program1" class="sel_progr_lav"></select>
+                <select name="washing_program1" class="sel_washing_program"></select>
             
                 <input type="submit" value="Reserve">
             
