@@ -31,7 +31,7 @@
             <span id="error_message_time"></span>
         </form>
         
-            <h1> <b>All Reservations:</b> </h1>
+            <h1> <b>Users Reservations:</b> </h1>
             <h1>
             <div class="grid-container-R">
             <div class="grid-item">User</div>
