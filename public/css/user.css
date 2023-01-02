@@ -41,21 +41,9 @@ h1, h4 {
     user-select: none;
 }
 
-.sel_washer {
-    max-width: 10rem;
-    min-width: 13rem;
-    margin: 2rem 1rem 2rem;
-    padding: 0.5rem 0.5rem;
-    width: auto;
-    font-family: COMIC SANS MS;
-    font-size: large;
-    border-radius: 1rem;
-    user-select: none;
-}
-
-.sel_washing_program {
-    max-width: 10rem;
-    min-width: 16rem;
+.selezione {
+    max-width: 17rem;
+    min-width: 12rem;
     margin: 2rem 1rem 2rem;
     padding: 0.5rem 0.5rem;
     width: auto;
@@ -120,4 +108,73 @@ input[type="submit"]:hover, button:hover {
 
 #info_account {
     display: none;
+}
+
+#info_reservation {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    align-items: center;
+    font-size: large;
+    background-color: #EEE;
+    border: 0.5px solid #000;
+    border-radius: 15px;
+    padding: 0.5rem;
+    min-width: 25rem;
+    max-width: 34rem;
+    min-height: 4rem;
+    max-height: 10rem;
+}
+
+#close_info_reservation {
+    padding-top: 0.1rem;
+    padding-bottom: 0.2rem;
+    float: right;
+}
+
+#edit_reservation_submit, #confirm_delete_submit {
+    padding-top: 0.2rem;
+    padding-bottom: 0.2rem;
+    position: absolute;
+    float: right;
+    right: 1rem;
+    bottom: 1rem;
+}
+
+#delete_field {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    align-items: center;
+    font-size: large;
+    background-color: #EEE;
+    border: 0.5px solid #000;
+    border-radius: 15px;
+    padding: 0.5rem;
+    min-width: 12rem;
+    max-width: 16rem;
+    min-height: 4rem;
+    max-height: 8rem;
+}
+
+#delete_reservation_submit, #cancel {
+    padding-top: 0.2rem;
+    padding-bottom: 0.2rem;
+    position: absolute;
+    float: left;
+    left: 1rem;
+    bottom: 1rem;
+}
+
+#close_info_reservation, #delete_reservation_submit:hover, #confirm_delete_submit:hover {
+    color: #F3EFF5;
+    background: #bb0b0b;
 }

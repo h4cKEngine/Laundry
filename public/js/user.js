@@ -1,21 +1,202 @@
 $(document).ready(function(){ 
     var today = getToday();
-    var day = addDaysToDate(today, 14); //Da un range fino alle 2 settimane successive
+    var day = addDaysToDate(today, 14); // Imposta un range fino alle 2 settimane successive
     $('#datepicker').attr('min', today);
     $('#datepicker').attr('max', day);
-
+    noWeekend();
+    timeCheck();
+    
     $.getScript("/js/cookie.js", function() {
-        console.log("Script cookie.js loaded but not necessarily executed.");
-
+        console.log("Script cookie.js loaded.");
         $btoken = readCookie('bearer_token');
         //console.log("Bearer: " + $btoken);
         
+        // Avaible Reservations
         selectionWashingProgram($btoken);
         selectionWasherStatus($btoken);
         selectionWasher($btoken);
+        
+        // Reservations
         viewReservation($btoken);
     });
 });
+
+// Visualizza reservation
+function viewReservation($btoken){
+    var userid = $("#user_id").text();
+    $.ajax({
+        url: `/api/user/${userid}/reservation`,
+        type: 'GET',
+        headers: {
+            "Authorization": 'Bearer ' + $btoken,
+            'Accept' : 'application/json'
+        },
+        dataType: "json",
+        data: $btoken,
+
+        success: function(response){
+            try {
+                var res = response["data"];
+                for(let i in res){
+                    $('#sel_reservation').append('<option>' + res[i].id + ' ' + res[i].orario + '</option>');
+                }
+            } catch (e) {
+                console.log("Errore informazione errata", e);
+            }
+        },
+
+        error: function(){
+            console.log("Nessuna Prenotazione Disponibile");
+        }
+    });
+}
+
+// Mostra info sulla reservation
+$("#moreinfo_submit").click(function(){  
+    $("#info_reservation").show();
+    try{
+        var userid = $("#user_id").text();
+        var reservation = $("#sel_reservation").val().split(" ");
+        var reservationid = reservation[0];
+    }
+    catch(e){
+        console.log("Error", e);
+    }
+    $.ajax({
+        url: `/api/user/${userid}/reservation/${reservationid}`,
+        type: 'GET',
+        headers: {
+            "Authorization": 'Bearer ' + $btoken,
+            'Accept' : 'application/json'
+        },
+        dataType: "json",
+        data: {
+            $btoken
+        },
+
+        success: function(response){
+            $("#info_single_reservation").append("<th style='text-align: left;'>" + response["data"].id_user + "</th>");
+            $("#info_single_reservation").append("<th style='text-align: left;'>" + response["data"].id + "</th>");
+            $("#info_single_reservation").append("<th style='text-align: left;'>" + response["data"].id_washer + "</th>");
+            $("#info_single_reservation").append("<th style='text-align: left;'>" + response["data"].orario + "</th>");
+        },
+        error: function(e){
+            console.log("Error Info Reservation", e);
+        }
+    });
+});
+
+// Chiude tabella info reservation
+$("#close_info_reservation").click(function(){
+    $("#info_reservation").hide();
+});
+
+// Modifica reservation
+$("#edit_reservation_submit").submit(function(){
+    try{
+        var userid = $("#user_id").text();
+        var reservation = $("#sel_reservation").val().split(" ");
+        var reservationid = reservation[0];
+    }
+    catch(e){
+        console.log("Error", e);
+    }
+    $.ajax({
+        url: `/api/user/${userid}/reservation/${reservationid}`,
+        type: 'PATCH',
+        headers: {
+            "Authorization": 'Bearer ' + $btoken,
+            'Accept' : 'application/json'
+        },
+        dataType: "json",
+
+        success: function(response){
+            try {
+                var res = response["data"];
+                console.log(res);
+
+                for(let i in res){
+                    $('#sel_reservation').append('<option>' + 'ID:' + res[i].id + ' ' + res[i].orario + '</option>');
+                }
+            } catch (e) {
+                console.log("Errore informazione errata", e);
+            }
+        },
+
+        error: function(){
+            console.log("Nessuna Prenotazione Disponibile");
+        }
+    });
+});
+
+// Popup di conferma
+// Mostra
+$("#delete_reservation_submit").click(function(){
+    $("#delete_field").show();
+});
+
+// Chiudi
+$("#cancel").click(function(){
+    $("#delete_field").hide();
+});
+
+// Elimina reservation
+$("#confirm_delete_submit").click(function(){
+    var userid = $("#user_id").text();
+    $.ajax({
+        url: `/api/user/${userid}/reservation/${reservationid}`,
+        type: 'DELETE',
+        headers: {
+            "Authorization": 'Bearer ' + $btoken,
+            'Accept' : 'application/json'
+        },
+        dataType: "json",
+        data: $btoken,
+        
+        success: function(response){
+            console.log("Reservation deleted.");
+        },
+        error: function(e){
+            console.log("Error Deleting", e);
+        }
+    });
+});
+
+// Creazione reservation
+$("#reserse_submit").submit(function(e){
+    e.preventDefault();
+    var form = new FormData(); // Oggetto FormData
+    var userid = $("#user_id").text();
+    var washerid = $("#washer1").val().split(" ");
+    var washingprogramid = $("#washing_program1").val().split(" ");
+    form.append('orario', $("#datepicker").val() + " " + $("#timepicker").val() + ":00");
+    form.append('id_user', userid);
+    form.append('id_washer', washerid[0]);
+    form.append('id_washing_program', washingprogramid[0]);
+    form.append('_token', $("meta[name='csrf-token']").attr("content"));
+    
+    $.ajax({
+        url: `/api/user/${userid}/reservation/`,
+        type: 'POST',
+        headers: {
+            "Authorization": 'Bearer ' + $btoken,
+            'Accept' : 'application/json'
+        },
+        dataType: "json",
+        data: {
+            form,
+            $btoken
+        },
+
+        success: function(response){
+            console.log(response);
+        },
+        error: function(e){
+            console.log("Error Creation ", e);
+        }
+    });
+});
+
 
 // Controlla che il tempo rientri nel range prestabilito
 function timeCheck(){
@@ -77,35 +258,6 @@ function addDaysToDate(date, days){
     return day;
 }
 
-// Visualizza le prenotazioni in generale
-function viewReservation($btoken){
-    var user = $('#user_id').val();
-    $.ajax({
-        url: `/api/user/${user}/reservation`,
-        type: 'GET',
-        headers: {
-            "Authorization": 'Bearer ' + $btoken,
-            'Accept' : 'application/json'
-        },
-        dataType: "json",
-        data: $btoken,
-
-        success: function(response){
-            try {
-                noWeekend();
-                timeCheck();
-                console.log("Success");
-            } catch (e) {
-                console.log("Errore informazione errata", e);
-            }
-        },
-
-        error: function(){
-            console.log("Nessuna Prenotazione Disponibile");
-        }
-    });
-}
-
 // Seleziona il programma lavaggio
 function selectionWashingProgram($btoken){
     $.ajax({
@@ -121,37 +273,8 @@ function selectionWashingProgram($btoken){
         success: function(response){
             res = response['programma'];           
             for(let i in res){
-                $('#washing_program1').append('<option>' + 'ID: ' + res[i].id  + ' Mark: ' + res[i].nome + ' Prezzo: ' + res[i].prezzo + '</option>');
+                $('#washing_program1').append('<option>' + res[i].id  + ' ' + res[i].nome + ' ' + res[i].prezzo + '€' + '</option>');
             }
-        },
-        error: function(){
-            console.log("Error");
-        }
-    });
-}
-
-// Stampa la lista delle washer
-function selectionWasherStatus($btoken){
-    $.ajax({
-        url: "/api/washer",
-        type: 'GET', 
-        headers: {
-            "Authorization": 'Bearer ' + $btoken,
-            'Accept' : 'application/json'
-        },
-        dataType: "json",
-        data: $btoken,
-
-        success: function(response){
-            var res = response["lavasciuga"];
-            for(let i in res){
-                $('#w_name').append('<div>' + 'ID: ' + res[i].id  + ' Brand: ' + res[i].marca + '</div>');
-                if(res[i].stato){
-                    $('#w_status').append('<div> Status: Enabled</div>');
-                }else{
-                    $('#w_status').append('<div> Status: Disabled</div>');
-                }
-           }
         },
         error: function(){
             console.log("Error");
@@ -175,7 +298,36 @@ function selectionWasher($btoken){
             var res = response["lavasciuga"];
             for(let i in res){
                 if(res[i].stato){
-                    $('#washer1').append('<option>' + 'ID: ' + res[i].id  + ' Brand: ' + res[i].marca + '</option>');
+                    $('#washer1').append('<option>' + res[i].id  + ' ' + res[i].marca + ' </option>');
+                }
+           }
+        },
+        error: function(){
+            console.log("Error");
+        }
+    });
+}
+
+// Stampa la lista delle washer
+function selectionWasherStatus($btoken){
+    $.ajax({
+        url: "/api/washer",
+        type: 'GET', 
+        headers: {
+            "Authorization": 'Bearer ' + $btoken,
+            'Accept' : 'application/json'
+        },
+        dataType: "json",
+        data: $btoken,
+
+        success: function(response){
+            var res = response["lavasciuga"];
+            for(let i in res){
+                $('#washer_name').append('<div>' + "ID: " + res[i].id  + ' Brand: ' + res[i].marca + '</div>');
+                if(res[i].stato){
+                    $('#washer_status').append('<div>Status: Enabled</div>');
+                }else{
+                    $('#washer_status').append('<div>Status: Disabled</div>');
                 }
            }
         },

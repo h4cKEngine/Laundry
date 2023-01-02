@@ -8,6 +8,7 @@
 
     <body class="antialiased">
             @include("navbar")
+            @include("info_reservation")
             <!-- Prenotazioni Disponibili -->
             <h1> <b>Available Reservations:</b> </h1>
             <form id="reservation_available">
@@ -18,10 +19,10 @@
                 <label for="washing_program1">Washing Program</label>
                 <label></label>
             
-                <input type="date" name="datepicker1" class="datepicker" format="DD/MM/YYYY" required/>
+                <input type="date" name="datepicker1" id="datepicker" class="datepicker" format="DD/MM/YYYY" required/>
                 <input type="time" name="timepicker1" id="timepicker" class="timepicker" required>
-                <select name="washer1" class="sel_washer" id="washer1"></select>
-                <select name="washing_program1" class="sel_washing_program" id="washing_program1"></select>
+                <select name="washer1" class="selezione" id="washer1"></select>
+                <select name="washing_program1" class="selezione" id="washing_program1"></select>
             
                 <input type="submit" id="reserve_submit" value="Reserve">
             
@@ -30,28 +31,18 @@
             </form>
             
             <h1> <b>Reservations:</b> </h1>
-            <form id="reservation">
+            <div id="reservation">
                 @csrf
-                <label for="datepicker2">Date</label>
-                <label for="timepicker2">Time</label>
-                <label for="washer2">Washer</label>
-                <label for="washing_program2">Washing Program</label>
-                <label for=""></label>
-                <label for=""></label>
+               <select name="sel_reservation" id="sel_reservation" class="selezione"></select>
             
-                <select name="datepicker2" class="datepicker" format="DD/MM/YYYY" required></select>
-                <select name="timepicker2" class="timepicker" required></select>
-                <select name="washer2" class="sel_washer" id="washer2"></select>
-                <select name="washing_program2" class="sel_washing_program" id="washing_program2"></select>
-            
-                <input type="submit" id="edit_submit" value="Edit">
-            </form>
+               <button id="moreinfo_submit">More Info</button>
+            </div>
 
             <h1> <b>Washers Status:</b> </h1>
             <div id="washers_status">
                 @csrf
-                <div name="w_name" id="w_name"></div>
-                <div name="w_status" id="w_status"></div>
+                <div id="washer_name"></div>
+                <div id="washer_status"></div>
             </div>
             
             @include("info_account")

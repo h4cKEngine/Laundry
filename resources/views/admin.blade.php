@@ -23,8 +23,8 @@
                 <select name="user" class="sel_user"></select>
                 <input type="date" name="datepicker1" class="datepicker" format="DD/MM/YYYY" required/>
                 <input type="time" name="timepicker1" class="timepicker" required>
-                <select name="washer1" class="sel_washer"></select>
-                <select name="washing_program1" class="sel_washing_program"></select>
+                <select name="washer1" class="selezione"></select>
+                <select name="washing_program1" class="selezione"></select>
             
                 <input type="submit" value="Reserve">
             
@@ -44,8 +44,8 @@
 
                 <select name="datepicker2" class="datepicker" format="DD/MM/YYYY" required></select>
                 <select name="timepicker2" class="timepicker" required></select>
-                <select name="washer2" class="sel_washer" required></select>
-                <select name="washing_program2" class="sel_progr_lav" required></select>
+                <select name="washer2" class="selezione" required></select>
+                <select name="washing_program2" class="selezione" required></select>
             
                 <input id="submit_edit_reservation" type="submit" value="Edit">
                 <button id="delete_reservation">Delete</button>
