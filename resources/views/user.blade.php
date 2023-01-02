@@ -7,6 +7,7 @@
     </head>
 
     <body class="antialiased">
+        <div id="backscreen"></div>
             @include("navbar")
             @include("info_reservation")
             <!-- Prenotazioni Disponibili -->
@@ -30,14 +31,18 @@
                 <span id="error_message_time"></span>
             </form>
             
+            <!-- Prenotazioni dell'utente -->
             <h1> <b>Reservations:</b> </h1>
             <div id="reservation">
                 @csrf
-               <select name="sel_reservation" id="sel_reservation" class="selezione"></select>
+               <select name="sel_reservation" id="sel_reservation" class="selezione">
+                    <option id="noreservation" style="display: none">-- No Reservations Found --</option>
+               </select>
             
                <button id="moreinfo_submit">More Info</button>
             </div>
 
+            <!-- Stato delle Lavasciuga -->
             <h1> <b>Washers Status:</b> </h1>
             <div id="washers_status">
                 @csrf

@@ -113,6 +113,7 @@ input[type="submit"]:hover, button:hover {
 #info_reservation {
     display: none;
     position: absolute;
+    z-index: 3;
     top: 0;
     left: 0;
     bottom: 0;
@@ -148,6 +149,7 @@ input[type="submit"]:hover, button:hover {
 #delete_field {
     display: none;
     position: absolute;
+    z-index: 4;
     top: 0;
     left: 0;
     bottom: 0;

@@ -3,8 +3,8 @@
         <caption>Info Reservation</caption>
         <button id="close_info_reservation">x</button>
         <tr>
-            <th style="text-align: left;">IdUser</th>
             <th style="text-align: left;">IdReservation</th>
+            <th style="text-align: left;">IdUser</th>
             <th style="text-align: left;">IdWasher</th>
             <th style="text-align: left;">Datetime</th>
         </tr>
@@ -17,5 +17,5 @@
 <div id="delete_field">
     <h4>Are you sure to delete this reservation?</h4>
     <button id="cancel">Cancel</button>
-    <button id="confirm_delete_submit">Confirm</button>
+    <button id="confirm_delete_submit">Delete</button>
 </div>

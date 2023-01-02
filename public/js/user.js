@@ -37,8 +37,13 @@ function viewReservation($btoken){
         success: function(response){
             try {
                 var res = response["data"];
-                for(let i in res){
-                    $('#sel_reservation').append('<option>' + res[i].id + ' ' + res[i].orario + '</option>');
+                if(Object.keys(res).length){
+                    $("#noreservation").hide();
+                    for(let i in res){                    
+                        $('#sel_reservation').append('<option>' + res[i].id + ' ' + res[i].orario + '</option>');
+                    }
+                }else{
+                    $("#noreservation").show();
                 }
             } catch (e) {
                 console.log("Errore informazione errata", e);
@@ -54,6 +59,7 @@ function viewReservation($btoken){
 // Mostra info sulla reservation
 $("#moreinfo_submit").click(function(){  
     $("#info_reservation").show();
+    $("#backscreen").show();
     try{
         var userid = $("#user_id").text();
         var reservation = $("#sel_reservation").val().split(" ");
@@ -75,10 +81,10 @@ $("#moreinfo_submit").click(function(){
         },
 
         success: function(response){
-            $("#info_single_reservation").append("<th style='text-align: left;'>" + response["data"].id_user + "</th>");
-            $("#info_single_reservation").append("<th style='text-align: left;'>" + response["data"].id + "</th>");
-            $("#info_single_reservation").append("<th style='text-align: left;'>" + response["data"].id_washer + "</th>");
-            $("#info_single_reservation").append("<th style='text-align: left;'>" + response["data"].orario + "</th>");
+            $("#info_single_reservation").append("<td style='text-align: left; 'id='reservationid'>" + response["data"].id + "</td>");
+            $("#info_single_reservation").append("<td style='text-align: left;' id='userid'>" + response["data"].id_user + "</td>");
+            $("#info_single_reservation").append("<td style='text-align: left;' id='washerid'>" + response["data"].id_washer + "</td>");
+            $("#info_single_reservation").append("<td style='text-align: left;' id='datetime'>" + response["data"].orario + "</td>");
         },
         error: function(e){
             console.log("Error Info Reservation", e);
@@ -89,6 +95,51 @@ $("#moreinfo_submit").click(function(){
 // Chiude tabella info reservation
 $("#close_info_reservation").click(function(){
     $("#info_reservation").hide();
+    $("#backscreen").hide();
+});
+
+// Popup di conferma
+// Mostra
+$("#delete_reservation_submit").click(function(){
+    $("#delete_field").show();
+    $("#backscreen").css("z-index", 4);
+});
+
+// Chiudi
+$("#cancel").click(function(){
+    $("#delete_field").hide();
+    $("#backscreen").css("z-index", 2);
+});
+
+// Elimina reservation
+$("#confirm_delete_submit").click(function(){
+    try{
+        var userid = $("#user_id").text();
+        var reservationid = $("#reservationid").text();
+    }
+    catch(e){
+        console.log("Error Deleting Reservation", e);
+    }
+
+    $("#delete_field").hide();
+    $("#info_reservation").hide();
+    $("#backscreen").css("z-index", 2);
+    $("#backscreen").hide();
+    $.ajax({
+        url: `/api/user/${userid}/reservation/${reservationid}`,
+        type: 'DELETE',
+        headers: {
+            "Authorization": 'Bearer ' + $btoken,
+            'Accept' : 'application/json'
+        },
+        
+        success: function(response){
+            console.log("Reservation deleted.");
+        },
+        error: function(e){
+            console.log(`/api/user/${userid}/reservation/${reservationid}`, "Error Deleting", e);
+        }
+    });
 });
 
 // Modifica reservation
@@ -129,39 +180,6 @@ $("#edit_reservation_submit").submit(function(){
     });
 });
 
-// Popup di conferma
-// Mostra
-$("#delete_reservation_submit").click(function(){
-    $("#delete_field").show();
-});
-
-// Chiudi
-$("#cancel").click(function(){
-    $("#delete_field").hide();
-});
-
-// Elimina reservation
-$("#confirm_delete_submit").click(function(){
-    var userid = $("#user_id").text();
-    $.ajax({
-        url: `/api/user/${userid}/reservation/${reservationid}`,
-        type: 'DELETE',
-        headers: {
-            "Authorization": 'Bearer ' + $btoken,
-            'Accept' : 'application/json'
-        },
-        dataType: "json",
-        data: $btoken,
-        
-        success: function(response){
-            console.log("Reservation deleted.");
-        },
-        error: function(e){
-            console.log("Error Deleting", e);
-        }
-    });
-});
-
 // Creazione reservation
 $("#reserse_submit").submit(function(e){
     e.preventDefault();
@@ -183,10 +201,7 @@ $("#reserse_submit").submit(function(e){
             'Accept' : 'application/json'
         },
         dataType: "json",
-        data: {
-            form,
-            $btoken
-        },
+        data: form,
 
         success: function(response){
             console.log(response);
