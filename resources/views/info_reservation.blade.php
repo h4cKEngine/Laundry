@@ -1,17 +1,19 @@
 <div id="info_reservation">
-    <table id="table_info_reservation">
-        <caption style="text-align: center;">Info Reservation</caption>
+    <div>
         <button id="close_info_reservation">x</button>
-        <tr>
-            <th style="text-align: center;">Datetime</th>
-            <th style="text-align: center;">IdWasher</th>
-            <th style="text-align: center;">IdWashingProgram</th>
-        </tr>
-        <tr id="info_single_reservation"></tr>
+        <h2 style="text-align: center;">Info Reservation</h2>
+        <form id= "form_edit">
+            <label>Datetime</label>
+            <label>IdWasher</label>
+            <label>IdWashingProgram</label>
+            <div id="info_single_reservation"></div>
+            <select id=sel_washer2> </select>
+            <select id=sel_washing_program2> </select>
 
         <span class="error_message_date" id="error_message_date2"></span>
         <span class="error_message_time" id="error_message_time2"></span>
-    </table>
+        </form>
+    </div>
     <button id="delete_reservation_submit">Delete</button>
     <button id="edit_reservation_submit">Edit</button>
 </div>

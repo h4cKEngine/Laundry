@@ -46,9 +46,10 @@ $(document).ready(function(){
                 },
 
                 success: function(response){
-                    $("#info_single_reservation").append("<td style='text-align: left;' id='datetime'>" + response["data"].orario + "</td>");
-                    $("#info_single_reservation").append("<td style='text-align: center;' id='washerid'>" + response["data"].id_washer + "</td>");
-                    $("#info_single_reservation").append("<td style='text-align: center;' id='washingprogramid'>" + response["data"].id_washing_program + "</td>");
+                    $("#info_single_reservation").append('<input type="date" name="datepicker2" id="datepicker2" class="datepicker" format="DD/MM/YYYY" required/>' + response["data"].orario);
+                    $("#info_single_reservation").append('<input type="time" name="timepicker2" id="timepicker2" class="timepicker" required/>' + response["data"].orario);
+                    $("#sel_washer2").append('<option > '+ response["data"].id_washer +' </option>' );
+                    $("#sel_washing_program2").append('<option > '+ response["data"].id_washing_program +' </option>' );
                 },
                 error: function(e){
                     console.log("Error Info Reservation", e);

@@ -118,6 +118,10 @@ input[type="submit"]:hover, button:hover {
     left: 0;
     bottom: 0;
     right: 0;
+    min-width: 25rem;
+    max-width: 40rem;
+    min-height: 20rem;
+    max-height: 40rem;
     margin: auto;
     align-items: center;
     font-size: large;
@@ -125,19 +129,45 @@ input[type="submit"]:hover, button:hover {
     border: 0.5px solid #000;
     border-radius: 15px;
     padding: 0.5rem;
-    min-width: 15rem;
-    max-width: 30rem;
-    min-height: 10rem;
-    max-height: 15rem;
 }
 
-#table_info_reservation{
-    width: 100%;
+#form_edit {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    place-items: center;
+    margin: 0 auto;
+    user-select: none;
 }
+
+#sel_washer2 {
+    min-width: 3rem;
+    max-width: 10rem;
+    margin: 2rem 1rem 2rem;
+    padding: 0.5rem 0.5rem;
+    width: auto;
+    font-family: COMIC SANS MS;
+    font-size: large;
+    border-radius: 1rem;
+    user-select: none;
+}
+
+#sel_washing_program2 {
+    min-width: 3rem;
+    max-width: 10rem;
+    margin: 2rem 1rem 2rem;
+    padding: 0.5rem 0.5rem;
+    width: auto;
+    font-family: COMIC SANS MS;
+    font-size: large;
+    border-radius: 1rem;
+    user-select: none;
+}
+
 
 #close_info_reservation {
     padding-top: 0.1rem;
     padding-bottom: 0.2rem;
+    top: 0;
     float: right;
 }
 
