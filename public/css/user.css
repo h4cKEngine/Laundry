@@ -1,41 +1,25 @@
 h1, h4 {
     user-select: none;
+    margin: 0 auto;
 }
 
-#progr_lav {
-    display: flex;
-    justify-content: left;
-    width: 100%;
-    margin: 8px;
-}
-
-#progr_lav a {
-    outline: none;
-    padding: 0.75rem 1.25rem;
-    margin: 1.2rem 0.75rem;
-    text-shadow: 0;
-    text-align: center;
-    text-decoration: none;
-    border: none;
-    border-radius: 40px;
-    color: #F3EFF5;
-    background: #1ABC9D;
-    font-family: Comic Sans MS;
-    font-size: 24px;
-    font-weight: bold;
-    transition: all 0.25s ease;
+#reservation_available {
+    display: grid;
+    grid-template-columns: auto auto auto auto auto;
+    place-items: center;
+    margin: 0 auto;
     user-select: none;
 }
 
-#progr_lav_available {
+#reservation {
     display: grid;
     place-items: center;
-    grid-template-columns: auto auto auto auto auto;
-    max-width: 14rem;
+    grid-template-columns: auto auto auto auto auto auto;
+    margin: 0 auto;
     user-select: none;
 }
 
-#datepicker {
+.datepicker {
     margin: 2rem 2rem;
     padding: 0.5rem 0.2rem;
     font-family: COMIC SANS MS;
@@ -46,7 +30,7 @@ h1, h4 {
     user-select: none;
 }
 
-#timepicker {
+.timepicker {
     margin: 2rem 1rem 2rem;
     padding: 0.5rem 0.5rem;
     min-width: 6rem;
@@ -57,9 +41,9 @@ h1, h4 {
     user-select: none;
 }
 
-#sel_washer {
-    max-width: 10rem;
-    min-width: 13rem;
+.selezione {
+    max-width: 17rem;
+    min-width: 12rem;
     margin: 2rem 1rem 2rem;
     padding: 0.5rem 0.5rem;
     width: auto;
@@ -69,20 +53,9 @@ h1, h4 {
     user-select: none;
 }
 
-#sel_progr_lav {
-    max-width: 10rem;
-    min-width: 13rem;
-    margin: 2rem 1rem 2rem;
-    padding: 0.5rem 0.5rem;
-    width: auto;
-    font-family: COMIC SANS MS;
-    font-size: large;
-    border-radius: 1rem;
-    user-select: none;
-}
-
-#progr_lav_available input[type="submit"] {
+input[type="submit"], button {
     max-width: 8rem;
+    margin-left: 0.75rem;
     margin-right: auto;
     text-shadow: 0;
     text-align: center;
@@ -97,51 +70,117 @@ h1, h4 {
     background: #1ABC9D;
 }
 
-#progr_lav_available input[type="submit"]:hover {
+input[type="submit"]:hover, button:hover {
     color: #F3EFF5;
     background: #DEC237;
 }
 
-#error_message_date {
+.error_message_date {
+    grid-column: 1;
+    text-align: center;
+    padding: 0.5rem 0.5rem;
+}
+
+.error_message_time {
     grid-column: 2;
     text-align: center;
     padding: 0.5rem 0.5rem;
 }
 
-#error_message_time {
-    grid-column: 3;
-    text-align: center;
-    padding: 0.5rem 0.5rem;
-}
-
-.grid-container-R{
+#washers_status {
     display: grid;
-    grid-template-columns: auto auto auto auto;
-    padding: 10px;
-    padding-left: 30px;
-    justify-content: start;
-  }
-  .grid-item {
-    background-color: rgba(255, 255, 255, 0.8);
-    border: 1px solid rgba(0, 0, 0, 0.8);
-    padding: 20px;
-    font-size: 18px;
-    text-align: center;
-    max-width: 100rem;
-  }
-
-  .grid-container-W{
-    display: grid;
+    place-items: center;
     grid-template-columns: auto auto auto;
-    padding: 10px;
-    padding-left: 30px;
-    justify-content: start;
+    margin: 0 auto;
+    user-select: none;
 }
-  .grid-item {
-    background-color: rgba(255, 255, 255, 0.8);
-    border: 1px solid rgba(0, 0, 0, 0.8);
-    padding: 20px;
-    font-size: 18px;
-    text-align: center;
-    max-width: 100rem;
+
+#washers_status div {
+    max-width: 10rem;
+    min-width: 15rem;
+    padding: 0.5rem 0.5rem;
+    width: auto;
+    font-family: COMIC SANS MS;
+    font-size: large;
+    border-radius: 1rem;
+    user-select: none;
+}
+
+#info_account {
+    display: none;
+}
+
+#info_reservation {
+    display: none;
+    position: absolute;
+    z-index: 3;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    align-items: center;
+    font-size: large;
+    background-color: #EEE;
+    border: 0.5px solid #000;
+    border-radius: 15px;
+    padding: 0.5rem;
+    min-width: 15rem;
+    max-width: 30rem;
+    min-height: 10rem;
+    max-height: 15rem;
+}
+
+#table_info_reservation{
+    width: 100%;
+}
+
+#close_info_reservation {
+    padding-top: 0.1rem;
+    padding-bottom: 0.2rem;
+    float: right;
+}
+
+#edit_reservation_submit, #confirm_delete_submit {
+    padding-top: 0.2rem;
+    padding-bottom: 0.2rem;
+    position: absolute;
+    float: right;
+    right: 1rem;
+    bottom: 1rem;
+}
+
+#delete_field {
+    display: none;
+    position: absolute;
+    z-index: 4;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    align-items: center;
+    font-size: large;
+    background-color: #EEE;
+    border: 0.5px solid #000;
+    border-radius: 15px;
+    padding: 0.5rem;
+    min-width: 12rem;
+    max-width: 16rem;
+    min-height: 4rem;
+    max-height: 8rem;
+}
+
+#delete_reservation_submit, #cancel {
+    padding-top: 0.2rem;
+    padding-bottom: 0.2rem;
+    position: absolute;
+    float: left;
+    left: 1rem;
+    bottom: 1rem;
+}
+
+#close_info_reservation, #delete_reservation_submit:hover, #confirm_delete_submit:hover {
+    color: #F3EFF5;
+    background: #bb0b0b;
 }

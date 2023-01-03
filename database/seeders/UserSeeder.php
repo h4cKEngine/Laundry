@@ -38,8 +38,8 @@ class UserSeeder extends Seeder
             'email' => 'ignazio@gmail.com',
         ], [
                 'password' => Hash::make('Ciao1234'),
-                'nome' => fake()->firstName,
-                'cognome' => fake()->lastName,
+                'nome' => "Ignazio",
+                'cognome' => "IlSurname",
                 'ruolo' => 1,
                 'matricola' => fake()->numberBetween(100000, 599999),
                 'nazionalita' => 'italian',

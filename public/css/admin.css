@@ -1,12 +1,13 @@
-#progr_lav_available {
+#reservation_available {
     display: grid;
     place-items: center;
     grid-template-columns: auto auto auto auto auto auto;
     max-width: 14rem;
     user-select: none;
+    margin-left: 2rem;
 }
 
-#sel_user {
+.sel_user {
     max-width: 10rem;
     min-width: 13rem;
     margin: 2rem 1rem 2rem;
@@ -18,64 +19,18 @@
     user-select: none;
 }
 
-.grid-container-R {
-    display: grid;
-    grid-template-columns: auto auto auto auto auto;
-    padding: 10px;
-    padding-left: 30px;
-    justify-content: start;
-}
-  .grid-item {
-    background-color: rgba(255, 255, 255, 0.8);
-    border: 1px solid rgba(0, 0, 0, 0.8);
-    padding: 20px;
-    font-size: 18px;
-    text-align: center;
-    max-width: 100rem;
-}
-
-#Washers_status {
+#washers_status {
     display: grid;
     place-items: center;
-    grid-template-columns: auto auto auto auto;
-    max-width: 30rem;
+    grid-template-columns: auto auto auto;
+    max-width: 14rem;
+    margin-left: 2rem;
     user-select: none;
 }
 
-#Washers_status input[type="submit"] {
-    max-width: 8rem;
-    margin-right: auto;
-    text-shadow: 0;
-    text-align: center;
-    text-decoration: none;
-    font-family: COMIC SANS MS;
-    font-size: large;
-    padding: 0.95rem;
-    border: none;
-    border-radius: 40px;
-    cursor: pointer;
-    color: #F3EFF5;
-    background: #1ABC9D;
-}
-
-#Washers_status input[type="submit"]:hover {
-    color: #F3EFF5;
-    background: #DEC237;
-}
-
-#sel_brand {
+.washer_status {
     max-width: 10rem;
     min-width: 13rem;
-    margin: 2rem 1rem 2rem;
-    padding: 0.5rem 0.5rem;
-    width: auto;
-    font-family: COMIC SANS MS;
-    font-size: large;
-    border-radius: 1rem;
-    user-select: none;
-}
-
-#status {
     margin: 2rem 1rem 2rem;
     padding: 0.5rem 0.5rem;
     width: auto;

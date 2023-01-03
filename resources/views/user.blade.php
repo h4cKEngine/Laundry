@@ -7,43 +7,50 @@
     </head>
 
     <body class="antialiased">
+        <div id="backscreen"></div>
             @include("navbar")
+            @include("info_reservation")
             <!-- Prenotazioni Disponibili -->
             <h1> <b>Available Reservations:</b> </h1>
-            <form id="progr_lav_available">
-                <label for="datepicker">Date</label>
-                <label for="timepicker">Time*</label>
-                <label for="sel_washer">Washer</label>
-                <label for="sel_progr_lav">Washing Program</label>
+            <form id="reservation_available">
+                @csrf
+                <label for="datepicker1">Date</label>
+                <label for="timepicker1">Time*</label>
+                <label for="washer1">Washer</label>
+                <label for="washing_program1">Washing Program</label>
                 <label></label>
             
-                <input type="date" id="datepicker" format="DD/MM/YYYY" required/>
-                <input type="time" id="timepicker" required>
-                <select name="sel_washer" id="sel_washer"></select>
-                <select name="sel_progr_lav" id="sel_progr_lav"></select>
+                <input type="date" name="datepicker1" id="datepicker" class="datepicker" format="DD/MM/YYYY" required/>
+                <input type="time" name="timepicker1" id="timepicker" class="timepicker" required>
+                <select name="washer1" class="selezione" id="washer1"></select>
+                <select name="washing_program1" class="selezione" id="washing_program1"></select>
             
-                <input type="submit" value="Reserve">
+                <button type="button" id="reserve_submit">Reserve</button>
             
-                <span id="error_message_date"></span>
-                <span id="error_message_time"></span>
+                <span class="error_message_date" id="error_message_date1"></span>
+                <span class="error_message_time" id="error_message_time1"></span>
             </form>
             
+            <!-- Prenotazioni dell'utente -->
             <h1> <b>Reservations:</b> </h1>
-            <h1>
-            <div class="grid-container-R">
-            <div class="grid-item">Date</div>
-            <div class="grid-item">Time</div>  
-            <div class="grid-item">Washer</div>
-            <div class="grid-item">Washing Program</div>
-            </h1>
-
-            <h1> <b>Washers:</b> </h1>
-            <h1>
-            <div class="grid-container-W">
-            <div class="grid-item">Washer</div>
-            <div class="grid-item">brand</div>  
-            <div class="grid-item">Status</div>
-            </h1>
+            <div id="reservation">
+                @csrf
+               <select name="sel_reservation" id="sel_reservation" class="selezione">
+                    <option id="noreservation" style="display: none">-- Select a Reservation --</option>
+               </select>
             
+               <button id="moreinfo_submit">More Info</button>
+            </div>
+
+            <!-- Stato delle Lavasciuga -->
+            <h1> <b>Washers Status:</b> </h1>
+            <div id="washers_status">
+                @csrf
+                <div id="washer_name"></div>
+                <div id="washer_status"></div>
+            </div>
+            
+            @include("info_account")
+            <script src="{{ asset('./js/user.js') }}"></script>
     </body>
 </html>
