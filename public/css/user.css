@@ -75,14 +75,14 @@ input[type="submit"]:hover, button:hover {
     background: #DEC237;
 }
 
-#error_message_date {
-    grid-column: 2;
+.error_message_date {
+    grid-column: 1;
     text-align: center;
     padding: 0.5rem 0.5rem;
 }
 
-#error_message_time {
-    grid-column: 3;
+.error_message_time {
+    grid-column: 2;
     text-align: center;
     padding: 0.5rem 0.5rem;
 }

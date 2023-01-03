@@ -9,9 +9,12 @@
             <th style="text-align: left;">Datetime</th>
         </tr>
         <tr id="info_single_reservation"></tr>
+
+        <span class="error_message_date" id="error_message_date2"></span>
+        <span class="error_message_time" id="error_message_time2"></span>
     </table>
     <button id="delete_reservation_submit">Delete</button>
-    <button id="edit_reservation_submit">Edit</button>  
+    <button id="edit_reservation_submit">Edit</button>
 </div>
 
 <div id="delete_field">

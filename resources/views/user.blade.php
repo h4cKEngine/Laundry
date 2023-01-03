@@ -25,10 +25,10 @@
                 <select name="washer1" class="selezione" id="washer1"></select>
                 <select name="washing_program1" class="selezione" id="washing_program1"></select>
             
-                <input type="submit" id="reserve_submit" value="Reserve">
+                <button type="button" id="reserve_submit">Reserve</button>
             
-                <span id="error_message_date"></span>
-                <span id="error_message_time"></span>
+                <span class="error_message_date" id="error_message_date1"></span>
+                <span class="error_message_time" id="error_message_time1"></span>
             </form>
             
             <!-- Prenotazioni dell'utente -->
@@ -36,7 +36,7 @@
             <div id="reservation">
                 @csrf
                <select name="sel_reservation" id="sel_reservation" class="selezione">
-                    <option id="noreservation" style="display: none">-- No Reservations Found --</option>
+                    <option id="noreservation" style="display: none">-- Select a Reservation --</option>
                </select>
             
                <button id="moreinfo_submit">More Info</button>
