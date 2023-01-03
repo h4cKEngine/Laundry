@@ -85,7 +85,6 @@ $(document).ready(function(){
             catch(e){
                 console.log("Error Deleting Reservation", e);
             }
-
             $("#delete_field").hide();
             $("#info_reservation").hide();
             $("#backscreen").css("z-index", 2);
