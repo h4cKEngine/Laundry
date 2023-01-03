@@ -46,10 +46,9 @@ $(document).ready(function(){
                 },
 
                 success: function(response){
-                    $("#info_single_reservation").append("<td style='text-align: left; 'id='reservationid'>" + response["data"].id + "</td>");
-                    $("#info_single_reservation").append("<td style='text-align: left;' id='userid'>" + response["data"].id_user + "</td>");
-                    $("#info_single_reservation").append("<td style='text-align: left;' id='washerid'>" + response["data"].id_washer + "</td>");
                     $("#info_single_reservation").append("<td style='text-align: left;' id='datetime'>" + response["data"].orario + "</td>");
+                    $("#info_single_reservation").append("<td style='text-align: center;' id='washerid'>" + response["data"].id_washer + "</td>");
+                    $("#info_single_reservation").append("<td style='text-align: center;' id='washingprogramid'>" + response["data"].id_washing_program + "</td>");
                 },
                 error: function(e){
                     console.log("Error Info Reservation", e);

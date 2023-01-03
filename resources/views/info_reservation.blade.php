@@ -1,12 +1,11 @@
 <div id="info_reservation">
-    <table>
-        <caption>Info Reservation</caption>
+    <table id="table_info_reservation">
+        <caption style="text-align: center;">Info Reservation</caption>
         <button id="close_info_reservation">x</button>
         <tr>
-            <th style="text-align: left;">IdReservation</th>
-            <th style="text-align: left;">IdUser</th>
-            <th style="text-align: left;">IdWasher</th>
-            <th style="text-align: left;">Datetime</th>
+            <th style="text-align: center;">Datetime</th>
+            <th style="text-align: center;">IdWasher</th>
+            <th style="text-align: center;">IdWashingProgram</th>
         </tr>
         <tr id="info_single_reservation"></tr>
 
