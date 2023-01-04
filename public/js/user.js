@@ -1,24 +1,67 @@
 $(document).ready(function(){ 
     var today = getToday();
     var day = addDaysToDate(today, 14); // Imposta un range fino alle 2 settimane successive
-    $('#datepicker').attr('min', today);
-    $('#datepicker').attr('max', day);
-    timeCheck($("#timepicker1"));
-    timeCheck($("#timepicker2"));
-    noWeekend($('#datepicker1'));
-    noWeekend($('#datepicker2'));
+    
+    $('#datepicker1').attr('min', today);
+    $('#datepicker2').attr('min', today);
+    $('#datepicker1').attr('max', day);
+    $('#datepicker2').attr('max', day);
+    timeCheck($("#timepicker1"), $("#error_message_time1"));
+    timeCheck($("#timepicker2"), $("#error_message_time2"));
+    noWeekend($('#datepicker1'), $("#error_message_date1"));
+    noWeekend($('#datepicker2'), $("#error_message_date2"));
     
     $.getScript("/js/cookie.js", function() {
         console.log("Script cookie.js loaded.");
         $btoken = readCookie('bearer_token');
-        //console.log("Bearer: " + $btoken);
         
-        // Avaible Reservations
+        // Chiamate async
         selectionWashingProgram($btoken);
         selectionWasher($btoken);
-        
-        // Reservations
         viewReservation($btoken);
+
+        // Creazione reservation
+        $("#reservation_available").submit(function(event){
+            event.preventDefault();
+            try{
+                var form = new FormData(); // Oggetto FormData
+                var userid = $("#user_id").text();
+                var washerid = $("#washer1").val().split(" ");
+                var washingprogramid = $("#washing_program1").val().split(" ");
+                var orario = $("#datepicker1").val() + " " + $("#timepicker1").val() + ":00";
+                form.append('orario', orario);
+                form.append('id_user', userid);
+                form.append('id_washer', washerid[0]);
+                form.append('id_washing_program', washingprogramid[0]);
+                form.append('_token', $("meta[name='csrf-token']").attr("content"));    
+            }
+            catch(e){
+                console.log("Error Form", e);
+            }
+            $.ajax({
+                url: `/api/user/${userid}/reservation/`,
+                async: true,
+                type: 'POST',
+                headers: {
+                    "Authorization": 'Bearer ' + $btoken,
+                    'Accept' : 'application/json'
+                },
+                
+                data: form,
+                contentType: false,
+                processData: false,
+                cache: false,
+
+                success: function(response){
+                    console.log("Reservation Created");
+                    location.reload();
+                },
+                error: function(e){
+                    console.log("Error Creation ", e);
+                }
+            });
+        });
+
         // Mostra info sulla reservation
         $("#moreinfo_submit").click(function(){
             if($("#sel_reservation option:selected").val() == "-- Select a Reservation --"){
@@ -32,8 +75,7 @@ $(document).ready(function(){
             try{
                 var userid = $("#user_id").text();
                 var reservation = $("#sel_reservation").val().split(" ");
-                var reservationid = reservation[0];
-               
+                var reservationid = reservation[0];  
             }
             catch(e){
                 console.log("Error", e);
@@ -56,9 +98,9 @@ $(document).ready(function(){
                         ore = tempo[0];
                         minuti = tempo[1];
 
-                        $("#info_single_reservation1").append('<input type="date" name="datepicker2" id="datepicker2" class="datepicker" format="DD/MM/YYYY" value= ' + res[0] +' required/>');
-                        $("#info_single_reservation2").append('<input type="time" name="timepicker2" id="timepicker2" class="timepicker" format="hh:mm" value= ' + ore + ':' + minuti + ' required/>');                  
-                        
+                        $("#reservationid").text(reservationid);
+                        $("#datepicker2").val(res[0]);
+                        $("#timepicker2").val(ore + ':' + minuti);
                         $(`#washer2 option[data-id=${response["data"].id_washer}]`).attr("selected", true);
                         $(`#washing_program2 option[data-id=${response["data"].id_washing_program}]`).attr("selected", true);
                     }              
@@ -74,51 +116,7 @@ $(document).ready(function(){
             $("#info_reservation").hide();
             $("#backscreen").hide();
         });
-
-        // Popup di conferma
-        // Mostra
-        $("#delete_reservation_submit").click(function(){
-            $("#delete_field").show();
-            $("#backscreen").css("z-index", 4);
-        });
-
-        // Chiudi
-        $("#cancel").click(function(){
-            $("#delete_field").hide();
-            $("#backscreen").css("z-index", 2);
-        });
-
-        // Elimina reservation
-        $("#confirm_delete_submit").click(function(){
-            try{
-                var userid = $("#user_id").text();
-                var reservationid = $("#reservationid").text();
-            }
-            catch(e){
-                console.log("Error Deleting Reservation", e);
-            }
-            $("#delete_field").hide();
-            $("#info_reservation").hide();
-            $("#backscreen").css("z-index", 2);
-            $("#backscreen").hide();
-            $.ajax({
-                url: `/api/user/${userid}/reservation/${reservationid}`,
-                type: 'DELETE',
-                headers: {
-                    "Authorization": 'Bearer ' + $btoken,
-                    'Accept' : 'application/json'
-                },
-                
-                success: function(response){
-                    console.log("Reservation deleted.", response);
-                    location.reload();
-                },
-                error: function(e){
-                    console.log("Error Deleting", e);
-                }
-            });
-        });
-
+   
         // Modifica reservation
         $("#edit_reservation_submit").submit(function(){
             try{
@@ -129,6 +127,9 @@ $(document).ready(function(){
             catch(e){
                 console.log("Error", e);
             }
+
+            $("#info_reservation").hide();
+            $("#backscreen").hide();
             $.ajax({
                 url: `/api/user/${userid}/reservation/${reservationid}`,
                 type: 'PATCH',
@@ -157,44 +158,51 @@ $(document).ready(function(){
             });
         });
 
-        // Creazione reservation
-        $("#reservation_available").submit(function(event){
-            event.preventDefault();
-            var form = new FormData(); // Oggetto FormData
-            var userid = $("#user_id").text();
-            var washerid = $("#washer1").val().split(" ");
-            var washingprogramid = $("#washing_program1").val().split(" ");
-            form.append('orario', $("#datepicker").val() + " " + $("#timepicker").val() + ":00");
-            form.append('id_user', userid);
-            form.append('id_washer', washerid[0]);
-            form.append('id_washing_program', washingprogramid[0]);
-            form.append('_token', $("meta[name='csrf-token']").attr("content"));
-            console.log(form);
-            
+        // Popup di conferma eliminazione
+        // Mostra
+        $("#delete_reservation_submit").click(function(){
+            $("#delete_field").show();
+            $("#backscreen").css("z-index", 4);
+        });
+
+        // Chiudi
+        $("#cancel").click(function(){
+            $("#delete_field").hide();
+            $("#backscreen").css("z-index", 2);
+        });
+
+        // Elimina reservation
+        $("#confirm_delete_submit").click(function(){
+            try{
+                var userid = $("#user_id").text();
+                var reservation = $("#sel_reservation").val().split(" ");
+                var reservationid = reservation[0];  
+            }
+            catch(e){
+                console.log("Error Deleting Reservation", e);
+            }
+
+            $("#delete_field").hide();
+            $("#info_reservation").hide();
+            $("#backscreen").css("z-index", 2);
+            $("#backscreen").hide();
             $.ajax({
-                url: `/api/user/${userid}/reservation/`,
-                async: true,
-                type: 'POST',
+                url: `/api/user/${userid}/reservation/${reservationid}`,
+                type: 'DELETE',
                 headers: {
                     "Authorization": 'Bearer ' + $btoken,
                     'Accept' : 'application/json'
                 },
                 
-                data: form,
-                contentType: false,
-                processData: false,
-                cache: false,
-
                 success: function(response){
-                    console.log(response);
+                    console.log("Reservation deleted.", response);
                     location.reload();
                 },
                 error: function(e){
-                    console.log("Error Creation ", e);
+                    console.log("Error Deleting", e);
                 }
             });
         });
-
     });
 });
 
@@ -256,8 +264,8 @@ function selectionWasher($btoken){
                 }
            }
         },
-        error: function(){
-            console.log("Error");
+        error: function(e){
+            console.log("Error", e);
         }
     });
 }
@@ -282,14 +290,14 @@ function selectionWashingProgram($btoken){
                 }
             }
         },
-        error: function(){
-            console.log("Error");
+        error: function(e){
+            console.log("Error", e);
         }
     });
 }
 
 // Controlla che il tempo rientri nel range prestabilito
-function timeCheck(timepicker){
+function timeCheck(timepicker, errortime){
     timepicker.on('input', function(){
         let t = $(this).val();
         let [hour, minute]  = t.split(":");
@@ -298,29 +306,29 @@ function timeCheck(timepicker){
 
         if(!((hour >= 8 && hour < 13) || (hour >= 16 && hour < 20))){
             timepicker.val('');
-            $(".error_message_time").css("display", "inline");
-            $(".error_message_time").css("color", "red");
-            $(".error_message_time").html('Out of time range:<br>The available time ranges are:<br>8:00 to 13:00 and 16:00 to 20:00');
+            errortime.css("display", "inline");
+            errortime.css("color", "red");
+            errortime.html('Out of time range:<br>The available time ranges are:<br>8:00 to 13:00 and 16:00 to 20:00');
         }else{
-            $(".error_message_time").css("display", "none");
-            $(".error_message_time").html('');
+            errortime.css("display", "none");
+            errortime.html('');
         }
         timepicker.blur();
     })
 }
 
 // Controlla se il giorno selezionato è un sabato o una domenica
-function noWeekend(datepicker){
+function noWeekend(datepicker, errordate){
     datepicker.on('input', function(){
         var day = new Date(this.value).getUTCDay();
         if([6,0].includes(day)){ // Domenica= 0, Sabato= 6
             this.value = '';
-            $(".error_message_date").css("display", "inline");
-            $(".error_message_date").css("color", "red");
-            $(".error_message_date").html('Weekends are not allowed');
+            errordate.css("display", "inline");
+            errordate.css("color", "red");
+            errordate.html('Weekends are not allowed');
         }else{
-            $(".error_message_date").css("display", "none");
-            $(".error_message_date").html('');
+            errordate.css("display", "none");
+            errordate.html('');
         }
         datepicker.blur();
     });

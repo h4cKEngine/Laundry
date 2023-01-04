@@ -3,12 +3,14 @@
         <button id="close_info_reservation">X</button>
         <h2 style="text-align: center;">Info Reservation</h2>
         <form id= "form_edit">
+            <label>ID</label>
             <label>Date</label>
             <label>Time</label>
             <label>Washer</label>
             <label>WashingProgram</label>
-            <div id="info_single_reservation1"></div>
-            <div id="info_single_reservation2"></div>
+            <span id="reservationid"></span>
+            <input type="date" name="datepicker2" id="datepicker2" class="datepicker" format="DD/MM/YYYY" required/>
+            <input type="time" name="timepicker2" id="timepicker2" class="timepicker" format="hh:mm" required/>
             <select id=washer2> </select>
             <select id=washing_program2> </select>
 
@@ -17,7 +19,7 @@
         </form>
     </div>
     <button id="delete_reservation_submit">Delete</button>
-    <button id="edit_reservation_submit">Edit</button>
+    <button type="submit" id="edit_reservation_submit">Edit</button>
 </div>
 
 <div id="delete_field">
