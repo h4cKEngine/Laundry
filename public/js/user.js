@@ -58,6 +58,7 @@ $(document).ready(function(){
 
                         $("#info_single_reservation1").append('<input type="date" name="datepicker2" id="datepicker2" class="datepicker" format="DD/MM/YYYY" value= ' + res[0] +' required/>');
                         $("#info_single_reservation2").append('<input type="time" name="timepicker2" id="timepicker2" class="timepicker" format="hh:mm" value= ' + ore + ':' + minuti + ' required/>');                  
+                        
                         $(`#washer2 option[data-id=${response["data"].id_washer}]`).attr("selected", true);
                         $(`#washing_program2 option[data-id=${response["data"].id_washing_program}]`).attr("selected", true);
                     }              
