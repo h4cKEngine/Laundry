@@ -20,8 +20,8 @@ $(document).ready(function(){
         // Reservations
         viewReservation($btoken);
         // Mostra info sulla reservation
-        $("#moreinfo_submit").click(function(){  
-            if($("#noreservation").attr("selected")){
+        $("#moreinfo_submit").click(function(){
+            if($("#sel_reservation option:selected").val() == "-- Select a Reservation --"){
                 console.log("No Reservation selected");
                 alert("No Reservation selected!\nPick one!");
                 return;

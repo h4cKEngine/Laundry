@@ -36,7 +36,7 @@
             <div id="reservation">
                 @csrf
                <select name="sel_reservation" id="sel_reservation" class="selezione">
-                    <option id="noreservation" style="display: none">-- Select a Reservation --</option>
+                    <option id="noreservation" data-id='noreservation' style="display: none">-- Select a Reservation --</option>
                </select>
             
                <button id="moreinfo_submit">More Info</button>
