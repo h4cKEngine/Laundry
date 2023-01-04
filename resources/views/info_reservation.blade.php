@@ -3,10 +3,12 @@
         <button id="close_info_reservation">x</button>
         <h2 style="text-align: center;">Info Reservation</h2>
         <form id= "form_edit">
-            <label>Datetime</label>
+            <label>Date</label>
+            <label>Time</label>
             <label>IdWasher</label>
             <label>IdWashingProgram</label>
             <div id="info_single_reservation"></div>
+            <div id="info_single_reservation2"></div>
             <select id=sel_washer2> </select>
             <select id=sel_washing_program2> </select>
 

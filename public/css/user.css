@@ -20,10 +20,10 @@ h1, h4 {
 }
 
 .datepicker {
-    margin: 2rem 2rem;
+    margin: 0.5rem 0.5rem;
     padding: 0.5rem 0.2rem;
     font-family: COMIC SANS MS;
-    min-width: 10rem;
+    min-width: 8rem;
     font-size: large;
     border-radius: 1rem;
     text-align: center;
@@ -133,7 +133,7 @@ input[type="submit"]:hover, button:hover {
 
 #form_edit {
     display: grid;
-    grid-template-columns: auto auto auto;
+    grid-template-columns: auto auto auto auto;
     place-items: center;
     margin: 0 auto;
     user-select: none;

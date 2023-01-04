@@ -46,8 +46,8 @@ $(document).ready(function(){
                 },
 
                 success: function(response){
-                    $("#info_single_reservation").append('<input type="date" name="datepicker2" id="datepicker2" class="datepicker" format="DD/MM/YYYY" required/>' + response["data"].orario);
-                    $("#info_single_reservation").append('<input type="time" name="timepicker2" id="timepicker2" class="timepicker" required/>' + response["data"].orario);
+                    $("#info_single_reservation").append('<input type="date" name="datepicker2" id="datepicker2" class="datepicker" format="DD/MM/YYYY" value= '+ response["data"].orario +' required/>');
+                    $("#info_single_reservation2").append('<input type="time" name="timepicker2" id="timepicker2" class="timepicker" value= '+ response["data"].orario +' required/>');
                     $("#sel_washer2").append('<option > '+ response["data"].id_washer +' </option>' );
                     $("#sel_washing_program2").append('<option > '+ response["data"].id_washing_program +' </option>' );
                 },
