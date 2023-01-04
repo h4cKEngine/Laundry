@@ -118,10 +118,6 @@ input[type="submit"]:hover, button:hover {
     left: 0;
     bottom: 0;
     right: 0;
-    min-width: 25rem;
-    max-width: 40rem;
-    min-height: 20rem;
-    max-height: 40rem;
     margin: auto;
     align-items: center;
     font-size: large;
@@ -129,6 +125,10 @@ input[type="submit"]:hover, button:hover {
     border: 0.5px solid #000;
     border-radius: 15px;
     padding: 0.5rem;
+    min-width: 25rem;
+    max-width: 45rem;
+    min-height: 15em;
+    max-height: 19rem;
 }
 
 #form_edit {
@@ -139,30 +139,16 @@ input[type="submit"]:hover, button:hover {
     user-select: none;
 }
 
-#sel_washer2 {
+#washer2, #washing_program2 {
     min-width: 3rem;
     max-width: 10rem;
-    margin: 2rem 1rem 2rem;
+    margin: 2rem 4rem 2rem;
     padding: 0.5rem 0.5rem;
-    width: auto;
     font-family: COMIC SANS MS;
     font-size: large;
     border-radius: 1rem;
     user-select: none;
 }
-
-#sel_washing_program2 {
-    min-width: 3rem;
-    max-width: 10rem;
-    margin: 2rem 1rem 2rem;
-    padding: 0.5rem 0.5rem;
-    width: auto;
-    font-family: COMIC SANS MS;
-    font-size: large;
-    border-radius: 1rem;
-    user-select: none;
-}
-
 
 #close_info_reservation {
     padding-top: 0.1rem;
@@ -198,7 +184,7 @@ input[type="submit"]:hover, button:hover {
     min-width: 12rem;
     max-width: 16rem;
     min-height: 4rem;
-    max-height: 8rem;
+    max-height: 12rem;
 }
 
 #delete_reservation_submit, #cancel {

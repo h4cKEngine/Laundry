@@ -37,7 +37,7 @@ class ReservationController extends Controller
     {   
         // Validazione dei campi e errori
         $request->validate([
-            'orario' => 'date|date_format:d-m-Y H:i:s|required',
+            'orario' => 'date|date_format:Y-m-d H:i:s|required',
             // Si può ottenere dal token, 'id_user' => 'integer|required',
             'id_washer' => 'exists:washers,id|required',
             'id_washing_program' => 'exists:washing_programs,id|required',

@@ -1,16 +1,16 @@
 <div id="info_reservation">
     <div>
-        <button id="close_info_reservation">x</button>
+        <button id="close_info_reservation">X</button>
         <h2 style="text-align: center;">Info Reservation</h2>
         <form id= "form_edit">
             <label>Date</label>
             <label>Time</label>
-            <label>IdWasher</label>
-            <label>IdWashingProgram</label>
-            <div id="info_single_reservation"></div>
+            <label>Washer</label>
+            <label>WashingProgram</label>
+            <div id="info_single_reservation1"></div>
             <div id="info_single_reservation2"></div>
-            <select id=sel_washer2> </select>
-            <select id=sel_washing_program2> </select>
+            <select id=washer2> </select>
+            <select id=washing_program2> </select>
 
         <span class="error_message_date" id="error_message_date2"></span>
         <span class="error_message_time" id="error_message_time2"></span>

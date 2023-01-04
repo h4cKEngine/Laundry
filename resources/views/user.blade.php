@@ -20,12 +20,12 @@
                 <label for="washing_program1">Washing Program</label>
                 <label></label>
             
-                <input type="date" name="datepicker1" id="datepicker" class="datepicker" format="DD/MM/YYYY" required/>
-                <input type="time" name="timepicker1" id="timepicker" class="timepicker" required>
+                <input type="date" name="datepicker1" id="datepicker1" class="datepicker" format="DD/MM/YYYY" required/>
+                <input type="time" name="timepicker1" id="timepicker1" class="timepicker" format="hh:mm" required>
                 <select name="washer1" class="selezione" id="washer1"></select>
                 <select name="washing_program1" class="selezione" id="washing_program1"></select>
             
-                <button type="button" id="reserve_submit">Reserve</button>
+                <button type="submit" id="reserve_submit">Reserve</button>
             
                 <span class="error_message_date" id="error_message_date1"></span>
                 <span class="error_message_time" id="error_message_time1"></span>
