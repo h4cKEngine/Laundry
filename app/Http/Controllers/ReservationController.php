@@ -44,7 +44,6 @@ class ReservationController extends Controller
         ],[
             'date' => 'Errore, inserire datetime',
             'integer' => 'Errore, inserire integer',
-            'boolean' => 'Errore inserire boolean',
             'required' => 'Errore, inserire un campo'
         ]);
 
