@@ -24,11 +24,12 @@ $(document).ready(function(){
         $("#reservation_available").submit(function(event){
             event.preventDefault();
             try{
-                var form = new FormData(); // Oggetto FormData
                 var userid = $("#user_id").text();
+                var orario = $("#datepicker1").val() + " " + $("#timepicker1").val() + ":00";
                 var washerid = $("#washer1").val().split(" ");
                 var washingprogramid = $("#washing_program1").val().split(" ");
-                var orario = $("#datepicker1").val() + " " + $("#timepicker1").val() + ":00";
+                
+                var form = new FormData(); // Oggetto FormData
                 form.append('orario', orario);
                 form.append('id_user', userid);
                 form.append('id_washer', washerid[0]);
@@ -117,15 +118,28 @@ $(document).ready(function(){
             $("#backscreen").hide();
         });
    
-        // Modifica reservation
-        $("#edit_reservation_submit").submit(function(){
+        // Edit reservation
+        $("#form_edit").submit(function(event){
+            event.preventDefault();
             try{
                 var userid = $("#user_id").text();
-                var reservation = $("#sel_reservation").val().split(" ");
-                var reservationid = reservation[0];
+                var reservationid = $("#reservationid").text();
+                var orario = $("#datepicker2").val() + " " + $("#timepicker2").val() + ":00";
+                var washerid = $("#washer2").val().split(" ");
+                var washingprogramid = $("#washing_program2").val().split(" ");
+
+                // var form = new FormData();
+                // form.append('orario', orario);
+                // form.append('id_user', userid);
+                // form.append('id_washer', washerid[0]);
+                // form.append('id_washing_program', washingprogramid[0]);
+                // form.append('_token', $("meta[name='csrf-token']").attr("content"));
+                // console.log(form.get("orario"));
+                // console.log(form.get("id_washer"));
+                // console.log(form.get("id_washing_program"));
             }
             catch(e){
-                console.log("Error", e);
+                console.log("Error Edit Form", e);
             }
 
             $("#info_reservation").hide();
@@ -133,27 +147,34 @@ $(document).ready(function(){
             $.ajax({
                 url: `/api/user/${userid}/reservation/${reservationid}`,
                 type: 'PATCH',
+                async: true,
                 headers: {
                     "Authorization": 'Bearer ' + $btoken,
                     'Accept' : 'application/json'
                 },
-                dataType: "json",
+
+                data: {
+                    orario: orario,
+                    id_washer: washerid[0],
+                    id_washing_program: washingprogramid[0]
+                },
+                // data: form,
+                // contentType: false,
+                // processData: false,
+                // cache: false,
 
                 success: function(response){
                     try {
-                        var res = response["data"];
-                        console.log(res);
-
-                        for(let i in res){
-                            $('#sel_reservation').append('<option>' + 'ID:' + res[i].id + ' ' + res[i].orario + '</option>');
-                        }
+                        console.log(response);
+                        console.log("Reservation Edited");
+                        // location.reload();
                     } catch (e) {
                         console.log("Errore informazione errata", e);
                     }
                 },
 
-                error: function(){
-                    console.log("Nessuna Prenotazione Disponibile");
+                error: function(e){
+                    console.log("Nessuna Prenotazione Disponibile", e);
                 }
             });
         });

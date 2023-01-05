@@ -45,7 +45,6 @@
             <!-- Stato delle Lavasciuga -->
             <h1> <b>Washers Status:</b> </h1>
             <div id="washers_status">
-                @csrf
                 <div id="washer_name"></div>
                 <div id="washer_status"></div>
             </div>

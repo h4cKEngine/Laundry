@@ -40,7 +40,7 @@ class ReservationController extends Controller
             'orario' => 'date|date_format:Y-m-d H:i:s|required',
             // Si può ottenere dal token, 'id_user' => 'integer|required',
             'id_washer' => 'exists:washers,id|required',
-            'id_washing_program' => 'exists:washing_programs,id|required',
+            'id_washing_program' => 'exists:washing_programs,id|required'
         ],[
             'date' => 'Errore, inserire datetime',
             'integer' => 'Errore, inserire integer',
@@ -121,10 +121,10 @@ class ReservationController extends Controller
     public function update(Request $request, User $user, Reservation $reservation)
     {   
         $request->validate([
-            'orario' => 'date|date_format:d-m-Y H:i:s|required',
-            //'id_user' => 'integer|required',
+            'orario' => 'date|date_format:Y-m-d H:i:s|required',
+            // Si può ottenere dal token, 'id_user' => 'integer',
             'id_washer' => 'exists:washers,id|required',
-            'id_washing_program' => 'exists:washing_programs,id|required',
+            'id_washing_program' => 'exists:washing_programs,id|required'
         ],[
             'integer' => 'Errore, inserire integer',
             'date' => 'Errore, inserire datetime',
@@ -146,14 +146,12 @@ class ReservationController extends Controller
         $programma = WashingProgram::find($request->id_washing_program);
         if(!$programma->stato)
             throw new Exception("Programma lavaggio non disponibile");
-    
         
         $programma = WashingProgram::findOrFail($request->id_washing_program);
         $data_richiesta = strtotime($request->orario);
         $giorno_richiesto = date("Y-m-d", $data_richiesta);
         $ora_inizio_richiesta = date("H:i:s", $data_richiesta);
         $ora_fine_prevista = date("H:i:s", $data_richiesta + strtotime($programma->durata));
-
 
         // Controlla se la Data e L'Ora richiesti sono antecedenti o successivi a quelli correnti
         $oggi = strtotime(Carbon::now());
@@ -203,6 +201,8 @@ class ReservationController extends Controller
 
             // Elimina la precedente prenotazione
             $prenotazione->delete();
+
+            // Restituisce la prenotazione appena modificata
             return new ReservationResource($query);
         }else{
             return new Exception("Prenotazione sovrapposta ad una già esistente");

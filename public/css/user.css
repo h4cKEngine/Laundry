@@ -22,23 +22,24 @@ h1, h4 {
 .datepicker {
     margin: 0.5rem 0.5rem;
     padding: 0.5rem 0.2rem;
-    font-family: COMIC SANS MS;
     min-width: 8rem;
+    font-family: COMIC SANS MS;
     font-size: large;
     border-radius: 1rem;
     text-align: center;
     user-select: none;
+    cursor: pointer;
 }
 
 .timepicker {
     margin: 2rem 1rem 2rem;
     padding: 0.5rem 0.5rem;
-    min-width: 6rem;
-    max-width: 8rem;
+    min-width: 8rem;
     font-family: COMIC SANS MS;
     font-size: large;
     border-radius: 1rem;
     user-select: none;
+    cursor: pointer;
 }
 
 .selezione {
@@ -49,6 +50,7 @@ h1, h4 {
     width: auto;
     font-family: COMIC SANS MS;
     font-size: large;
+    border: 2.5px solid #000;
     border-radius: 1rem;
     user-select: none;
 }
@@ -125,8 +127,8 @@ input[type="submit"]:hover, button:hover {
     border: 0.5px solid #000;
     border-radius: 15px;
     padding: 1rem;
-    max-width: 45rem;
-    max-height: 20rem;
+    max-width: 50rem;
+    max-height: 22rem;
 }
 
 #form_edit {
@@ -140,16 +142,22 @@ input[type="submit"]:hover, button:hover {
 #washer2, #washing_program2 {
     min-width: 3rem;
     max-width: 10rem;
-    margin: 2rem 4rem 2rem;
+    margin: 2rem 0.5rem 2rem;
     padding: 0.5rem 0.5rem;
     font-family: COMIC SANS MS;
     font-size: large;
+    border: 2.5px solid #000;
     border-radius: 1rem;
     user-select: none;
+    cursor: pointer;
 }
 
 #reservationid {
-    padding: 1rem;
+    padding: 0.5rem;
+    border: 2.5px solid #000;
+    margin-right: 0.3rem;
+    border-radius: 40px;
+    user-select: none;
 }
 
 #close_info_reservation {
@@ -180,7 +188,7 @@ input[type="submit"]:hover, button:hover {
     align-items: center;
     font-size: large;
     background-color: #EEE;
-    border: 0.5px solid #000;
+    border: 2.5px solid #000;
     border-radius: 15px;
     padding: 0.5rem;
     min-width: 12rem;
