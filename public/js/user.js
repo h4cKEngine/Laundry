@@ -127,16 +127,6 @@ $(document).ready(function(){
                 var orario = $("#datepicker2").val() + " " + $("#timepicker2").val() + ":00";
                 var washerid = $("#washer2").val().split(" ");
                 var washingprogramid = $("#washing_program2").val().split(" ");
-
-                // var form = new FormData();
-                // form.append('orario', orario);
-                // form.append('id_user', userid);
-                // form.append('id_washer', washerid[0]);
-                // form.append('id_washing_program', washingprogramid[0]);
-                // form.append('_token', $("meta[name='csrf-token']").attr("content"));
-                // console.log(form.get("orario"));
-                // console.log(form.get("id_washer"));
-                // console.log(form.get("id_washing_program"));
             }
             catch(e){
                 console.log("Error Edit Form", e);
@@ -158,16 +148,11 @@ $(document).ready(function(){
                     id_washer: washerid[0],
                     id_washing_program: washingprogramid[0]
                 },
-                // data: form,
-                // contentType: false,
-                // processData: false,
-                // cache: false,
 
                 success: function(response){
                     try {
-                        console.log(response);
                         console.log("Reservation Edited");
-                        // location.reload();
+                        location.reload();
                     } catch (e) {
                         console.log("Errore informazione errata", e);
                     }

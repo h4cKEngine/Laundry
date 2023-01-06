@@ -7,9 +7,10 @@
     </head>
 
     <body class="antialiased">
-        <div id="backscreen"></div>
+            <div id="backscreen"></div>
             @include("navbar")
             @include("info_reservation")
+
             <!-- Prenotazioni Disponibili -->
             <h1> <b>Available Reservations:</b> </h1>
             <form id="reservation_available">
@@ -34,7 +35,6 @@
             <!-- Prenotazioni dell'utente -->
             <h1> <b>Reservations:</b> </h1>
             <div id="reservation">
-                @csrf
                <select name="sel_reservation" id="sel_reservation" class="selezione">
                     <option id="noreservation" data-id='noreservation' style="display: none">-- Select a Reservation --</option>
                </select>
