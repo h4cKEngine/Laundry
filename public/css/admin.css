@@ -21,12 +21,18 @@ input[type="submit"], button {
 
 #edit_reservation {
     display: none;
+    margin: 0 auto;
+    align-items: center;
+    font-size: large;
+    padding: 1rem;
+    max-width: 50rem;
+    max-height: 22rem;
 }
 
 #reservation {
     display: grid;
     place-items: center;
-    grid-template-columns: auto auto;
+    grid-template-columns: auto auto auto;
     margin: 0 auto;
     user-select: none;
 }
@@ -39,15 +45,7 @@ input[type="submit"], button {
     user-select: none;
 }
 
-#washers_status {
-    display: grid;
-    place-items: center;
-    grid-template-columns: auto auto auto;
-    margin: 0 auto;
-    user-select: none;
-}
-
-#user_reservation, #select_reservation {
+#select_user_reservation, #select_reservation {
     max-width: 17rem;
     min-width: 12rem;
     margin: 2rem 1rem 2rem;
@@ -61,12 +59,25 @@ input[type="submit"], button {
 }
 
 #close_edit_reservation {
-    padding-top: 0.1rem;
+    padding-top: 0.2rem;
     padding-bottom: 0.2rem;
-    top: 0;
     float: right;
+    right: 1rem;
+    top: 1rem;
 }
 
+#close_edit_reservation:hover {
+    color: #F3EFF5;
+    background: #bb0b0b;
+}
+
+#washers_status {
+    display: grid;
+    place-items: center;
+    grid-template-columns: auto auto auto;
+    margin: 0 auto;
+    user-select: none;
+}
 .washer_status {
     max-width: 17rem;
     min-width: 12rem;

@@ -16,14 +16,15 @@
         <div id="reservation">
             <label>User</label>
             <label>Reservation</label>
+            <label></label>
 
-            <select id="user_reservation">
+            <select id="select_user_reservation">
                 <option>1 aejeje@gmail.com</option>
             </select>
             <select id="select_reservation">
                 <option>1 2023-01-07 17:00</option>
             </select>
-            <button type="button" id="moreinfo_reservation">Info Reservation</button>
+            <button type="button" id="moreinfo_reservation">Info</button>
         </div>
 
         <div id="edit_reservation">
@@ -68,6 +69,6 @@
             <button type="submit">Set</button>
         </form>
         @include("info_account")
-        <script src="{{ asset('./js/admin.js') }}"></script>
+        <script src="{{ asset('js/admin.js') }}"></script>
     </body>
 </html>
