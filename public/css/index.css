@@ -1,4 +1,4 @@
-h1, h2{
+h1{
     margin: 0 auto;
 }
 
@@ -18,8 +18,10 @@ h1, h2{
     border-radius: 1rem;
     line-height: 3rem;
 }
-
-h2 {
+h2{
+    text-align: center;
+    margin: 0 auto;
+    margin-top: 3rem;
     color: #ff8c00;
     background: linear-gradient(to right, #40e0d0, #ff8c00, #ff0080);
     background-size: cover;

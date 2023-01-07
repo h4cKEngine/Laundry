@@ -69,7 +69,7 @@ input[type="submit"], button {
     border-radius: 40px;
     cursor: pointer;
     color: #F3EFF5;
-    background: #1ABC9D;
+    background: #10c7d1;
 }
 
 input[type="submit"]:hover, button:hover {
