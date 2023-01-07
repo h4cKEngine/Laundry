@@ -21,15 +21,15 @@ $(document).ready(function(){
         // viewReservation($btoken);
 
         // Mostra tabella edit reservation
-        $("#info_reservation").click(function(){
+        $("#moreinfo_reservation").click(function(){
             $("#edit_reservation").show();
-            $("#backscreen").show();
+            //$("#backscreen").show();
         });
 
         // Chiude tabella edit reservation
         $("#close_edit_reservation").click(function(){
             $("#edit_reservation").hide();
-            $("#backscreen").hide();
+            //$("#backscreen").hide();
         });
 
         // Tabella Edit Reservation

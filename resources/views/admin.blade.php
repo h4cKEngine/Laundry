@@ -12,13 +12,20 @@
         @include("navbar")
 
         <!-- Modifica Prenotazioni -->
+        <h1> <b>Reservations:</b> </h1>
         <div id="reservation">
-            <select name="utente" id="user_select"></select>
-            <button type="button" id="info_reservation">Info Reservation</button>
+            <label>User</label>
+            <label>Reservation</label>
+
+            <select id="user_reservation">
+                <option>Prova</option>
+            </select>
+            <button type="button" id="moreinfo_reservation">Info Reservation</button>
         </div>
 
         <div id="edit_reservation">
-            <h1> <b>Edit Reservations:</b> </h1>
+            <button id="close_edit_reservation">X</button>
+            <h2> <b>Edit Reservation:</b> </h2>
             <form id="reservation_admin">
                 @csrf
                 <label for="user1">User</label>
