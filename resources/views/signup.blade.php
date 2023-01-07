@@ -8,7 +8,6 @@
     </head>
 
     <body class="antialiased">
-        <h1>Pagina Signup</h1>
         <!-- Form Registrazione -->
         <form class="form" id="signupform">
             @csrf
