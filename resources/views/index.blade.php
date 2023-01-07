@@ -18,7 +18,7 @@
             </div>
         @endauth
         
-        <h2><b>Open from Monday to Friday from 8:00 to 13:00 and from 16:00 to 20:00</b></h2>
+        <h2><b>Open from Monday to Friday <br> from 8:00 to 13:00 and from 16:00 to 20:00</b></h2>
         <!--
         @for ($i=0; $i<29; $i++)
             <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laborum architecto aspernatur consequatur animi nobis ad blanditiis explicabo ipsum ipsa atque optio, obcaecati sit. Beatae a repellat itaque magnam nostrum. Magni.</p>
