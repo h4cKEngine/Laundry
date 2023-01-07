@@ -18,7 +18,10 @@
             <label>Reservation</label>
 
             <select id="user_reservation">
-                <option>Prova</option>
+                <option>1 aejeje@gmail.com</option>
+            </select>
+            <select id="select_reservation">
+                <option>1 2023-01-07 17:00</option>
             </select>
             <button type="button" id="moreinfo_reservation">Info Reservation</button>
         </div>

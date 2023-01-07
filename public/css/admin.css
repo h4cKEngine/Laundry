@@ -47,7 +47,7 @@ input[type="submit"], button {
     user-select: none;
 }
 
-#user_reservation {
+#user_reservation, #select_reservation {
     max-width: 17rem;
     min-width: 12rem;
     margin: 2rem 1rem 2rem;
