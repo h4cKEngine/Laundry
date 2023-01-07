@@ -1,0 +1,27 @@
+h1, h2{
+    margin: 0 auto;
+}
+
+#washing_program_price_list{
+    display: grid;
+    place-items: center;
+    grid-template-columns: auto auto auto auto;
+    margin: 0 auto;
+}
+#washing_program_id, #washing_program_name, #washing_program_price, #washing_program_time {
+    min-width: 5rem;
+    padding: 0.5rem 0.5rem;
+    width: auto;
+    font-family: COMIC SANS MS;
+    font-size: large;
+    border-radius: 1rem;
+    line-height: 3rem;
+}
+h2{
+    color: #ff8c00; /* fix for not webkit browsers */
+  background: linear-gradient(to right, #40e0d0, #ff8c00, #ff0080);
+  background-size: cover;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
