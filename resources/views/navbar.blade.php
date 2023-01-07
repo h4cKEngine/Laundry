@@ -1,9 +1,12 @@
 <nav id="navbar">    
     <div id="nav-sx">
-    @auth 
+    @auth
         @if (Auth::user()->ruolo == 0 || Auth::user()->ruolo == 1)
             <a id="hello-message">Welcome {{auth()->user()->nome}}</a>
         @endif
+    @else
+        <a id="hello-message">Laundry</a>
+
     @endauth 
     
     </div>

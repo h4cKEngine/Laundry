@@ -145,11 +145,10 @@ $(document).ready(function(){
                     id_washing_program: washingprogramid[0]
                 },
 
-
                 success: function(response){
                     try {
-                        console.log(response);
                         console.log("Reservation Edited");
+                        location.reload();
                         location.reload();
                     } catch (e) {
                         console.log("Errore informazione errata", e);

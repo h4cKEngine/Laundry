@@ -8,66 +8,67 @@
     </head>
 
     <body class="antialiased">
+        <div id="backscreen"></div>
         @include("navbar")
 
-        <h1> <b>Available Reservations:</b> </h1>
-            <form id="progr_lav_available">
+        <!-- Modifica Prenotazioni -->
+        <h1> <b>Reservations:</b> </h1>
+        <div id="reservation">
+            <label>User</label>
+            <label>Reservation</label>
+            <label></label>
+
+            <select id="select_user_reservation">
+                <option>1 aejeje@gmail.com</option>
+            </select>
+            <select id="select_reservation">
+                <option>1 2023-01-07 17:00</option>
+            </select>
+            <button type="button" id="moreinfo_reservation">Info</button>
+        </div>
+
+        <div id="edit_reservation">
+            <button id="close_edit_reservation">X</button>
+            <h2> <b>Edit Reservation:</b> </h2>
+            <form id="reservation_admin">
                 @csrf
-                <label for="user">User</label>
+                <label for="user1">User</label>
                 <label for="datepicker1">Date</label>
                 <label for="timepicker1">Time*</label>
                 <label for="washer1">Washer</label>
                 <label for="washing_program1">Washing Program</label>
                 <label></label>
-                
-                <select name="user" class="sel_user"></select>
-                <input type="date" name="datepicker1" class="datepicker" format="DD/MM/YYYY" required/>
-                <input type="time" name="timepicker1" class="timepicker" required>
-                <select name="washer1" class="selezione"></select>
-                <select name="washing_program1" class="selezione"></select>
-            
-                <input type="submit" value="Reserve">
-            
-                <span id="error_message_date"></span>
-                <span id="error_message_time"></span>
-            </form>
-        
-        <h1> <b>Reservations:</b> </h1>
-            <form id="reservation">
-                @csrf
-                <label for="datepicker2">Date</label>
-                <label for="timepicker2">Time*</label>
-                <label for="washer2">Washer</label>
-                <label for="washing_program2">Washing Program</label>
-                <label for=""></label>
-                <label for=""></label>
 
-                <select name="datepicker2" class="datepicker" format="DD/MM/YYYY" required></select>
-                <select name="timepicker2" class="timepicker" required></select>
-                <select name="washer2" class="selezione" required></select>
-                <select name="washing_program2" class="selezione" required></select>
+                <select name="user1" class="selezione" id="user1"></select>    
+                <input type="date" name="datepicker1" id="datepicker1" class="datepicker" format="DD/MM/YYYY" required/>
+                <input type="time" name="timepicker1" id="timepicker1" class="timepicker" format="hh:mm" required>
+                <select name="washer1" class="selezione" id="washer1"></select>
+                <select name="washing_program1" class="selezione" id="washing_program1"></select>
             
-                <input id="submit_edit_reservation" type="submit" value="Edit">
-                <button id="delete_reservation">Delete</button>
+                <button type="submit" id="reserve_submit">Reserve</button>
+            
+                <span class="error_message_date" id="error_message_date1"></span>
+                <span class="error_message_time" id="error_message_time1"></span>
             </form>
-            
+        </div>
+
+        <!-- Stato delle Lavasciuga -->
         <h1> <b>Washers Status:</b> </h1>
         <form id="washers_status">
             @csrf
             <label for="washer">Washer</label>
-            <label for="status">Status</label>
+            <label for="stato">Status</label>
             <label for=""></label>
         
             <select name="washer" class="washer_status"></select>
-            <select name="status" class="washer_status">
-                <option value="1" @if (old('status') == 1) selected @endif>active</option>
-                <option value="0" @if (old('status') == 0) selected @endif>deactivate</option>
+            <select name="stato" class="washer_status">
+                <option value="1" @if (old('stato') == 1) selected @endif>active</option>
+                <option value="0" @if (old('stato') == 0) selected @endif>deactivate</option>
             </select>
         
-            <input type="submit" value="Set">
+            <button type="submit">Set</button>
         </form>
         @include("info_account")
-        <script src="{{ asset('./js/user.js') }}"></script>
-        <script src="{{ asset('./js/admin.js') }}"></script>
+        <script src="{{ asset('js/admin.js') }}"></script>
     </body>
 </html>

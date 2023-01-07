@@ -7,7 +7,6 @@
     </head>
 
     <body class="antialiased">
-        <h1>Pagina Login</h1>
         <!-- Form Login -->
         <form class="form" id="loginform">
             @csrf

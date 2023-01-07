@@ -1,6 +1,6 @@
 h1, h4 {
-    user-select: none;
     margin: 0 auto;
+    user-select: none;
 }
 
 #reservation_available {
@@ -23,8 +23,8 @@ h1, h4 {
     margin: 0.5rem 0.5rem;
     padding: 0.5rem 0.2rem;
     min-width: 8rem;
-    font-family: COMIC SANS MS;
     font-size: large;
+    font-family: Comic Sans MS;
     border-radius: 1rem;
     text-align: center;
     user-select: none;
@@ -35,8 +35,8 @@ h1, h4 {
     margin: 2rem 1rem 2rem;
     padding: 0.5rem 0.5rem;
     min-width: 8rem;
-    font-family: COMIC SANS MS;
     font-size: large;
+    font-family: Comic Sans MS;
     border-radius: 1rem;
     user-select: none;
     cursor: pointer;
@@ -48,8 +48,8 @@ h1, h4 {
     margin: 2rem 1rem 2rem;
     padding: 0.5rem 0.5rem;
     width: auto;
-    font-family: COMIC SANS MS;
     font-size: large;
+    font-family: Comic Sans MS;
     border: 2.5px solid #000;
     border-radius: 1rem;
     user-select: none;
@@ -62,14 +62,14 @@ input[type="submit"], button {
     text-shadow: 0;
     text-align: center;
     text-decoration: none;
-    font-family: COMIC SANS MS;
     font-size: large;
+    font-family: Comic Sans MS;
     padding: 0.95rem;
     border: none;
     border-radius: 40px;
     cursor: pointer;
     color: #F3EFF5;
-    background: #1ABC9D;
+    background: #10c7d1;
 }
 
 input[type="submit"]:hover, button:hover {
@@ -102,8 +102,6 @@ input[type="submit"]:hover, button:hover {
     min-width: 15rem;
     padding: 0.5rem 0.5rem;
     width: auto;
-    font-family: COMIC SANS MS;
-    font-size: large;
     border-radius: 1rem;
     user-select: none;
 }
@@ -144,7 +142,6 @@ input[type="submit"]:hover, button:hover {
     max-width: 10rem;
     margin: 2rem 0.5rem 2rem;
     padding: 0.5rem 0.5rem;
-    font-family: COMIC SANS MS;
     font-size: large;
     border: 2.5px solid #000;
     border-radius: 1rem;
