@@ -71,7 +71,7 @@ $(document).ready(function(){
             try{
                 var userid = $("#user_id").text();
                 var reservation = $("#sel_reservation").val().split(" ");
-                var reservationid = reservation[0];  
+                var reservationid = reservation[0];
             }
             catch(e){
                 console.log("Error", e);
@@ -112,7 +112,7 @@ $(document).ready(function(){
             $("#info_reservation").hide();
             $("#backscreen").hide();
         });
-   
+
         // Edit reservation
         $("#form_edit").submit(function(event){
             event.preventDefault();

@@ -15,7 +15,17 @@ $(document).ready(function(){
         console.log("Script cookie.js loaded.");
         $btoken = readCookie('bearer_token');
         
-        // Chiamate async
+        // Users
+        viewUsers($btoken);
+        
+        // Reservations
+        $("#select_user_reservation").change(function() {
+            viewReservationOfUser($btoken);
+        });
+
+        // Washers
+        viewWashers($btoken);
+
         // selectionWashingProgram($btoken);
         // selectionWasher($btoken);
         // viewReservation($btoken);
@@ -24,13 +34,14 @@ $(document).ready(function(){
         $("#moreinfo_reservation").click(function(){
             $("#edit_reservation").show();
             //$("#backscreen").show();
+            
         });
 
         // Chiude tabella edit reservation
-        $("#close_edit_reservation").click(function(){
-            $("#edit_reservation").hide();
-            //$("#backscreen").hide();
-        });
+        // $("#close_edit_reservation").click(function(){
+        //     $("#edit_reservation").hide();
+        //     //$("#backscreen").hide();
+        // });
 
         // Tabella Edit Reservation
         $("#reservation_admin").submit(function(event){
@@ -46,6 +57,90 @@ $(document).ready(function(){
 
     });
 });
+
+// Visualizza gli utenti
+function viewUsers($btoken){
+    $.ajax({
+        url: `/api/user/`,
+        async: false,
+        type: 'GET',
+        headers: {
+            "Authorization": 'Bearer ' + $btoken,
+            'Accept' : 'application/json'
+        },
+
+        success: function(response){
+            let res = response["utenti"];
+            for(let i in res){
+                $("#select_user_reservation").append(`<option data-id=${res[i].id}>` + res[i].id + " " + res[i].email + "</option>");
+            }
+        },
+        error: function(e){
+            console.log("Error Creation ", e);
+        }
+    });
+}
+
+// Visualizza gli le reservation dell'utente selezionato
+function viewReservationOfUser($btoken){
+    let userid  = $("#select_user_reservation option:selected").attr("data-id");
+    $.ajax({
+        url: `/api/user/${userid}/reservation`,
+        async: true,
+        type: 'GET',
+        headers: {
+            "Authorization": 'Bearer ' + $btoken,
+            'Accept' : 'application/json'
+        },
+
+        success: function(response){
+            let res = response["data"];
+            if(res.length){
+                $("#select_reservation").empty();
+                for(let i in res){
+                    $("#select_reservation").append(`<option data-id=${res[i].id}>` + res[i].id + " " + res[i].orario + "</option>");
+                }
+            }else{
+                console.log("No Reservation available");
+                $("#select_reservation").empty();
+                $("#select_reservation").append("<option style='display: none'>" + "No Reservations Avaiable" + "</option>");
+            }
+            
+        },
+        error: function(e){
+            console.log("Error Creation ", e);
+        }
+    });
+}
+
+// Visualizza le washer
+function viewWashers($btoken){
+    $.ajax({
+        url: `/api/washer/`,
+        async: true,
+        type: 'GET',
+        headers: {
+            "Authorization": 'Bearer ' + $btoken,
+            'Accept' : 'application/json'
+        },
+
+        success: function(response){
+            let res = response["lavasciuga"];
+            for(let i in res){
+                $("#wname").append(`<option data-id=${res[i].id}>` + res[i].id + " " + res[i].marca + "</option>");
+                if (res[i].stato){
+                    $("#wstatus option[data-id=active]").attr("selected", true);
+                }else{
+                    $("#wstatus option[data-id=deactive]").attr("selected", true);
+                }
+                
+            }
+        },
+        error: function(e){
+            console.log("Error Creation ", e);
+        }
+    });
+}
 
 // Controlla che il tempo rientri nel range prestabilito
 function timeCheck(timepicker, errortime){

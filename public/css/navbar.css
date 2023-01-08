@@ -25,7 +25,6 @@ body {
 
 h1, h2 {
     font-family: Comic Sans MS;
-    font-weight: normal;
     margin: 0.2rem 1.5rem;
     padding: 1rem;
 }
@@ -112,7 +111,7 @@ p {
     border-radius: 40px;
     color: #F3EFF5;
     font-family: Comic Sans MS;
-    font-size: 40px;
+    font-size: 25px;
     font-weight: bold;
     transition: all 0.25s ease;
     user-select: none;
