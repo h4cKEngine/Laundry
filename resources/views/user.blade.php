@@ -23,8 +23,8 @@
                     <span id="reservationid"></span>
                     <input type="date" name="datepicker2" id="datepicker2" class="datepicker" format="DD/MM/YYYY" required/>
                     <input type="time" name="timepicker2" id="timepicker2" class="timepicker" format="hh:mm" required/>
-                    <select id=washer2> </select>
-                    <select id=washing_program2> </select>
+                    <select id="washer2"> </select>
+                    <select id="washing_program2"> </select>
         
                 <span class="error_message_date" id="error_message_date2"></span>
                 <span class="error_message_time" id="error_message_time2"></span>
@@ -40,7 +40,7 @@
         </div>
 
             <!-- Prenotazioni Disponibili -->
-            <h1> <b>Available Reservations:</b> </h1>
+            <h1> <b>Available Reservations</b> </h1>
             <form id="reservation_available">
                 @csrf
                 <label for="datepicker1">Date</label>
@@ -61,7 +61,7 @@
             </form>
             
             <!-- Prenotazioni dell'utente -->
-            <h1> <b>Reservations:</b> </h1>
+            <h1> <b>Reservations</b> </h1>
             <div id="reservation">
                <select name="sel_reservation" id="sel_reservation" class="selezione">
                     <option id="noreservation" data-id='noreservation' style="display: none">-- Select a Reservation --</option>
@@ -71,7 +71,7 @@
             </div>
 
             <!-- Stato delle Lavasciuga -->
-            <h1> <b>Washers Status:</b> </h1>
+            <h1> <b>Washers Status</b> </h1>
             <div id="washers_status">
                 <div id="washer_name"></div>
                 <div id="washer_status"></div>

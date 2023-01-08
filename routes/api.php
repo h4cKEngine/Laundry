@@ -56,7 +56,7 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
                 
                 Route::post('/', [ReservationController::class, 'store'])->middleware('role')->name("store"); // Crea una prenotazione
                 
-                Route::patch('/{reservation}', [ReservationController::class, 'update'])->middleware('role')->name("update"); // Modifica una prenotazione
+                Route::patch('/', [ReservationController::class, 'update'])->middleware('role')->name("update"); // Modifica una prenotazione
                 
                 Route::delete('/all', [UserController::class, 'deletePrenAll'])->middleware('role')->name("deletePrenAll"); // Elimina tutte le prenotazioni dell'utente selezionato
                 Route::delete('/{reservation}', [ReservationController::class, 'destroy'])->middleware('role')->name("destroy"); // Elimina una prenotazione
@@ -71,10 +71,14 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
         
         Route::post('/', [WasherController::class, 'store'])->middleware('adminrole')->name("store"); // Crea una lavasciuga
         
+        Route::patch('/', [WasherController::class, 'edit'])->middleware('adminrole')->name("edit"); // Modifica una lavasciuga
+        
         Route::put('/', [WasherController::class, 'statusAll'])->middleware('adminrole')->name("statusAll"); // Abilita/Disabilita tutte le lavasciuga
         
         // URI: /api/washer/{washer}/
         Route::group(['prefix' => '{washer}'], function(){
+            Route::get('/', [WasherController::class, 'show'])->name("show"); // Visualizza la lavasciuga
+            
             Route::patch('/', [WasherController::class, 'status'])->middleware('adminrole')->name("status"); // Attiva/Disabilita la lavasciuga
 
             Route::delete('/', [WasherController::class, 'destroy'])->middleware('adminrole')->name("destroy"); // Elimina la lavasciuga

@@ -7,6 +7,7 @@ use App\Http\Middleware\Role as MiddlewareRole;
 use App\Http\Resources\WasherResource;
 use Illuminate\Http\Request;
 use App\Models\Washer;
+use Illuminate\Support\Facades\DB;
 
 class WasherController extends Controller
 {
@@ -70,9 +71,9 @@ class WasherController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Washer $washer)
     {
-        //
+        return new WasherResource($washer);
     }
     
 
@@ -82,9 +83,22 @@ class WasherController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request)
     {
-        //
+        $request->validate([
+            'id' => 'exists:washers,id|required',
+            'marca' => 'string|required',
+            'stato' => 'required'
+        ],[
+            'string' => 'Errore, inserire string',
+            'required' => 'Errore, inserire un campo'
+        ]);
+        
+        $queryWasher = Washer::where('id', $request->id)->update([
+            'marca' => $request->marca,
+            'stato' => $request->stato
+        ]);
+        return new WasherResource($queryWasher);
     }
 
     /**

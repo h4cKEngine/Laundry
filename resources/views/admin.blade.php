@@ -11,8 +11,26 @@
         <div id="backscreen"></div>
         @include("navbar")
 
+        <div id="info_washer">
+            <button id="close_info_washer">X</button>
+            <h2 style="text-align: center;">Info Washer</h2>
+    
+            <form id="washer_status">
+                @csrf
+                <label>ID</label>
+                <label>Brand</label>
+                <label>Status</label>
+                <label></label>
+                
+                <span class="washer_status" id="washerid"></span>
+                <input type="text" class="washer_status" id="washername">
+                <input type="checkbox" id="check_washer_status">
+                <button type="submit" id="set_washer">Set</button>
+        </form>
+    </div>
+
         <!-- Modifica Prenotazioni -->
-        <h1> <b>Reservations:</b> </h1>
+        <h1> <b>Reservations</b> </h1>
         <div id="reservation">
             <label>User</label>
             <label>Reservation</label>
@@ -45,26 +63,16 @@
             
                 <span class="error_message_date" id="error_message_date1"></span>
                 <span class="error_message_time" id="error_message_time1"></span>          
-            </form>
-            
+            </form>    
         </div>
 
         <!-- Stato delle Lavasciuga -->
-        <h1> <b>Washers Status:</b> </h1>
-        <form id="washers_status">
-            @csrf
-            <label for="washer">Washer</label>
-            <label for="stato">Status</label>
-            <label for=""></label>
-        
+        <div style="margin: 0 auto">
+            <h2> <b>Washers Status</b> </h2>
             <select name="washer" class="washer_status" id="wname"></select>
-            <select name="stato" class="washer_status" id="wstatus">
-                <option data-id="active">active</option>
-                <option data-id="deactive">deactive</option>
-            </select>
+            <button type="button" id="info_washer_btn">Info</button>
+        </div>
         
-            <button type="submit">Set</button>
-        </form>
         @include("info_account")
         <script src="{{ asset('js/admin.js') }}"></script>
     </body>

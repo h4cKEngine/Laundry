@@ -26,6 +26,84 @@ $(document).ready(function(){
         // Washers
         viewWashers($btoken);
 
+        // Washers Status
+        $("#info_washer_btn").click(function(){
+            var washer = $("#wname").val().split(" ");
+            var washerid = washer[0];
+            $("#info_washer").show();
+            $("#backscreen").show();
+            $.ajax({
+                url: `/api/washer/${washerid}`,
+                type: 'GET',
+                headers: {
+                    "Authorization": 'Bearer ' + $btoken,
+                    'Accept' : 'application/json'
+                },
+                dataType: 'json',
+
+                success: function(response){
+                    var res = response["data"];
+                    console.log(res);
+                    $("#washerid").empty();
+                    $("#washername").empty();
+                    $("#washerid").html(res.id);
+                    $("#washername").val(res.marca);
+                    if(res.stato){
+                        $("#check_washer_status").prop("checked", true);
+                    }else{
+                        $("#check_washer_status").prop("checked", false);
+                    }
+                },
+                error: function(e){
+                    console.log(e);
+                }
+            });
+        });
+
+        $("#close_info_washer").click(function(){
+            $("#info_washer").hide();
+            $("#backscreen").hide();
+        });
+
+        $("#washer_status").submit(function(event){
+            event.preventDefault();
+            var washer = $("#wname").val().split(" ");
+            var washerid = washer[0];
+            var washername = $("#washername").val();
+            var washerstatus;
+            if($("#check_washer_status").prop("checked")){
+                washerstatus = 1;
+            }else{
+                washerstatus = 0;
+            }
+
+            $("#info_washer").hide();
+            $("#backscreen").hide();
+
+            $.ajax({
+                url: `/api/washer/${washerid}`,
+                type: 'PATCH',
+                headers: {
+                    "Authorization": 'Bearer ' + $btoken,
+                    'Accept' : 'application/json'
+                },
+                dataType: 'json',
+                data: {
+                    id: washerid,
+                    marca: washername,
+                    stato: washerstatus
+                },
+
+                success: function(response){
+                    //var res = response["data"];
+                    console.log(response);
+                },
+                error: function(e){
+                    console.log(e);
+                }
+            });
+        });
+
         // selectionWashingProgram($btoken);
         // selectionWasher($btoken);
         // viewReservation($btoken);
@@ -40,7 +118,7 @@ $(document).ready(function(){
         // Chiude tabella edit reservation
         // $("#close_edit_reservation").click(function(){
         //     $("#edit_reservation").hide();
-        //     //$("#backscreen").hide();
+        //     $("#backscreen").hide();
         // });
 
         // Tabella Edit Reservation
@@ -104,8 +182,7 @@ function viewReservationOfUser($btoken){
                 console.log("No Reservation available");
                 $("#select_reservation").empty();
                 $("#select_reservation").append("<option style='display: none'>" + "No Reservations Avaiable" + "</option>");
-            }
-            
+            }       
         },
         error: function(e){
             console.log("Error Creation ", e);
@@ -128,12 +205,6 @@ function viewWashers($btoken){
             let res = response["lavasciuga"];
             for(let i in res){
                 $("#wname").append(`<option data-id=${res[i].id}>` + res[i].id + " " + res[i].marca + "</option>");
-                if (res[i].stato){
-                    $("#wstatus option[data-id=active]").attr("selected", true);
-                }else{
-                    $("#wstatus option[data-id=deactive]").attr("selected", true);
-                }
-                
             }
         },
         error: function(e){
