@@ -22,9 +22,10 @@
                 <label>Status</label>
                 <label></label>
                 
-                <span class="washer_status" id="washerid"></span>
-                <input type="text" class="washer_status" id="washername">
+                <span id="washerid"></span>
+                <input type="text" id="washername">
                 <input type="checkbox" id="check_washer_status">
+
                 <button type="submit" id="set_washer">Set</button>
         </form>
     </div>
