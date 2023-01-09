@@ -209,7 +209,7 @@ $(document).ready(function(){
     });
 });
 
-// Visualizza reservation
+// Visualizza reservation dell'user loggato
 function viewReservation($btoken){
     var userid = $("#user_id").text();
     $.ajax({
@@ -224,10 +224,24 @@ function viewReservation($btoken){
         success: function(response){
             try {
                 var res = response["data"];
-                if(Object.keys(res).length){
+                if(Object.keys(res).length){ // Controlla la lunghezza delle chiavi
                     $("#noreservation").hide();
-                    for(let i in res){                    
-                        $('#sel_reservation').append('<option>' + res[i].id + ' ' + res[i].orario + '</option>');
+                    for(let i in res){
+                        let giorno_ora = res[i].orario.split(" ");
+                        let oggi = new Date();
+                        var reservation_date = new Date(giorno_ora);
+                        if( oggi.getTime() >= reservation_date.getTime() ){
+                            console.log("Prenotazione scaduta");
+                            continue;
+                        }
+                        
+                        let months = [01, 02, 03, 04, 05, 06, 07, 08, 09, 10, 11, 12];
+                        let date = new Date(giorno_ora[0]);
+                        let gg = date.getDate();
+                        let mm = date.getMonth();
+                        let yyyy = date.getFullYear();
+                        let format_date = gg + "/" + months[mm] + "/" + yyyy;
+                        $('#sel_reservation').append('<option>' + res[i].id + ' ' + format_date + '</option>');
                     }
                 }else{
                     $("#noreservation").show();
