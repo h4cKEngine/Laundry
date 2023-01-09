@@ -29,7 +29,6 @@
                 <button type="submit" id="set_washer">Set</button>
         </form>
     </div>
-
         <!-- Modifica Prenotazioni -->
         <h1> <b>Reservations</b> </h1>
         <div id="reservation">

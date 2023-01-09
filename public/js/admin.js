@@ -79,7 +79,6 @@ $(document).ready(function(){
 
             $("#info_washer").hide();
             $("#backscreen").hide();
-
             $.ajax({
                 url: `/api/washer/${washerid}`,
                 type: 'PATCH',
