@@ -34,7 +34,7 @@ h1, h4 {
 .timepicker {
     margin: 2rem 1rem 2rem;
     padding: 0.5rem 0.5rem;
-    min-width: 8rem;
+    min-width: 4rem;
     font-size: large;
     font-family: Comic Sans MS;
     border-radius: 1rem;
@@ -43,8 +43,8 @@ h1, h4 {
 }
 
 .selezione {
-    max-width: 17rem;
-    min-width: 12rem;
+    max-width: 16rem;
+    min-width: 4rem;
     margin: 2rem 1rem 2rem;
     padding: 0.5rem 0.5rem;
     width: auto;

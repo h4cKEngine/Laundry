@@ -3,6 +3,10 @@ h1, h2, h4, label {
     user-select: none;
 }
 
+span {
+    text-align: center;
+}
+
 input[type="submit"], button {
     max-width: 16rem;
     margin-left: 0.75rem;
@@ -21,12 +25,22 @@ input[type="submit"], button {
 
 #edit_reservation {
     display: none;
-    margin: 0 auto;
+    position: absolute;
+    z-index: 3;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
     align-items: center;
     font-size: large;
+    font-family: Comic Sans MS;
+    background-color: #EEE;
+    border: 0.5px solid #000;
+    border-radius: 15px;
     padding: 1rem;
-    max-width: 50rem;
-    max-height: 22rem;
+    max-width: 84rem;
+    max-height: 18rem;
 }
 
 #reservation {
@@ -40,15 +54,15 @@ input[type="submit"], button {
 #reservation_admin {
     display: grid;
     place-items: center;
-    grid-template-columns: auto auto auto auto auto auto;
+    grid-template-columns: auto auto auto auto auto auto auto;
     margin: 0 auto;
     margin-left: -6rem;
     user-select: none;
 }
 
 #select_user_reservation, #select_reservation {
-    max-width: 17rem;
-    min-width: 12rem;
+    max-width: 16rem;
+    min-width: 8rem;
     margin: 2rem 1rem 2rem;
     padding: 0.5rem 0.5rem;
     width: auto;
@@ -110,7 +124,7 @@ input[type="submit"], button {
 
 .washer_status {
     max-width: 17rem;
-    min-width: 12rem;
+    min-width: 6rem;
     margin: 2rem 1rem 2rem;
     padding: 0.5rem 0.5rem;
     width: auto;

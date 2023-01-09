@@ -23,16 +23,11 @@ $(document).ready(function(){
         // Creazione reservation
         $("#reservation_available").submit(function(event){
             event.preventDefault();
-            try{
-                var userid = $("#user_id").text();
+            let userid = $("#user_id").text();
 
-                var orario = $("#datepicker1").val() + " " + $("#timepicker1").val() + ":00";
-                var washerid = $("#washer1").val().split(" ");
-                var washingprogramid = $("#washing_program1").val().split(" ");
-            }
-            catch(e){
-                console.log("Error Form", e);
-            }
+            let orario = $("#datepicker1").val() + " " + $("#timepicker1").val() + ":00";
+            let washerid = $("#washer1").val().split(" ");
+            let washingprogramid = $("#washing_program1").val().split(" ");
             $.ajax({
                 url: `/api/user/${userid}/reservation/`,
                 async: true,
@@ -68,14 +63,10 @@ $(document).ready(function(){
 
             $("#info_reservation").show();
             $("#backscreen").show();
-            try{
-                var userid = $("#user_id").text();
-                var reservation = $("#sel_reservation").val().split(" ");
-                var reservationid = reservation[0];
-            }
-            catch(e){
-                console.log("Error", e);
-            }
+            let userid = $("#user_id").text();
+            let reservation = $("#sel_reservation").val().split(" ");
+            let reservationid = reservation[0];
+
             $.ajax({
                 url: `/api/user/${userid}/reservation/${reservationid}`,
                 type: 'GET',
@@ -89,17 +80,17 @@ $(document).ready(function(){
                     if($("#info_single_reservation1").children().length > 0 || $("#info_single_reservation2").children().length > 0){
                         console.log("Reservation already selected");
                     }else{
-                        res = response["data"].orario.split(" ");
-                        tempo = res[1].split(":");
-                        ore = tempo[0];
-                        minuti = tempo[1];
+                        let res = response["data"].orario.split(" ");
+                        let tempo = res[1].split(":");
+                        let ore = tempo[0];
+                        let minuti = tempo[1];
 
                         $("#reservationid").text(reservationid);
                         $("#datepicker2").val(res[0]);
                         $("#timepicker2").val(ore + ':' + minuti);
                         $(`#washer2 option[data-id=${response["data"].id_washer}]`).attr("selected", true);
                         $(`#washing_program2 option[data-id=${response["data"].id_washing_program}]`).attr("selected", true);
-                    }              
+                    }
                 },
                 error: function(e){
                     console.log("Error Info Reservation", e);
@@ -116,17 +107,14 @@ $(document).ready(function(){
         // Edit reservation
         $("#form_edit").submit(function(event){
             event.preventDefault();
-            try{
-                var userid = $("#user_id").text();
-                var reservationid = $("#reservationid").text();
+            let userid = $("#user_id").text();
+            let reservationid = $("#reservationid").text();
 
-                var orario = $("#datepicker2").val() + " " + $("#timepicker2").val() + ":00";
-                var washerid = $("#washer2").val().split(" ");
-                var washingprogramid = $("#washing_program2").val().split(" ");
-            }
-            catch(e){
-                console.log("Error Edit Form", e);
-            }
+            let orario = $("#datepicker2").val() + " " + $("#timepicker2").val() + ":00";
+            let washer = $("#washer2").val().split(" ");
+            let washerid = washer[0];
+            let washingprogram = $("#washing_program2").val().split(" ");
+            let washingprogramid = washingprogram[0];
 
             $("#info_reservation").hide();
             $("#backscreen").hide();
@@ -141,14 +129,13 @@ $(document).ready(function(){
 
                 data: {
                     orario: orario,
-                    id_washer: washerid[0],
-                    id_washing_program: washingprogramid[0]
+                    id_washer: washerid,
+                    id_washing_program: washingprogramid
                 },
 
                 success: function(response){
                     try {
                         console.log("Reservation Edited");
-                        location.reload();
                         location.reload();
                     } catch (e) {
                         console.log("Errore informazione errata", e);
@@ -176,14 +163,9 @@ $(document).ready(function(){
 
         // Elimina reservation
         $("#confirm_delete_submit").click(function(){
-            try{
-                var userid = $("#user_id").text();
-                var reservation = $("#sel_reservation").val().split(" ");
-                var reservationid = reservation[0];  
-            }
-            catch(e){
-                console.log("Error Deleting Reservation", e);
-            }
+            let userid = $("#user_id").text();
+            let reservation = $("#sel_reservation").val().split(" ");
+            let reservationid = reservation[0];
 
             $("#delete_field").hide();
             $("#info_reservation").hide();
@@ -206,6 +188,7 @@ $(document).ready(function(){
                 }
             });
         });
+
     });
 });
 
@@ -222,33 +205,23 @@ function viewReservation($btoken){
         dataType: "json",
 
         success: function(response){
-            try {
-                var res = response["data"];
-                if(Object.keys(res).length){ // Controlla la lunghezza delle chiavi
-                    $("#noreservation").hide();
-                    for(let i in res){
-                        let giorno_ora = res[i].orario.split(" ");
-                        let oggi = new Date();
-                        var reservation_date = new Date(giorno_ora);
-                        if( oggi.getTime() >= reservation_date.getTime() ){
-                            console.log("Prenotazione scaduta");
-                            continue;
-                        }
-                        
-                        // let months = [01, 02, 03, 04, 05, 06, 07, 08, 09, 10, 11, 12];
-                        // let date = new Date(giorno_ora[0]);
-                        // let gg = date.getDate();
-                        // let mm = date.getMonth();
-                        // let yyyy = date.getFullYear();
-                        // let format_date = gg + "/" + months[mm] + "/" + yyyy;
-                        $('#sel_reservation').append('<option>' + res[i].id + ' ' + dayFormat(giorno_ora[0]) + '</option>');
+            let res = response["data"];
+            if(Object.keys(res).length){ // Controlla la lunghezza delle chiavi
+                $("#noreservation").hide();
+                for(let i in res){
+                    let giorno_ora = res[i].orario.split(" ");
+                    let oggi = new Date();
+                    var reservation_date = new Date(giorno_ora);
+                    if( oggi.getTime() >= reservation_date.getTime() ){
+                        console.log("Prenotazione scaduta");
+                        continue;
                     }
+                    
+                    $('#sel_reservation').append('<option>' + res[i].id + ' ' + dayFormat(giorno_ora[0]) + " " + giorno_ora[1] + '</option>');
+                }
                 }else{
                     $("#noreservation").show();
                 }
-            } catch (e) {
-                console.log("Errore informazione errata", e);
-            }
         },
 
         error: function(){
@@ -269,7 +242,7 @@ function selectionWasher($btoken){
         dataType: "json",
 
         success: function(response){
-            var res = response["lavasciuga"];
+            let res = response["lavasciuga"];
             for(let i in res){
                 $('#washer_name').append('<div>' + "ID: " + res[i].id  + ' Brand: ' + res[i].marca + '</div>');
                 if(res[i].stato){
@@ -299,7 +272,7 @@ function selectionWashingProgram($btoken){
         dataType: "json",
 
         success: function(response){
-            res = response['programma'];           
+            let res = response['programma'];           
             for(let i in res){
                 if(res[i].stato){
                     $('#washing_program1').append('<option>' + res[i].id  + ' ' + res[i].nome + ' ' + res[i].prezzo + '€' + '</option>');
@@ -348,7 +321,7 @@ function dayFormat(day){
 // Controlla se il giorno selezionato è un sabato o una domenica
 function noWeekend(datepicker, errordate){
     datepicker.on('input', function(){
-        var day = new Date(this.value).getUTCDay();
+        let day = new Date(this.value).getUTCDay();
         if([6,0].includes(day)){ // Domenica= 0, Sabato= 6
             this.value = '';
             errordate.css("display", "inline");
@@ -364,23 +337,21 @@ function noWeekend(datepicker, errordate){
 
 // Ottiene la data odierna
 function getToday(){
-    var today = new Date();
-    var dd = String(today.getDate()).padStart(2, '0');
-    var mm = String(today.getMonth() + 1).padStart(2, '0');
-    var yyyy = today.getFullYear();
+    let today = new Date();
+    let dd = String(today.getDate()).padStart(2, '0');
+    let mm = String(today.getMonth() + 1).padStart(2, '0');
+    let yyyy = today.getFullYear();
 
-    today = yyyy + '-' + mm + '-' + dd;
-    return today;
+    return yyyy + '-' + mm + '-' + dd;
 }
 
 // Ottiene la data a n giorni rispetto l'odierna
 function addDaysToDate(date, days){
-    var day = new Date(date);
+    let day = new Date(date);
     day.setDate(day.getDate() + days);
-    var dd = String(day.getDate()).padStart(2, '0');
-    var mm = String(day.getMonth() + 1).padStart(2, '0');
-    var yyyy = day.getFullYear();
+    let dd = String(day.getDate()).padStart(2, '0');
+    let mm = String(day.getMonth() + 1).padStart(2, '0');
+    let yyyy = day.getFullYear();
 
-    day = yyyy + '-' + mm + '-' + dd;
-    return day;
+    return yyyy + '-' + mm + '-' + dd;
 }

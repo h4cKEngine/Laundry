@@ -47,19 +47,24 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
             
             Route::patch('/', [UserController::class, 'restore'])->middleware('adminrole'); // Annulla Soft Delete un utente
             
-            Route::delete('/', [UserController::class, 'destroy'])->middleware('adminrole'); // Soft Delete un utente
+            Route::delete('/', [UserController::class, 'destroy'])->middleware('adminrole'); // Soft Delete su un utente
             
             // URI: /api/user/{user}/reservation
             Route::group(['prefix' => 'reservation', 'as' => 'reservation.'], function(){
                 Route::get('/', [UserController::class, 'reservationsUser'])->middleware('role')->name("showReservationsUser"); // Visualizza tutte le prenotazioni dell'utente
-                Route::get('/{reservation}', [ReservationController::class, 'show'])->middleware('role')->name("show"); // Visualizza la prenotazione dell'utente
                 
                 Route::post('/', [ReservationController::class, 'store'])->middleware('role')->name("store"); // Crea una prenotazione
                 
-                Route::patch('/', [ReservationController::class, 'update'])->middleware('role')->name("update"); // Modifica una prenotazione
-                
                 Route::delete('/all', [UserController::class, 'deletePrenAll'])->middleware('role')->name("deletePrenAll"); // Elimina tutte le prenotazioni dell'utente selezionato
-                Route::delete('/{reservation}', [ReservationController::class, 'destroy'])->middleware('role')->name("destroy"); // Elimina una prenotazione
+                
+                // URI: /api/user/{user}/reservation/{reservation}
+                Route::group(['prefix' => '{reservation}'], function(){
+                    Route::get('/', [ReservationController::class, 'show'])->middleware('role')->name("show"); // Visualizza la prenotazione dell'utente
+                    
+                    Route::patch('/', [ReservationController::class, 'update'])->middleware('role')->name("update"); // Modifica una prenotazione
+                    
+                    Route::delete('/', [ReservationController::class, 'destroy'])->middleware('role')->name("destroy"); // Elimina una prenotazione
+                });
             });
         });
     });
