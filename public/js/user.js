@@ -235,13 +235,13 @@ function viewReservation($btoken){
                             continue;
                         }
                         
-                        let months = [01, 02, 03, 04, 05, 06, 07, 08, 09, 10, 11, 12];
-                        let date = new Date(giorno_ora[0]);
-                        let gg = date.getDate();
-                        let mm = date.getMonth();
-                        let yyyy = date.getFullYear();
-                        let format_date = gg + "/" + months[mm] + "/" + yyyy;
-                        $('#sel_reservation').append('<option>' + res[i].id + ' ' + format_date + '</option>');
+                        // let months = [01, 02, 03, 04, 05, 06, 07, 08, 09, 10, 11, 12];
+                        // let date = new Date(giorno_ora[0]);
+                        // let gg = date.getDate();
+                        // let mm = date.getMonth();
+                        // let yyyy = date.getFullYear();
+                        // let format_date = gg + "/" + months[mm] + "/" + yyyy;
+                        $('#sel_reservation').append('<option>' + res[i].id + ' ' + dayFormat(giorno_ora[0]) + '</option>');
                     }
                 }else{
                     $("#noreservation").show();
@@ -332,6 +332,17 @@ function timeCheck(timepicker, errortime){
         }
         timepicker.blur();
     })
+}
+
+// Formatta la data in dd/mm/yyyy
+function dayFormat(day){
+    let months = [01, 02, 03, 04, 05, 06, 07, 08, 09, 10, 11, 12];
+    let date = new Date(day);
+    let gg = date.getDate();
+    let mm = date.getMonth();
+    let yyyy = date.getFullYear();
+
+   return gg + "/" + months[mm] + "/" + yyyy;
 }
 
 // Controlla se il giorno selezionato è un sabato o una domenica
