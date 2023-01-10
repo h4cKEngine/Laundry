@@ -92,7 +92,9 @@
         <!-- Stato delle Lavasciuga -->
         <div style="margin: 0 auto">
             <h2> <b>Washers Status</b> </h2>
-            <select name="washer" class="washer_status" id="wname"></select>
+            <select id="wname">
+                <option id="nowasher" data-id='nowasher' style="display: none">-- Select a Washer --</option>
+            </select>
             <button type="button" id="info_washer_btn">Info</button>
         </div>
 

@@ -28,6 +28,11 @@ $(document).ready(function(){
 
         // Washers Status
         $("#info_washer_btn").click(function(){
+            if($("#wname option:selected").val() == "-- Select a Washer --"){
+                console.log("No Washer selected");
+                alert("No Washer selected!\nPick one!");
+                return;
+            }
             var washer = $("#wname").val().split(" ");
             var washerid = washer[0];
             $("#info_washer").show();
