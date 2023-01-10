@@ -74,12 +74,12 @@ input[type="submit"], button {
     user-select: none;
 }
 
-#close_edit_reservation, #close_info_washer, #close_info_user {
+#close_edit_reservation, #close_info_washer, #close_info_washing_program, #close_info_user {
     padding: 0.7rem;
     float: right;
 }
 
-#close_edit_reservation:hover, #close_info_user:hover, #close_info_washer:hover {
+#close_edit_reservation:hover, #close_info_user:hover, #close_info_washer:hover, #close_info_washing_program:hover {
     color: #bb0b0b;
 }
 
@@ -116,7 +116,7 @@ input[type="submit"], button {
     background-color: #EEE;
     border: 0.5px solid #000;
     border-radius: 15px;
-    padding: 1rem;
+    padding: 2rem;
     max-width: 50rem;
     max-height: 12rem;
 }
@@ -162,6 +162,19 @@ input[type="submit"], button {
 
 .washer_status {
     max-width: 17rem;
+    min-width: 6rem;
+    margin: 2rem 1rem 2rem;
+    padding: 0.5rem 0.5rem;
+    width: auto;
+    font-size: large;
+    font-family: Comic Sans MS;
+    border: 2.5px solid #000;
+    border-radius: 1rem;
+    user-select: none;
+}
+
+.washing_program_status {
+    max-width: 8rem;
     min-width: 6rem;
     margin: 2rem 1rem 2rem;
     padding: 0.5rem 0.5rem;

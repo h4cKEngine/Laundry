@@ -86,6 +86,11 @@ $(document).ready(function(){
         // Popup Washers Status
         // Mostra Washers Status
         $("#info_washer_btn").click(function(){
+            if($("#wname option[data-id='nowasher']:selected").val() == "-- Select a User --"){
+                console.log("No User selected");
+                alert("No User selected!\nPick one!");
+                return;
+            }
             let washer = $("#wname").val().split(" ");
             let washerid = washer[0];
             $("#info_washer").show();
@@ -127,6 +132,11 @@ $(document).ready(function(){
         // Washer Status form
         $("#washer_status").submit(function(event){
             event.preventDefault();
+            if($("#wpname option:selected").val() == "-- Select a Washer --"){
+                console.log("No Washer selected");
+                alert("No Washer selected!\nPick one!");
+                return;
+            }
             let washer = $("#wname").val().split(" ");
             let washerid = washer[0];
             let washername = $("#washername").val();
@@ -217,12 +227,12 @@ $(document).ready(function(){
 
         $("#washing_program_status").submit(function(event){
             event.preventDefault();
-            var washingprogram = $("#wpname").val().split(" ");
-            var washingprogramid = washingprogram[0];
-            var washingprogramname = $("#washingprogramname").val();
-            var washingprogramprice = $("#washingprogramprice").val();
-            var washingprogramtime = $("#washingprogramtime").val();
-            var washingprogramstatus;
+            let washingprogram = $("#wpname").val().split(" ");
+            let washingprogramid = washingprogram[0];
+            let washingprogramname = $("#washingprogramname").val();
+            let washingprogramprice = $("#washingprogramprice").val();
+            let washingprogramtime = $("#washingprogramtime").val() + ":00";
+            let washingprogramstatus;
             if($("#check_washing_program_status").prop("checked")){
                 washingprogramstatus = 1;
             }else{
@@ -240,7 +250,6 @@ $(document).ready(function(){
                 },
                 dataType: 'json',
                 data: {
-                    id: washingprogramid,
                     nome: washingprogramname,
                     prezzo: washingprogramprice,
                     durata: washingprogramtime,

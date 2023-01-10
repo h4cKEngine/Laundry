@@ -31,6 +31,31 @@
             </form>
         </div>
 
+        <!-- Programma Lavaggio -->
+        <div id="info_washing_program">
+            <a id="close_info_washing_program"><i class="fa-solid fa-x"></i></a>
+            <h2 style="text-align: center;">Info Washing Program</h2>
+        
+            <form id="washing_program_status">
+                @csrf
+                <label>ID</label>
+                <label>Nome</label>
+                <label>Price</label>
+                <label>Time</label>
+                <label>Status</label>
+                <label></label>
+                    
+                <span id="washingprogramid"></span>
+                <input type="text" class="washing_program_status" id="washingprogramname">
+                <input type="number" class="washing_program_status" id="washingprogramprice">
+                <input type="time" class="washing_program_status" id="washingprogramtime">
+                <input type="checkbox" class="washing_program_status" id="check_washing_program_status">
+    
+                <button type="submit" id="set_washing_program">Set</button>
+            </form>
+
+        </div>
+
         <!-- Utenti -->
         <div id="info_user">
             <a id="close_info_user"><i class="fa-solid fa-x" ></i></a>
@@ -110,8 +135,19 @@
         <!-- Stato delle Lavasciuga -->
         <div style="margin: 0 auto">
             <h2> <b>Washers Status</b> </h2>
-            <select class="user_status" id="wname"></select>
+            <select class="user_status" id="wname">
+                <option id="nowasher" data-id='nowasher' style="display: none">-- Select a Washer --</option>
+            </select>
             <button type="button" id="info_washer_btn">Info</button>
+        </div>
+
+        <!-- Stato degli Programmi Lavaggio -->
+        <div style="margin: 0 auto">
+            <h2> <b>Washing Programs Status</b> </h2>
+            <select id="wpname">
+                <option id="nowashingprogram" data-id='nowashingprogram' style="display: none">-- Select a Washing Program --</option>
+            </select>
+            <button type="button" id="info_washing_program_btn">Info</button>
         </div>
 
         <!-- Stato degli Utenti -->
