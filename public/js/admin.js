@@ -16,8 +16,13 @@ $(document).ready(function(){
 
         // Users
         viewUsers($btoken);
+        
         // Washers
         viewWashers($btoken);
+        
+        // Washing program Status
+        viewWashingPrograms($btoken);
+        
         // Load Reservations
         $("#select_user_reservation").change(function() {
             viewReservationOfUser($btoken);
@@ -36,7 +41,7 @@ $(document).ready(function(){
             $("#info_user").show();
             let userid = $("#uname").val().split(" ")[0];
             $.ajax({
-                url: `/api/user`,
+                url: `/api/user/${userid}`,
                 type: 'GET',
                 headers: {
                     "Authorization": 'Bearer ' + $btoken,
@@ -45,6 +50,31 @@ $(document).ready(function(){
 
                 success: function(response){
                     let res = response["data"];
+                    $("#iduser").empty();
+                    $("#idnumber").empty();
+                    $("#name").empty();
+                    $("#surname").empty();
+                    $("#email").empty();
+                    $("#nationalities").addClass("user_status");
+                    //$("#check_user_status").empty();
+
+                    $("#iduser").text(res.id);
+                    $("#idnumber").val(res.matricola);
+                    $("#name").val(res.nome);
+                    $("#surname").val(res.cognome);
+                    $("#email").val(res.email);
+                    console.log("res nationality: ", res.nazionalita, typeof(res.nazionalita));
+                    $(`#nationality option[value=${res.nationalita}]:selected`).attr("selected", true);
+                    if(res.ruolo == 1){
+                        $("#role").val("Admin");
+                    }else{
+                        $("#role").val("User");
+                   }
+                    if(res.stato){
+                        $("#check_user_status").prop("checked", false);
+                    }else{
+                        $("#check_user_status").prop("checked", true);
+                    }
                 },
                 error: function(e){
                     console.log(e);
@@ -65,13 +95,34 @@ $(document).ready(function(){
             $("#info_user").hide();
             $("#backscreen").hide();
             let userid = $("#uname").val().split(" ")[0];
-            
+            let email = $("#email").val();
+            let idnumber = $("#idnumber").val();
+            let name = $("#name").val();
+            let surname = $("#surname").val();
+            let nationality = $("#nationalities").val();
+            let role = $("#role").val();
+            let status;
+            if ($("#check_user_status").prop("checked")){
+                status = "NULL";
+            }else{
+                status = getToday() + " " + getCurrentTime();
+            }
+             
             $.ajax({
                 url: `/api/user/${userid}`,
                 type: 'PATCH',
                 headers: {
                     "Authorization": 'Bearer ' + $btoken,
                     'Accept' : 'application/json'
+                },
+                data: {
+                    email: email,
+                    nome: name,
+                    cognome: surname,
+                    matricola: idnumber,
+                    nationalita: nationality,
+                    ruolo: role,
+                    deleted_at: status,
                 },
 
                 success: function(){
@@ -106,7 +157,6 @@ $(document).ready(function(){
 
                 success: function(response){
                     let res = response["data"];
-                    console.log(res);
                     $("#washerid").empty();
                     $("#washername").empty();
                     $("#washerid").html(res.id);
@@ -165,18 +215,13 @@ $(document).ready(function(){
 
                 success: function(response){
                     //var res = response["data"];
-                    console.log(response);
                 },
                 error: function(e){
                     console.log(e);
                 }
             });
         });
-
-        // Washing program
-        viewWashingPrograms($btoken);
-
-        // Washing program Status
+      
         $("#info_washing_program_btn").click(function(){
             if($("#wpname option:selected").val() == "-- Select a Washing Program --"){
                 console.log("No Washing Program selected");
@@ -198,7 +243,6 @@ $(document).ready(function(){
 
                 success: function(response){
                     var res = response["data"];
-                    console.log(res);
                     $("#washingprogramid").empty();
                     $("#washingprogramname").empty();
                     $("#washingprogramprice").empty();
@@ -258,16 +302,12 @@ $(document).ready(function(){
 
                 success: function(response){
                     //var res = response["data"];
-                    console.log(response);
                 },
                 error: function(e){
                     console.log(e);
                 }
             });
         });
-        // selectionWashingProgram($btoken);
-        // selectionWasher($btoken);
-        // viewReservation($btoken);
 
         // Mostra tabella edit reservation
         $("#moreinfo_reservation").click(function(){
@@ -296,8 +336,8 @@ $(document).ready(function(){
                 success: function(response){
                     $("#datepicker1").empty();
                     $("#timepicker1").empty();
-                    $(`#washer1`).empty();
-                    $(`#washing_program1`).empty();
+                    //$(`#washer1`).empty();
+                    //$(`#washing_program1`).empty();
                     
                     let res = response["data"].orario.split(" ");
                     let tempo = res[1].split(":");
@@ -344,12 +384,8 @@ $(document).ready(function(){
                 },
 
                 success: function(response){
-                    try {
-                        console.log("Reservation Edited");
-                        location.reload();
-                    } catch (e) {
-                        console.log("Errore informazione errata", e);
-                    }
+                    console.log("Reservation Edited");
+                    location.reload();
                 },
 
                 error: function(e){
@@ -420,6 +456,7 @@ function viewUsers($btoken){
 
         success: function(response){
             let res = response["utenti"];
+            $("#uname").empty();
             for(let i in res){
                 $("#select_user_reservation").append(`<option data-id=${res[i].id}>` + res[i].id + " " + res[i].email + "</option>");
                 $("#uname").append(`<option data-id=${res[i].id}>` + res[i].id + " " + res[i].email + "</option>");
@@ -463,30 +500,6 @@ function viewReservationOfUser($btoken){
     });
 }
 
-// Visualizza le washer
-function viewWashers($btoken){
-    $.ajax({
-        url: `/api/washer/`,
-        async: true,
-        type: 'GET',
-        headers: {
-            "Authorization": 'Bearer ' + $btoken,
-            'Accept' : 'application/json'
-        },
-
-        success: function(response){
-            let res = response["lavasciuga"];
-            $("#wname").empty();
-            for(let i in res){
-                $("#wname").append(`<option data-id=${res[i].id}>` + res[i].id + " " + res[i].marca + "</option>");
-            }
-        },
-        error: function(e){
-            console.log("Error Creation ", e);
-        }
-    });
-}
-
 // Stampa la lista delle washer
 function selectionWasher($btoken){
     $.ajax({
@@ -509,6 +522,29 @@ function selectionWasher($btoken){
         },
         error: function(e){
             console.log("Error", e);
+        }
+    });
+}
+// Visualizza le washer
+function viewWashers($btoken){
+    $.ajax({
+        url: `/api/washer/`,
+        async: true,
+        type: 'GET',
+        headers: {
+            "Authorization": 'Bearer ' + $btoken,
+            'Accept' : 'application/json'
+        },
+
+        success: function(response){
+            let res = response["lavasciuga"];
+            $("#wname").empty();
+            for(let i in res){
+                $("#wname").append(`<option data-id=${res[i].id}>` + res[i].id + " " + res[i].marca + "</option>");
+            }
+        },
+        error: function(e){
+            console.log("Error Creation ", e);
         }
     });
 }
@@ -539,17 +575,6 @@ function selectionWashingProgram($btoken){
     });
 }
 
-// Formatta la data in dd/mm/yyyy
-function dayFormat(day){
-    let months = [01, 02, 03, 04, 05, 06, 07, 08, 09, 10, 11, 12];
-    let date = new Date(day);
-    let gg = date.getDate();
-    let mm = date.getMonth();
-    let yyyy = date.getFullYear();
-
-   return gg + "/" + months[mm] + "/" + yyyy;
-}
-
 // Visualizza i washing program
 function viewWashingPrograms($btoken){
     $.ajax({
@@ -563,6 +588,7 @@ function viewWashingPrograms($btoken){
 
         success: function(response){
             let res = response["programma"];
+            $("#wpname").empty();
             for(let i in res){
                 $("#wpname").append(`<option data-id=${res[i].id}>` + res[i].id + " " + res[i].nome + "</option>");
             }
@@ -619,6 +645,27 @@ function getToday(){
     let yyyy = today.getFullYear();
 
     return  yyyy + '-' + mm + '-' + dd;
+}
+
+// Ottiene le ore minuti e secondi correnti
+function getCurrentTime(){
+    let now = new Date();
+    let HH = now.getHours();
+    let mm = now.getMinutes();
+    let ss = now.getSeconds();
+
+    return  HH + ':' + mm + ':' + ss;
+}
+
+// Formatta la data in dd/mm/yyyy
+function dayFormat(day){
+    let months = [01, 02, 03, 04, 05, 06, 07, 08, 09, 10, 11, 12];
+    let date = new Date(day);
+    let gg = date.getDate();
+    let mm = date.getMonth();
+    let yyyy = date.getFullYear();
+
+   return gg + "/" + months[mm] + "/" + yyyy;
 }
 
 // Ottiene la data a n giorni rispetto l'odierna

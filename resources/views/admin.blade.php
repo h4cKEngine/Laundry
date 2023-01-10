@@ -23,7 +23,7 @@
                 <label>Status</label>
                 <label></label>
                 
-                <span id="washerid"></span>
+                <span class="user_status" id="washerid"></span>
                 <input type="text" id="washername">
                 <input type="checkbox" id="check_washer_status">
 
@@ -45,7 +45,7 @@
                 <label>Status</label>
                 <label></label>
                     
-                <span id="washingprogramid"></span>
+                <span class="washing_program_status" id="washingprogramid"></span>
                 <input type="text" class="washing_program_status" id="washingprogramname">
                 <input type="number" class="washing_program_status" id="washingprogramprice">
                 <input type="time" class="washing_program_status" id="washingprogramtime">
@@ -74,12 +74,12 @@
                 <label>Email</label>
                 <input class="user_status" type="text" id="email">
                 <label>Nationality</label>
-                <input class="user_status" type="text" id="nationality">
+                @include("nationalities_list")
                 <label>Role</label>
                 <input class="user_status" type="text" id="role">
                 <label>Status</label>
-                <input class="user_status" type="text" id="status">
-                <label></label>
+                <input type="checkbox" id="check_user_status">
+
                 <button type="submit" id="set_user">Set</button>
             </form>
         </div>

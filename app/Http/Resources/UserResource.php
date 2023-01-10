@@ -24,6 +24,7 @@ class UserResource extends JsonResource
             'matricola' => $this->matricola,
             'nazionalita' => $this->nationalita,
             'ruolo' => $this->ruolo,
+            'stato' => $this->deleted_at,
             '_links' => $this->links()
         ];
     }
