@@ -1,6 +1,11 @@
 h1, h2, h4, label {
     margin: 0 auto;
+    text-align: center;
     user-select: none;
+}
+
+span {
+    text-align: center;
 }
 
 input[type="submit"], button {
@@ -21,34 +26,44 @@ input[type="submit"], button {
 
 #edit_reservation {
     display: none;
-    margin: 0 auto;
+    position: absolute;
+    z-index: 3;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
     align-items: center;
     font-size: large;
+    font-family: Comic Sans MS;
+    background-color: #EEE;
+    border: 0.5px solid #000;
+    border-radius: 15px;
     padding: 1rem;
-    max-width: 50rem;
-    max-height: 22rem;
+    max-width: 70rem;
+    max-height: 32rem;
 }
 
 #reservation {
     display: grid;
     place-items: center;
     grid-template-columns: auto auto auto;
-    margin: 0 auto;
     user-select: none;
 }
 
 #reservation_admin {
     display: grid;
+    grid-auto-flow:column dense;
+    grid-template-rows: auto auto auto auto;
+    grid-template-columns: auto;
+    grid-auto-columns: auto;
     place-items: center;
-    grid-template-columns: auto auto auto auto auto auto;
-    margin: 0 auto;
-    margin-left: -6rem;
     user-select: none;
 }
 
 #select_user_reservation, #select_reservation {
-    max-width: 17rem;
-    min-width: 12rem;
+    max-width: 16rem;
+    min-width: 8rem;
     margin: 2rem 1rem 2rem;
     padding: 0.5rem 0.5rem;
     width: auto;
@@ -59,15 +74,13 @@ input[type="submit"], button {
     user-select: none;
 }
 
-#close_edit_reservation, #close_info_washer, #close_info_washing_program {
-    padding-top: 0.2rem;
-    padding-bottom: 0.2rem;
+#close_edit_reservation, #close_info_washer, #close_info_user {
+    padding: 0.7rem;
     float: right;
 }
 
-#close_edit_reservation:hover, #close_info_washer:hover, #close_info_washing_program:hover {
-    color: #F3EFF5;
-    background: #bb0b0b;
+#close_edit_reservation:hover, #close_info_user:hover, #close_info_washer:hover {
+    color: #bb0b0b;
 }
 
 #info_washer{
@@ -147,8 +160,8 @@ input[type="submit"], button {
     user-select: none;
 }
 
-.washer_status, .washing_program_status {
-    max-width: 8rem;
+.washer_status {
+    max-width: 17rem;
     min-width: 6rem;
     margin: 2rem 1rem 2rem;
     padding: 0.5rem 0.5rem;
@@ -158,4 +171,54 @@ input[type="submit"], button {
     border: 2.5px solid #000;
     border-radius: 1rem;
     user-select: none;
+}
+
+#info_user {
+    display: none;
+    position: absolute;
+    z-index: 3;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    align-items: center;
+    font-size: large;
+    background-color: #EEE;
+    border: 0.5px solid #000;
+    border-radius: 15px;
+    padding: 1rem;
+    max-width: 80rem;
+    max-height: 26rem;
+}
+
+#user_status {
+    display: grid;
+    grid-auto-flow:column dense;
+    grid-template-rows: auto auto auto auto;
+    grid-template-columns: auto auto;
+    grid-auto-columns: auto;
+    place-items: center;
+    margin: 0 auto;
+    user-select: none;
+}
+
+.user_status {
+    margin: 2rem 1rem 2rem;
+    max-width: 14rem;
+    padding: 0.5rem 0.5rem;
+    font-size: large;
+    font-family: Comic Sans MS;
+    border: 2.5px solid #000;
+    border-radius: 1rem;
+    user-select: none;
+}
+
+#set_user {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    position: absolute;
+    float: right;
+    right: 1rem;
+    bottom: 1rem;
 }
