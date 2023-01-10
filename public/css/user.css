@@ -1,5 +1,6 @@
-h1, h4 {
+h1, h2, h4 {
     margin: 0 auto;
+    text-align: center;
     user-select: none;
 }
 
@@ -98,8 +99,6 @@ input[type="submit"]:hover, button:hover {
 }
 
 #washers_status div {
-    max-width: 10rem;
-    min-width: 15rem;
     padding: 0.5rem 0.5rem;
     width: auto;
     border-radius: 1rem;
@@ -159,10 +158,14 @@ input[type="submit"]:hover, button:hover {
 }
 
 #close_info_reservation {
-    padding-top: 0.1rem;
-    padding-bottom: 0.2rem;
-    top: 0;
+    padding: 0.7rem;
     float: right;
+    top: 1rem;
+    right: 1rem;
+}
+
+#close_info_reservation:hover {
+    color: #bb0b0b;
 }
 
 #edit_reservation_submit, #confirm_delete_submit {
@@ -204,7 +207,7 @@ input[type="submit"]:hover, button:hover {
     bottom: 1rem;
 }
 
-#close_info_reservation, #delete_reservation_submit:hover, #confirm_delete_submit:hover {
+#delete_reservation_submit:hover, #confirm_delete_submit:hover {
     color: #F3EFF5;
     background: #bb0b0b;
 }

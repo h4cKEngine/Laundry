@@ -36,7 +36,7 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     // User routes
     // URI: /api/user/
     Route::group(['prefix' => 'user', 'as' => 'user.'], function(){
-        Route::get('/', [UserController::class, 'index'])->middleware('adminrole')->name("indexUser"); // Visualizza tutti gli utenti
+        Route::get('/', [UserController::class, 'index'])->middleware('adminrole')->name("indexUser"); // Visualizza tutti gli utenti (attivi)
         Route::get('/trashed', [UserController::class, 'trashed'])->middleware('adminrole'); // Visualizza tutti gli utenti nel cestino
 
         Route::get('/reservation/all', [ReservationController::class, 'index'])->middleware('adminrole')->name("indexReservation"); // Visualizza tutte le prenotazioni

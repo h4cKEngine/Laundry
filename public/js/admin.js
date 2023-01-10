@@ -24,6 +24,57 @@ $(document).ready(function(){
         $("#select_user_reservation").change(function() {
             viewReservationOfUser($btoken);
         });
+
+        // Popup Users Status
+        // Mostra Users Status
+        $("#info_user_btn").click(function(){
+            let userid = $("#uname").val().split(" ")[0];
+            $("#info_user").show();
+            $("#backscreen").show();
+            $.ajax({
+                url: `/api/user`,
+                type: 'GET',
+                headers: {
+                    "Authorization": 'Bearer ' + $btoken,
+                    'Accept' : 'application/json'
+                },
+
+                success: function(response){
+                    let res = response["data"];
+                },
+                error: function(e){
+                    console.log(e);
+                }
+            });
+        });
+
+        // Chiudi
+        $("#close_info_user").click(function(){
+            $("#info_user").hide();
+            $("#backscreen").hide();
+        });
+
+        // Users Status form
+        $("#user_status").submit(function(event){
+            event.preventDefault();
+            let userid = $("#uname").val().split(" ")[0];
+            $("#info_user").hide();
+            $("#backscreen").hide();
+            $.ajax({
+                url: `/api/user/${userid}`,
+                type: 'PATCH',
+                headers: {
+                    "Authorization": 'Bearer ' + $btoken,
+                    'Accept' : 'application/json'
+                },
+
+                success: function(){
+                },
+                error: function(e){
+                    console.log(e);
+                }
+            });
+        });
         
         // Popup Washers Status
         // Mostra Washers Status
@@ -208,6 +259,7 @@ $(document).ready(function(){
             $("#backscreen").css("z-index", 2);
         });
 
+        // Conferma Eliminazione
         $("#confirm_delete_submit").click(function(){
             let userid = $("#user1").text();
             let reservationid = $("#reservation1").text();
@@ -234,7 +286,6 @@ $(document).ready(function(){
             });
         });
 
-
     });
 });
 
@@ -253,6 +304,7 @@ function viewUsers($btoken){
             let res = response["utenti"];
             for(let i in res){
                 $("#select_user_reservation").append(`<option data-id=${res[i].id}>` + res[i].id + " " + res[i].email + "</option>");
+                $("#uname").append(`<option data-id=${res[i].id}>` + res[i].id + " " + res[i].email + "</option>");
             }
         },
         error: function(e){

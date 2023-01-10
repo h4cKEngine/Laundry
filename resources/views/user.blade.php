@@ -11,7 +11,7 @@
             @include("navbar")
             
             <div id="info_reservation">
-                <button id="close_info_reservation">X</button>
+                <a id="close_info_reservation"><i class="fa-solid fa-x" ></i></a>
                 <h2 style="text-align: center;">Info Reservation</h2>
         
                 <form id= "form_edit">

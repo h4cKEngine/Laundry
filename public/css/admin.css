@@ -1,5 +1,6 @@
 h1, h2, h4, label {
     margin: 0 auto;
+    text-align: center;
     user-select: none;
 }
 
@@ -39,8 +40,8 @@ input[type="submit"], button {
     border: 0.5px solid #000;
     border-radius: 15px;
     padding: 1rem;
-    max-width: 84rem;
-    max-height: 18rem;
+    max-width: 74rem;
+    max-height: 30rem;
 }
 
 #reservation {
@@ -53,10 +54,12 @@ input[type="submit"], button {
 
 #reservation_admin {
     display: grid;
+    grid-auto-flow:column dense;
+    grid-template-rows: auto auto auto auto auto auto;;
+    grid-template-columns: auto auto;
+    grid-auto-columns: auto;
     place-items: center;
-    grid-template-columns: auto auto auto auto auto auto auto;
     margin: 0 auto;
-    margin-left: -6rem;
     user-select: none;
 }
 
@@ -73,15 +76,13 @@ input[type="submit"], button {
     user-select: none;
 }
 
-#close_edit_reservation, #close_info_washer {
-    padding-top: 0.2rem;
-    padding-bottom: 0.2rem;
+#close_edit_reservation, #close_info_washer, #close_info_user {
+    padding: 0.7rem;
     float: right;
 }
 
-#close_edit_reservation:hover, #close_info_washer:hover {
-    color: #F3EFF5;
-    background: #bb0b0b;
+#close_edit_reservation:hover, #close_info_user:hover, #close_info_washer:hover {
+    color: #bb0b0b;
 }
 
 #info_washer {
@@ -133,4 +134,54 @@ input[type="submit"], button {
     border: 2.5px solid #000;
     border-radius: 1rem;
     user-select: none;
+}
+
+#info_user {
+    display: none;
+    position: absolute;
+    z-index: 3;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    align-items: center;
+    font-size: large;
+    background-color: #EEE;
+    border: 0.5px solid #000;
+    border-radius: 15px;
+    padding: 1rem;
+    max-width: 80rem;
+    max-height: 26rem;
+}
+
+#user_status {
+    display: grid;
+    grid-auto-flow:column dense;
+    grid-template-rows: auto auto auto auto;
+    grid-template-columns: auto auto;
+    grid-auto-columns: auto;
+    place-items: center;
+    margin: 0 auto;
+    user-select: none;
+}
+
+.user_status {
+    margin: 2rem 1rem 2rem;
+    max-width: 14rem;
+    padding: 0.5rem 0.5rem;
+    font-size: large;
+    font-family: Comic Sans MS;
+    border: 2.5px solid #000;
+    border-radius: 1rem;
+    user-select: none;
+}
+
+#set_user {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    position: absolute;
+    float: right;
+    right: 1rem;
+    bottom: 1rem;
 }
