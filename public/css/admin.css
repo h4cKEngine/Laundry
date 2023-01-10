@@ -48,18 +48,16 @@ input[type="submit"], button {
     display: grid;
     place-items: center;
     grid-template-columns: auto auto auto;
-    margin: 0 auto;
     user-select: none;
 }
 
 #reservation_admin {
     display: grid;
     grid-auto-flow:column dense;
-    grid-template-rows: auto auto auto auto auto auto;;
+    grid-template-rows: auto auto auto auto;
     grid-template-columns: auto auto;
     grid-auto-columns: auto;
     place-items: center;
-    margin: 0 auto;
     user-select: none;
 }
 
