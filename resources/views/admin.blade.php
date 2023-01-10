@@ -133,8 +133,8 @@
         </div>
 
         <!-- Stato delle Lavasciuga -->
-        <div style="margin: 0 auto">
-            <h2> <b>Washers Status</b> </h2>
+        <h2> <b>Washers Status</b> </h2>
+        <div style="margin: 0 auto" id="wgrid">
             <select id="wname">
                 <option id="nowasher" data-id='nowasher' style="display: none">-- Select a Washer --</option>
             </select>
@@ -142,8 +142,8 @@
         </div>
 
         <!-- Stato degli Programmi Lavaggio -->
-        <div style="margin: 0 auto">
-            <h2> <b>Washing Programs Status</b> </h2>
+        <h2> <b>Washing Programs Status</b> </h2>
+        <div style="margin: 0 auto" id="wpgrid">
             <select id="wpname">
                 <option id="nowashingprogram" data-id='nowashingprogram' style="display: none">-- Select a Washing Program --</option>
             </select>
@@ -151,8 +151,8 @@
         </div>
 
         <!-- Stato degli Utenti -->
-        <div style="margin: 0 auto">
-            <h2> <b>Users Status</b> </h2>
+        <h2> <b>Users Status</b> </h2>
+        <div style="margin: 0 auto" id=ugrid>
             <select class="user_status" id="uname">
                 <option id="nouser" data-id='nouser' style="display: none">-- Select a User --</option>
             </select>
