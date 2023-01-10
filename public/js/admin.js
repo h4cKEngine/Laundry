@@ -86,13 +86,13 @@ $(document).ready(function(){
         // Popup Washers Status
         // Mostra Washers Status
         $("#info_washer_btn").click(function(){
-            if($("#wname option[data-id='nowasher']:selected").val() == "-- Select a User --"){
-                console.log("No User selected");
-                alert("No User selected!\nPick one!");
+            if($("#wname option:selected").val() == "-- Select a Washer --"){
+                console.log("No Washer selected");
+                alert("No Washer selected!\nPick one!");
                 return;
             }
-            let washer = $("#wname").val().split(" ");
-            let washerid = washer[0];
+            var washer = $("#wname").val().split(" ");
+            var washerid = washer[0];
             $("#info_washer").show();
             $("#backscreen").show();
             $.ajax({
