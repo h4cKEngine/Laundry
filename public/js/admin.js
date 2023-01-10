@@ -109,6 +109,11 @@ $(document).ready(function(){
 
         // Washing program Status
         $("#info_washing_program_btn").click(function(){
+            if($("#wpname option:selected").val() == "-- Select a Washing Program --"){
+                console.log("No Washing Program selected");
+                alert("No Washing Program selected!\nPick one!");
+                return;
+            }
             var washingprogram = $("#wpname").val().split(" ");
             var washingprogramid = washingprogram[0];
             $("#info_washing_program").show();
@@ -129,6 +134,7 @@ $(document).ready(function(){
                     $("#washingprogramname").empty();
                     $("#washingprogramprice").empty();
                     $("#washingprogramtime").empty();
+                    
                     $("#washingprogramid").html(res.id);
                     $("#washingprogramname").val(res.nome);
                     $("#washingprogramprice").val(res.prezzo);

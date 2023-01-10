@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\WashingProgramResource;
 use App\Models\User;
+use App\Models\Washer;
 use App\Models\WashingProgram;
 use Illuminate\Http\Request;
 
@@ -66,9 +67,9 @@ class WashingProgramController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(WashingProgram $washing_program)
     {
-        //
+        return new WashingProgramResource($washing_program);
     }
 
     /**
