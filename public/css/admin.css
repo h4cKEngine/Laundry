@@ -40,8 +40,8 @@ input[type="submit"], button {
     border: 0.5px solid #000;
     border-radius: 15px;
     padding: 1rem;
-    max-width: 74rem;
-    max-height: 30rem;
+    max-width: 70rem;
+    max-height: 32rem;
 }
 
 #reservation {
@@ -55,7 +55,7 @@ input[type="submit"], button {
     display: grid;
     grid-auto-flow:column dense;
     grid-template-rows: auto auto auto auto;
-    grid-template-columns: auto auto;
+    grid-template-columns: auto;
     grid-auto-columns: auto;
     place-items: center;
     user-select: none;

@@ -93,12 +93,12 @@
                 <label for="washing_program1">Washing Program</label>
                 <select name="washing_program1" class="selezione" id="washing_program1"></select>
                 
-                {{-- <span class="error_message_date" id="error_message_date1"></span>
-                <span class="error_message_time" id="error_message_time1"></span> --}}
-
                 <button type="button" id="delete_reservation_submit">Delete</button>
                 <button type="submit" id="edit_reservation_submit">Edit</button>
-            </form>    
+            </form>
+            
+            <span class="error_message_date" id="error_message_date1"></span>
+            <span class="error_message_time" id="error_message_time1"></span>  
         </div>
 
         <div id="delete_field">
@@ -117,7 +117,9 @@
         <!-- Stato degli Utenti -->
         <div style="margin: 0 auto">
             <h2> <b>Users Status</b> </h2>
-            <select class="user_status" id="uname"></select>
+            <select class="user_status" id="uname">
+                <option id="nouser" data-id='nouser' style="display: none">-- Select a User --</option>
+            </select>
             <button type="button" id="info_user_btn">Info</button>
         </div>
         

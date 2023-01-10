@@ -3,9 +3,7 @@ $(document).ready(function(){
     var day = addDaysToDate(today, 14); // Imposta un range fino alle 2 settimane successive
     
     $('#datepicker1').attr('min', today);
-    $('#datepicker2').attr('min', today);
     $('#datepicker1').attr('max', day);
-    $('#datepicker2').attr('max', day);
     timeCheck($("#timepicker1"), $("#error_message_time1"));
     timeCheck($("#timepicker2"), $("#error_message_time2"));
     noWeekend($('#datepicker1'), $("#error_message_date1"));
@@ -28,9 +26,15 @@ $(document).ready(function(){
         // Popup Users Status
         // Mostra Users Status
         $("#info_user_btn").click(function(){
-            let userid = $("#uname").val().split(" ")[0];
-            $("#info_user").show();
+            if($("#uname option[data-id='nouser']:selected").val() == "-- Select a User --"){
+                console.log("No User selected");
+                alert("No User selected!\nPick one!");
+                return;
+            }
+
             $("#backscreen").show();
+            $("#info_user").show();
+            let userid = $("#uname").val().split(" ")[0];
             $.ajax({
                 url: `/api/user`,
                 type: 'GET',
@@ -57,9 +61,11 @@ $(document).ready(function(){
         // Users Status form
         $("#user_status").submit(function(event){
             event.preventDefault();
-            let userid = $("#uname").val().split(" ")[0];
+            
             $("#info_user").hide();
             $("#backscreen").hide();
+            let userid = $("#uname").val().split(" ")[0];
+            
             $.ajax({
                 url: `/api/user/${userid}`,
                 type: 'PATCH',
@@ -69,6 +75,7 @@ $(document).ready(function(){
                 },
 
                 success: function(){
+
                 },
                 error: function(e){
                     console.log(e);
@@ -160,7 +167,7 @@ $(document).ready(function(){
         $("#moreinfo_reservation").click(function(){
             if($("#select_reservation option:selected").val() == "-- Select a Reservation --"){
                 console.log("No Reservation selected");
-                alert("No Reservation selected!\nPick a user first!");
+                alert("No Reservation selected!\nPick a User first!");
                 return;
             }
             $("#edit_reservation").show();
@@ -181,6 +188,11 @@ $(document).ready(function(){
                 },
 
                 success: function(response){
+                    $("#datepicker1").empty();
+                    $("#timepicker1").empty();
+                    $(`#washer1`).empty();
+                    $(`#washing_program1`).empty();
+                    
                     let res = response["data"].orario.split(" ");
                     let tempo = res[1].split(":");
                     let ore = tempo[0];
@@ -358,6 +370,7 @@ function viewWashers($btoken){
 
         success: function(response){
             let res = response["lavasciuga"];
+            $("#wname").empty();
             for(let i in res){
                 $("#wname").append(`<option data-id=${res[i].id}>` + res[i].id + " " + res[i].marca + "</option>");
             }
@@ -381,6 +394,7 @@ function selectionWasher($btoken){
 
         success: function(response){
             let res = response["lavasciuga"];
+            $('#washer1').empty();
             for(let i in res){
                 if(res[i].stato){
                     $('#washer1').append(`<option data-id=${res[i].id}>` + res[i].id  + ' ' + res[i].marca + '</option>');
@@ -406,6 +420,7 @@ function selectionWashingProgram($btoken){
 
         success: function(response){
             let res = response['programma'];
+            $('#washing_program1').empty();
             for(let i in res){
                 if(res[i].stato){
                     $('#washing_program1').append(`<option data-id=${res[i].id}>` + res[i].id  + ' ' + res[i].nome + ' ' + res[i].prezzo + '€' + '</option>');
