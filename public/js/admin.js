@@ -59,6 +59,7 @@ $(document).ready(function(){
                 }
             });
         });
+        
 
         $("#close_info_washer").click(function(){
             $("#info_washer").hide();
@@ -103,6 +104,93 @@ $(document).ready(function(){
             });
         });
 
+        // Washing program
+        viewWashingPrograms($btoken);
+
+        // Washing program Status
+        $("#info_washing_program_btn").click(function(){
+            var washingprogram = $("#wpname").val().split(" ");
+            var washingprogramid = washingprogram[0];
+            $("#info_washing_program").show();
+            $("#backscreen").show();
+            $.ajax({
+                url: `/api/washing_program/${washingprogramid}`,
+                type: 'GET',
+                headers: {
+                    "Authorization": 'Bearer ' + $btoken,
+                    'Accept' : 'application/json'
+                },
+                dataType: 'json',
+
+                success: function(response){
+                    var res = response["data"];
+                    console.log(res);
+                    $("#washingprogramid").empty();
+                    $("#washingprogramname").empty();
+                    $("#washingprogramprice").empty();
+                    $("#washingprogramtime").empty();
+                    $("#washingprogramid").html(res.id);
+                    $("#washingprogramname").val(res.nome);
+                    $("#washingprogramprice").val(res.prezzo);
+                    $("#washingprogramtime").val(res.durata);
+                    if(res.stato){
+                        $("#check_washing_program_status").prop("checked", true);
+                    }else{
+                        $("#check_washing_program_status").prop("checked", false);
+                    }
+                },
+                error: function(e){
+                    console.log(e);
+                }
+            });
+        });
+
+        $("#close_info_washing_program").click(function(){
+            $("#info_washing_program").hide();
+            $("#backscreen").hide();
+        });
+
+        $("#washing_program_status").submit(function(event){
+            event.preventDefault();
+            var washingprogram = $("#wpname").val().split(" ");
+            var washingprogramid = washingprogram[0];
+            var washingprogramname = $("#washingprogramname").val();
+            var washingprogramprice = $("#washingprogramprice").val();
+            var washingprogramtime = $("#washingprogramtime").val();
+            var washingprogramstatus;
+            if($("#check_washing_program_status").prop("checked")){
+                washingprogramstatus = 1;
+            }else{
+                washingprogramstatus = 0;
+            }
+
+            $("#info_washing_program").hide();
+            $("#backscreen").hide();
+            $.ajax({
+                url: `/api/washing_program/${washingprogramid}`,
+                type: 'PATCH',
+                headers: {
+                    "Authorization": 'Bearer ' + $btoken,
+                    'Accept' : 'application/json'
+                },
+                dataType: 'json',
+                data: {
+                    id: washingprogramid,
+                    nome: washingprogramname,
+                    prezzo: washingprogramprice,
+                    durata: washingprogramtime,
+                    stato: washingprogramstatus
+                },
+
+                success: function(response){
+                    //var res = response["data"];
+                    console.log(response);
+                },
+                error: function(e){
+                    console.log(e);
+                }
+            });
+        });
         // selectionWashingProgram($btoken);
         // selectionWasher($btoken);
         // viewReservation($btoken);
@@ -204,6 +292,29 @@ function viewWashers($btoken){
             let res = response["lavasciuga"];
             for(let i in res){
                 $("#wname").append(`<option data-id=${res[i].id}>` + res[i].id + " " + res[i].marca + "</option>");
+            }
+        },
+        error: function(e){
+            console.log("Error Creation ", e);
+        }
+    });
+}
+
+// Visualizza i washing program
+function viewWashingPrograms($btoken){
+    $.ajax({
+        url: `/api/washing_program/`,
+        async: true,
+        type: 'GET',
+        headers: {
+            "Authorization": 'Bearer ' + $btoken,
+            'Accept' : 'application/json'
+        },
+
+        success: function(response){
+            let res = response["programma"];
+            for(let i in res){
+                $("#wpname").append(`<option data-id=${res[i].id}>` + res[i].id + " " + res[i].nome + "</option>");
             }
         },
         error: function(e){

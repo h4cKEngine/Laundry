@@ -59,18 +59,18 @@ input[type="submit"], button {
     user-select: none;
 }
 
-#close_edit_reservation, #close_info_washer {
+#close_edit_reservation, #close_info_washer, #close_info_washing_program {
     padding-top: 0.2rem;
     padding-bottom: 0.2rem;
     float: right;
 }
 
-#close_edit_reservation:hover, #close_info_washer:hover {
+#close_edit_reservation:hover, #close_info_washer:hover, #close_info_washing_program:hover {
     color: #F3EFF5;
     background: #bb0b0b;
 }
 
-#info_washer {
+#info_washer{
     display: none;
     position: absolute;
     z-index: 3;
@@ -89,6 +89,25 @@ input[type="submit"], button {
     max-height: 12rem;
 }
 
+#info_washing_program{
+    display: none;
+    position: absolute;
+    z-index: 3;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    align-items: center;
+    font-size: large;
+    background-color: #EEE;
+    border: 0.5px solid #000;
+    border-radius: 15px;
+    padding: 1rem;
+    max-width: 50rem;
+    max-height: 12rem;
+}
+
 #washer_status {
     display: grid;
     place-items: center;
@@ -96,6 +115,15 @@ input[type="submit"], button {
     margin: 0 auto;
     user-select: none;
 }
+
+#washing_program_status {
+    display: grid;
+    place-items: center;
+    grid-template-columns: auto auto auto auto auto auto;
+    margin: 0 auto;
+    user-select: none;
+}
+
 
 #washername {
     margin: 2rem 1rem 2rem;
@@ -108,7 +136,7 @@ input[type="submit"], button {
     user-select: none;
 }
 
-.washer_status {
+.washer_status, .washing_program_status {
     max-width: 17rem;
     min-width: 12rem;
     margin: 2rem 1rem 2rem;
