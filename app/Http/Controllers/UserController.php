@@ -34,6 +34,12 @@ class UserController extends Controller
     {
         $user->prenotazione()->delete();
     }
+
+    // Return nazionalità
+    // public function nazione(User $user)
+    // {
+    //     $user->nazionalita();
+    // }
     
     /**
      * Display a listing of the resource.
@@ -90,9 +96,34 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
+    public function update(Request $request, User $user)
+    {   
+        $request->validate([
+            'email' => 'string|required',
+            'nome' => 'string|required',
+            'cognome' => 'string|required',
+            'matricola' => 'string|required',
+            'nazionalita' => 'string|required',
+            'ruolo' => 'boolean',   
+        ],[
+            'string' => 'Errore, inserire string',
+            'integer' => 'Errore, inserire integer',
+            'boolean' => 'Errore, inserire boolean',
+            'required' => 'Errore, inserire un campo'
+        ]);
+
+//     'delete_at' => 'date_format:Y-m-d H:i:s'
+//     'delete_at' => $request->stato
+
+        User::where('id', $user->id)->update([
+            'email' => $request->email,
+            'nome' => $request->nome,
+            'cognome' => $request->cognome,
+            'matricola' => $request->matricola,
+            'nazionalita' => $request->nazionalita,
+            'ruolo' => $request->ruolo
+        ]);
+        return new UserResource($user);
     }
 
     /**

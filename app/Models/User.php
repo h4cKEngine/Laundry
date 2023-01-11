@@ -20,15 +20,15 @@ class User extends Authenticatable
      */
     public $timestamps = false;
     
-    protected $fillable = [
-        'email',
-        'password',
-        'nome',
-        'cognome',
-        'matricola',
-        'nazionalita',
-        'ruolo'
-    ];
+    // protected $fillable = [
+    //     'email',
+    //     'password',
+    //     'nome',
+    //     'cognome',
+    //     'matricola',
+    //     'nazionalita',
+    //     'ruolo'
+    // ];
     
     protected $dates = [
         'deleted_at'
@@ -59,25 +59,22 @@ class User extends Authenticatable
      */
     
     // ----------------- Examples Getter and Setter ------------------ //
-    private $numero;
+    // private $numero;
     
-    public function getElem(){
-        return $this->numero;
-    }
+    // public function getElem(){
+    //     return $this->numero;
+    // }
     
-    public function setElem($num){
-        $this->numero = $num;
-    }
+    // public function setElem($num){
+    //     $this->numero = $num;
+    // }
 
     // public function isAdmin(){
     //     return $this->ruolo == enumUser::admin;
     // }
 
     public function hasRole(String $role){
-        $roles = [
-            "user", "admin"
-        ];
-        
+        $roles = ["user", "admin"];
         return array_search($role, $roles) == $this->ruolo;
     }
 

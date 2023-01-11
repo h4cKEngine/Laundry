@@ -1,39 +1,45 @@
 $(document).ready(function () {
     $('#signupform').submit(function(event){
-        var form = new FormData(); // Oggetto FormData
-        form.append('email', $("#email").val());
-        form.append('matricola', $("#matricola").val());
-        form.append('password', $("#password").val());
-        form.append('nome', $("#nome").val());
-        form.append('cognome', $("#cognome").val());
-        form.append('nazionalita', $("#nazionalita").val());
-        form.append('_token', $("meta[name='csrf-token']").attr("content"));
+        event.preventDefault();
+        let email = $("#email").val();
+        let password = $("#password").val();
+        let idnumber = $("#matricola").val();
+        let name = $("#nome").val();
+        let surname = $("#cognome").val();
+        let nationality = $("#nationalities option:selected").val();
+        let _token = $("meta[name='csrf-token']").attr("content");
+        console.log(email, password, idnumber, name, surname, nationality)
 
         $.ajax({
             type: 'POST',
             url: '/auth/register',
             async: true,
+            headers: {
+                'X-CSRF-TOKEN': _token
+            },
             
-            data: form,
-            contentType: false,
-            processData: false,
-            cache: false,
+            data: {
+                email: email,
+                password: password,
+                nome: name,
+                cognome: surname,
+                matricola: idnumber,
+                nazionalita: nationality
+            },
 
             success: function (result) {
                 try {
                     document.cookie = "bearer_token=" + result.bearer_token;
-                    window.location.replace('/');
+                    location.replace('/');
                 }catch(e) {
                     console.log("Errore informazioni errate", e)
                 }
             },
 
-            error: function (){
+            error: function (e){
                 alert("Email or ID number already found!");
+                console.log("Error", e);
             }
         });
-
-        event.preventDefault();
     });
-
 });  

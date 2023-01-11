@@ -9,13 +9,15 @@ $(document).ready(function(){
     noWeekend($('#datepicker1'), $("#error_message_date1"));
     noWeekend($('#datepicker2'), $("#error_message_date2"));
 
-
     $.getScript("/js/cookie.js", function() {
         console.log("Script cookie.js loaded.");
         $btoken = readCookie('bearer_token');
 
         // Users
         viewUsers($btoken);
+
+        // Users Trashed
+        viewTrashedUsers($btoken);
         
         // Washers
         viewWashers($btoken);
@@ -29,6 +31,12 @@ $(document).ready(function(){
         });
 
         // Popup Users Status
+        // Chiudi
+        $("#close_info_user").click(function(){
+            $("#info_user").hide();
+            $("#backscreen").hide();
+        });
+        
         // Mostra Users Status
         $("#info_user_btn").click(function(){
             if($("#uname option[data-id='nouser']:selected").val() == "-- Select a User --"){
@@ -47,45 +55,30 @@ $(document).ready(function(){
                     "Authorization": 'Bearer ' + $btoken,
                     'Accept' : 'application/json'
                 },
-
                 success: function(response){
-                    let res = response["data"];
+                    let res = response.data;
                     $("#iduser").empty();
                     $("#idnumber").empty();
                     $("#name").empty();
                     $("#surname").empty();
                     $("#email").empty();
                     $("#nationalities").addClass("user_status");
-                    //$("#check_user_status").empty();
 
                     $("#iduser").text(res.id);
                     $("#idnumber").val(res.matricola);
                     $("#name").val(res.nome);
                     $("#surname").val(res.cognome);
                     $("#email").val(res.email);
-                    console.log("res nationality: ", res.nazionalita, typeof(res.nazionalita));
-                    $(`#nationality option[value=${res.nationalita}]:selected`).attr("selected", true);
-                    if(res.ruolo == 1){
-                        $("#role").val("Admin");
-                    }else{
-                        $("#role").val("User");
-                   }
-                    if(res.stato){
-                        $("#check_user_status").prop("checked", false);
-                    }else{
-                        $("#check_user_status").prop("checked", true);
-                    }
+
+                    $(`#nationalities option[value=${res.nazionalita}]`).attr("selected", true);
+                    $(`#role option[data-id=${res.ruolo}]`).attr("selected", true);
+                    
+                    $("#check_user_status").prop("checked", ! (res.stato ?? false));
                 },
                 error: function(e){
                     console.log(e);
                 }
             });
-        });
-
-        // Chiudi
-        $("#close_info_user").click(function(){
-            $("#info_user").hide();
-            $("#backscreen").hide();
         });
 
         // Users Status form
@@ -99,17 +92,24 @@ $(document).ready(function(){
             let idnumber = $("#idnumber").val();
             let name = $("#name").val();
             let surname = $("#surname").val();
-            let nationality = $("#nationalities").val();
-            let role = $("#role").val();
-            let status;
-            if ($("#check_user_status").prop("checked")){
-                status = "NULL";
+            let nationality = $("#nationalities option:selected").val();
+            let role;
+            if($("#role option:selected").val() == "Admin"){
+                role = 1;
             }else{
-                status = getToday() + " " + getCurrentTime();
+                role = 0;
             }
+            
+            console.log(nationality, typeof(nationality));
+            // let status;
+            // if ($("#check_user_status").prop("checked")){
+            //     status = "NULL";
+            // }else{
+            //     status = getToday() + " " + getCurrentTime();
+            // }
              
             $.ajax({
-                url: `/api/user/${userid}`,
+                url: `/api/user/${userid}/update`,
                 type: 'PATCH',
                 headers: {
                     "Authorization": 'Bearer ' + $btoken,
@@ -120,13 +120,141 @@ $(document).ready(function(){
                     nome: name,
                     cognome: surname,
                     matricola: idnumber,
-                    nationalita: nationality,
+                    nazionalita: nationality,
                     ruolo: role,
-                    deleted_at: status,
+                    //deleted_at: status
+                },
+
+                success: function(response){
+                    alert("User Edited Correctly.");
+                    console.log("User edited correctly");
+                },
+                error: function(e){
+                    console.log(e);
+                }
+            });
+        });
+
+        // Popup softdelete user
+        // Chiudi
+        $("#cancel").click(function(){
+            $("#delete_user_field").hide();
+            $("#backscreen").css("z-index", 2);
+        });
+        
+        // Mostra
+        $("#delete_user_submit").click(function(){
+            $("#delete_user_field").show();
+            $("#backscreen").css("z-index", 4);
+        });
+
+        // User SoftDelete
+        $("#confirm_softdelete_submit").click(function(event){
+            event.preventDefault();
+            let userid = $("#uname").val().split(" ")[0];
+            $("#delete_user_field").hide();
+            $("#info_user").hide();
+            $("#backscreen").css("z-index", 2);
+            $("#backscreen").hide();
+            $.ajax({
+                url: `/api/user/${userid}`,
+                type: 'DELETE',
+                headers: {
+                    "Authorization": 'Bearer ' + $btoken,
+                    'Accept' : 'application/json'
                 },
 
                 success: function(){
+                    alert("User Deleted.");
+                    location.reload();
+                },
+                error: function(e){
+                    console.log(e);
+                }
+            });
+        });
+        
+        // Chiudi info restore
+        $("#close_info_restore").click(function(){
+            $("#info_restore").hide();
+            $("#backscreen").hide();
+        });
 
+        // Mostra Users trashed
+        $("#restore_user_btn").click(function(){
+            if($("#utrashed option[data-id='nousertrashed']:selected").val() == "-- Select a User --"){
+                console.log("No User selected");
+                alert("No User selected!\nPick one!");
+                return;
+            }
+
+            let userid = $("#utrashed").val().split(" ")[0];
+            $("#info_restore").show();
+            $("#backscreen").show();
+            $.ajax({
+                url: `/api/user/trashed`,
+                type: 'GET',
+                headers: {
+                    "Authorization": 'Bearer ' + $btoken,
+                    'Accept' : 'application/json'
+                },
+
+                success: function(response){
+                    let res = response;
+                    for(let i in res){
+                        if(res[i].id == userid){
+                            datefull = res[i].deleted_at.split("T");
+                            let day = dayFormat(datefull[0]);
+                            let time = datefull[1].split(".")[0];
+                            $("#iduser_restore").text(res[i].id);
+                            $("#email_restore").text(res[i].email);
+                            $(`#role_restore option[data-id=${res[i].ruolo}]`).attr("selected", true);
+                            $("#deleted_at").text(day + " " + time);
+                        }else{
+                            console.log("User non disponibile");
+                        }
+                    }
+                },
+                error: function(e){
+                    console.log(e);
+                }
+            });
+        });
+
+        // User Restore
+                // Popup Trashed
+        // Chiudi
+        $("#cancel").click(function(){
+            $("#restore_user_field").hide();
+            $("#backscreen").css("z-index", 2);
+        });
+
+        // Mostra
+        $("#restore_form").submit(function(event){
+            event.preventDefault();
+            $("#restore_user_field").show();
+            $("#backscreen").css("z-index", 4);
+        });
+
+        // User Restore Conferma
+        $("#restore_user_submit").click(function(){
+            $("#restore_user_field").hide();
+            $("#info_restore").hide();
+            $("#backscreen").hide();
+            $("#backscreen").css("z-index", 2);
+            let userid = $("#utrashed").val().split(" ")[0];
+            $.ajax({
+                url: `/api/user/${userid}`,
+                type: 'PATCH',
+                headers: {
+                    "Authorization": 'Bearer ' + $btoken,
+                    'Accept' : 'application/json'
+                },
+
+                success: function(response){
+                    let res = response;
+                    console.log(`User ${userid} restored`);
+                    location.reload()
                 },
                 error: function(e){
                     console.log(e);
@@ -302,6 +430,7 @@ $(document).ready(function(){
 
                 success: function(response){
                     //var res = response["data"];
+                    alert("Washing Program Edited.");
                 },
                 error: function(e){
                     console.log(e);
@@ -336,8 +465,6 @@ $(document).ready(function(){
                 success: function(response){
                     $("#datepicker1").empty();
                     $("#timepicker1").empty();
-                    //$(`#washer1`).empty();
-                    //$(`#washing_program1`).empty();
                     
                     let res = response["data"].orario.split(" ");
                     let tempo = res[1].split(":");
@@ -385,6 +512,7 @@ $(document).ready(function(){
 
                 success: function(response){
                     console.log("Reservation Edited");
+                    alert("Reservation Edited.");
                     location.reload();
                 },
 
@@ -432,6 +560,7 @@ $(document).ready(function(){
                 
                 success: function(response){
                     console.log("Reservation deleted.", response);
+                    alert("Reservation Deleted.");
                     location.reload();
                 },
                 error: function(e){
@@ -460,6 +589,30 @@ function viewUsers($btoken){
             for(let i in res){
                 $("#select_user_reservation").append(`<option data-id=${res[i].id}>` + res[i].id + " " + res[i].email + "</option>");
                 $("#uname").append(`<option data-id=${res[i].id}>` + res[i].id + " " + res[i].email + "</option>");
+            }
+        },
+        error: function(e){
+            console.log("Error Creation ", e);
+        }
+    });
+}
+
+// Visualizza gli utenti trashed
+function viewTrashedUsers($btoken){
+    $.ajax({
+        url: `/api/user/trashed`,
+        async: true,
+        type: 'GET',
+        headers: {
+            "Authorization": 'Bearer ' + $btoken,
+            'Accept' : 'application/json'
+        },
+
+        success: function(response){
+            let res = response;
+            $("#utrashed").empty();
+            for(let i in res){
+                $("#utrashed").append(`<option data-id=${res[i].id}>` + res[i].id + " " + res[i].email + "</option>");
             }
         },
         error: function(e){
@@ -659,13 +812,33 @@ function getCurrentTime(){
 
 // Formatta la data in dd/mm/yyyy
 function dayFormat(day){
-    let months = [01, 02, 03, 04, 05, 06, 07, 08, 09, 10, 11, 12];
-    let date = new Date(day);
-    let gg = date.getDate();
-    let mm = date.getMonth();
+    function addZero(i) {
+        if (i < 10) {i = "0" + i}
+        return i;
+    }
+    let months = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+    
+    const date = new Date(day);
+    let gg = addZero(date.getDate());
+    let mm =date.getMonth();
     let yyyy = date.getFullYear();
 
-   return gg + "/" + months[mm] + "/" + yyyy;
+   return gg + "/" +  addZero(months[mm]) + "/" + yyyy;
+}
+
+// Ottiene le ore minuti e secondi correnti
+function timeFormat(input_date){
+    function addZero(i) {
+        if (i < 10) {i = "0" + i}
+        return i;
+    }
+
+    const d = new Date(String(input_date));
+    let h = addZero(d.getHours());
+    let m = addZero(d.getMinutes());
+    let s = addZero(d.getSeconds());
+    return  h + ":" + m + ":" + s;
+    
 }
 
 // Ottiene la data a n giorni rispetto l'odierna

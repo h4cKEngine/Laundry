@@ -75,12 +75,131 @@ input[type="submit"], button {
     user-select: none;
 }
 
-#close_edit_reservation, #close_info_washer, #close_info_washing_program, #close_info_user {
+#delete_user_field {
+    display: none;
+    position: absolute;
+    z-index: 4;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    align-items: center;
+    font-size: large;
+    background-color: #EEE;
+    border: 2.5px solid #000;
+    border-radius: 15px;
+    padding: 0.5rem;
+    min-width: 12rem;
+    max-width: 16rem;
+    min-height: 4rem;
+    max-height: 8rem;
+}
+
+#delete_user_submit {
+    padding-top: 0.2rem;
+    padding-bottom: 0.2rem;
+    position: absolute;
+    float: left;
+    left: 1rem;
+    bottom: 1rem;
+}
+
+#confirm_softdelete_submit, #restore_user_submit {
+    padding-top: 0.2rem;
+    padding-bottom: 0.2rem;
+    position: absolute;
+    float: left;
+    right: 1rem;
+    bottom: 1rem;
+}
+
+#info_restore {
+    display: none;
+    position: absolute;
+    z-index: 3;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    align-items: center;
+    font-size: large;
+    background-color: #EEE;
+    border: 0.5px solid #000;
+    border-radius: 15px;
+    padding: 1rem;
+    max-width: 50rem;
+    max-height: 22rem;
+}
+
+#restore_form {
+    display: grid;
+    grid-auto-flow:column dense;
+    grid-template-rows: auto auto auto auto;
+    grid-template-columns: auto;
+    grid-auto-columns: auto;
+    place-items: center;
+    user-select: none;
+}
+
+#restore_user_field {
+    display: none;
+    position: absolute;
+    z-index: 4;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    align-items: center;
+    font-size: large;
+    background-color: #EEE;
+    border: 2.5px solid #000;
+    border-radius: 15px;
+    padding: 0.5rem;
+    min-width: 12rem;
+    max-width: 16rem;
+    min-height: 4rem;
+    max-height: 8rem;
+}
+
+#restore_user {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    position: absolute;
+    float: right;
+    right: 1rem;
+    bottom: 1rem;
+}
+
+#restore_user_submit:hover {
+    color: #F3EFF5;
+    background: #05ca15;
+}
+
+.user_restore {
+    margin: 2rem 1rem 2rem;
+    max-width: 12rem;
+    padding: 0.5rem 0.5rem;
+    font-size: large;
+    font-family: Comic Sans MS;
+    border: 2.5px solid #000;
+    border-radius: 1rem;
+    user-select: none;
+}
+
+#confirm_delete_submit:hover, #confirm_softdelete_submit:hover, #delete_user_submit:hover {
+    color: #F3EFF5;
+    background: #bb0b0b;
+}
+
+#close_edit_reservation, #close_info_washer, #close_info_washing_program, #close_info_user, #close_info_restore {
     padding: 0.7rem;
     float: right;
 }
 
-#close_edit_reservation:hover, #close_info_user:hover, #close_info_washer:hover, #close_info_washing_program:hover {
+#close_edit_reservation:hover, #close_info_user:hover, #close_info_washer:hover, #close_info_washing_program:hover, #close_info_restore:hover {
     color: #bb0b0b;
 }
 
@@ -137,7 +256,6 @@ input[type="submit"], button {
     margin: 0 auto;
     user-select: none;
 }
-
 
 #washername {
     margin: 2rem 1rem 2rem;
@@ -225,7 +343,7 @@ input[type="submit"], button {
 
 .user_status {
     margin: 2rem 1rem 2rem;
-    max-width: 14rem;
+    max-width: 18rem;
     padding: 0.5rem 0.5rem;
     font-size: large;
     font-family: Comic Sans MS;
