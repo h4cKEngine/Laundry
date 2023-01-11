@@ -57,6 +57,34 @@
         </div>
 
         <!-- Utenti -->
+         <div id="info_restore">
+            <a id="close_info_restore"><i class="fa-solid fa-x" ></i></a>
+            <h2><b>Users Trashed</b></h2>
+
+            <form id="restore_form">
+                @csrf
+                <label>ID</label>
+                <span class="user_restore" id="iduser_restore"></span>
+                <label>Email</label>
+                <span class="user_restore" id="email_restore"></span>
+                <label>Role</label>
+                <select class="user_restore" id="role_restore">
+                    <option data-id=0>User</option>
+                    <option data-id=1>Admin</option>
+                </select>
+                <label>Deleted At</label>
+                <span class="user_restore" id="deleted_at"></span>
+
+                <button type="submit" id="restore_user">Restore</button>
+            </form>
+        </div>
+
+        <div id="restore_user_field">
+            <h4>Are you sure to restore this user?</h4>
+            <button type="button" id="cancel">Cancel</button>
+            <button type="button" id="restore_user_submit">Restore</button>
+        </div>
+
         <div id="info_user">
             <a id="close_info_user"><i class="fa-solid fa-x" ></i></a>
             <h2>Users</h2>
@@ -76,12 +104,23 @@
                 <label>Nationality</label>
                 @include("nationalities_list")
                 <label>Role</label>
-                <input class="user_status" type="text" id="role">
+                <select class="user_status" type="text" id="role">
+                    <option data-id=0>User</option>
+                    <option data-id=1>Admin</option>
+                </select>
                 <label>Status</label>
                 <input type="checkbox" id="check_user_status">
 
+                <button type="button" id="delete_user_submit">Delete</button>
                 <button type="submit" id="set_user">Set</button>
+                
             </form>
+        </div>
+
+        <div id="delete_user_field">
+            <h4>Are you sure to delete this user?</h4>
+            <button type="button" id="cancel">Cancel</button>
+            <button type="button" id="confirm_softdelete_submit">Delete</button>
         </div>
 
         <!-- Modifica Prenotazioni -->
@@ -157,6 +196,15 @@
                 <option id="nouser" data-id='nouser' style="display: none">-- Select a User --</option>
             </select>
             <button type="button" id="info_user_btn">Info</button>
+        </div>
+
+        <!-- Utenti Eliminati -->
+        <div style="margin: 0 auto">
+            <h2> <b>Users Trashed</b> </h2>
+            <select class="user_status" id="utrashed">
+                <option id="nousertrashed" data-id='nousertrashed' style="display: none">-- Select a User --</option>
+            </select>
+            <button type="button" id="restore_user_btn">Restore User</button>
         </div>
         
         @include("info_account")

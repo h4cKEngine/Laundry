@@ -90,10 +90,35 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, User $user)
     {
-        //
+        $request->validate([
+            'email' => 'string|required',
+            'nome' => 'string|required',
+            'cognome' => 'string|required',
+            'matricola' => 'string|required',
+            'nazionalita' => 'string|required',
+            'ruolo' => 'boolean',
+            'delete_at' => 'date_format:Y-m-d H:i:s'
+        ],[
+            'string' => 'Errore, inserire string',
+            'integer' => 'Errore, inserire integer',
+            'boolean' => 'Errore, inserire boolean',
+            'required' => 'Errore, inserire un campo'
+        ]);
+
+        $user->update([
+            'email' => $request->email,
+            'nome' => $request->nome,
+            'cognnome' => $request->cognome,
+            'matricola' => $request-> matricola,
+            'nazionalita' => $request->nazionalita,
+            'ruolo' => $request->ruolo,
+            'delete_at' => $request->stato
+        ]);
+        return new UserResource($user);
     }
+
 
     /**
      * Remove the specified resource from storage.

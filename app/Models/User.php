@@ -74,10 +74,7 @@ class User extends Authenticatable
     // }
 
     public function hasRole(String $role){
-        $roles = [
-            "user", "admin"
-        ];
-        
+        $roles = ["user", "admin"];
         return array_search($role, $roles) == $this->ruolo;
     }
 
