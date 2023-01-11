@@ -262,7 +262,48 @@ $(document).ready(function(){
             });
         });
         
-        // Popup Washers Status
+        // add Washer button
+        $("#add_washer_button").click(function(){
+            $("#add_washer_div").show();
+            $("#backscreen").show();
+        });
+        // close add washer
+        $("#close_add_washer").click(function(){
+            $("#add_washer_div").hide();
+            $("#backscreen").hide();
+        });
+
+        // add washer
+        $("#add_washer_form").submit(function(event){
+            event.preventDefault();
+            let status;
+            if($("#check_washer_add_status").prop("checked")){
+                status=1;
+            }else{
+                status=0;
+            }
+            $.ajax({
+                url: `/api/washer/`,
+                type: 'POST',
+                headers: {
+                    "Authorization": 'Bearer ' + $btoken,
+                    'Accept' : 'application/json'
+                },
+                data:{
+                    marca: $("#text_washer").val(),
+                    stato: status
+                },
+                success: function(){
+                    console.log("washer created");
+                    location.reload();
+                },
+                error: function(e){
+                    console.log(e);
+                }
+            
+            }); 
+        });
+
         // Mostra Washers Status
         $("#info_washer_btn").click(function(){
             if($("#wname option:selected").val() == "-- Select a Washer --"){

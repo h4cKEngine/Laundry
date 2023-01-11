@@ -197,12 +197,12 @@ input[type="submit"], button {
     background: #bb0b0b;
 }
 
-#close_edit_reservation, #close_info_washer, #close_info_washing_program, #close_info_user, #close_info_restore {
+#close_edit_reservation, #close_info_washer, #close_info_washing_program, #close_info_user, #close_info_restore, #close_add_washer {
     padding: 0.7rem;
     float: right;
 }
 
-#close_edit_reservation:hover, #close_info_user:hover, #close_info_washer:hover, #close_info_washing_program:hover, #close_info_restore:hover {
+#close_edit_reservation:hover, #close_info_user:hover, #close_info_washer:hover, #close_info_washing_program:hover, #close_info_restore:hover, #close_add_washer:hover {
     color: #bb0b0b;
 }
 
@@ -282,11 +282,37 @@ input[type="submit"], button {
     user-select: none;
 }
 
-#wpgrid, #wgrid, #ugrid, #usgrid {
+#wpgrid, #ugrid, #usgrid {
     display: grid;
     margin: 0 auto;
     place-items: center;
     grid-template-columns: auto auto;
+}
+
+#add_washer_div {
+    display: none;
+    position: absolute;
+    z-index: 3;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    align-items: center;
+    font-size: large;
+    background-color: #EEE;
+    border: 0.5px solid #000;
+    border-radius: 15px;
+    padding: 1rem;
+    max-width: 30rem;
+    max-height: 10rem;
+}
+
+#wgrid, #add_washer_form {
+    display: grid;
+    margin: 0 auto;
+    place-items: center;
+    grid-template-columns: auto auto auto;
 }
 
 .washer_status {
@@ -363,4 +389,15 @@ input[type="submit"], button {
     float: right;
     right: 1rem;
     bottom: 1rem;
+}
+
+#text_washer {
+    margin: 2rem 1rem 2rem;
+    padding: 0.5rem 0.5rem;
+    border: 2.5px solid #000;
+    border-radius: 1rem;
+    max-width: 13rem;
+    font-size: large;
+    font-family: Comic Sans MS;
+    user-select: none;
 }

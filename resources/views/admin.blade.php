@@ -168,13 +168,32 @@
             <button type="button" id="confirm_delete_submit">Delete</button>
         </div>
 
-        <!-- Stato delle Lavasciuga -->
+
+        <!-- Prenotazioni Disponibili -->
+        <div id="add_washer_div">
+            <a id="close_add_washer"><i class="fa-solid fa-x" ></i></a>
+            <h2> <b>Add Washer</b> </h2>
+            <form id="add_washer_form">
+                @csrf
+                <label>Brand</label>
+                <label>Status</label>
+                <label></label>
+
+                <input type="text" id="text_washer">
+                <input type="checkbox" class="washer_status" id="check_washer_add_status">
+
+                <button type="submit">Done</button>
+            </form>
+        </div>
+
+        <!-- Gestione Lavasciuga -->
         <h2> <b>Washers Status</b> </h2>
         <div id="wgrid">
             <select id="wname">
                 <option id="nowasher" data-id='nowasher' style="display: none">-- Select a Washer --</option>
             </select>
             <button type="button" id="info_washer_btn">Info</button>
+            <button type="button" id="add_washer_button">Add Washer</button>
         </div>
 
         <!-- Stato degli Programmi Lavaggio -->
@@ -196,7 +215,7 @@
         </div>
 
         <!-- Utenti Eliminati -->
-        <h2> <b>Users Trashed</b> </h2>
+        <h2> <b>Busket</b> </h2>
         <div id="usgrid">
             <select class="user_status" id="utrashed">
                 <option id="nousertrashed" data-id='nousertrashed' style="display: none">-- Select a User --</option>

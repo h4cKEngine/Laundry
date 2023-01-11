@@ -112,10 +112,10 @@ class WasherController extends Controller
     {
         $request->validate([
             'marca' => 'string|required',
-            'stato' => 'required'
+            'stato' => 'boolean|required'
         ],[
             'string' => 'Errore, inserire string',
-            'boolean' => 'Errore, inserire integer',
+            'boolean' => 'Errore, inserire boolean',
             'required' => 'Errore, inserire un campo'
         ]);
         
