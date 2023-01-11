@@ -72,8 +72,11 @@ $(document).ready(function(){
 
                     $(`#nationalities option[value=${res.nazionalita}]`).attr("selected", true);
                     $(`#role option[data-id=${res.ruolo}]`).attr("selected", true);
-                    
-                    $("#check_user_status").prop("checked", ! (res.stato ?? false));
+                    if(res.deleted_at){
+                        $("#check_user_status").text("Disable");
+                    }else{
+                        $("#check_user_status").text("Enable");
+                    }
                 },
                 error: function(e){
                     console.log(e);

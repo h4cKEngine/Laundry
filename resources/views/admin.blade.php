@@ -109,7 +109,7 @@
                     <option data-id=1>Admin</option>
                 </select>
                 <label>Status</label>
-                <input type="checkbox" id="check_user_status">
+                <span class="user_status" id="check_user_status"></span>
 
                 <button type="button" id="delete_user_submit">Delete</button>
                 <button type="submit" id="set_user">Set</button>
