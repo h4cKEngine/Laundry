@@ -40,7 +40,7 @@ class AuthController extends Controller
         ]);
 
         // Accesso automatico, subito dopo aver creato account
-        $this->login($request);
+        return $this->login($request);
     }
 
     // Funzione di login e query ricerca

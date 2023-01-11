@@ -97,7 +97,8 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, User $user)
-    {
+    {   
+        return $request;
         $request->validate([
             'email' => 'string|required',
             'nome' => 'string|required',
@@ -116,7 +117,7 @@ class UserController extends Controller
         $user->update([
             'email' => $request->email,
             'nome' => $request->nome,
-            'cognnome' => $request->cognome,
+            'cognome' => $request->cognome,
             'matricola' => $request-> matricola,
             'nazionalita' => $request->nazionalita,
             'ruolo' => $request->ruolo,

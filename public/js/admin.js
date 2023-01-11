@@ -65,7 +65,6 @@ $(document).ready(function(){
                     $("#surname").empty();
                     $("#email").empty();
                     $("#nationalities").addClass("user_status");
-                    //$("#check_user_status").empty();
 
                     $("#iduser").text(res.id);
                     $("#idnumber").val(res.matricola);
@@ -105,6 +104,7 @@ $(document).ready(function(){
             }else{
                 role = 0;
             }
+            
             console.log(nationality, typeof(nationality));
             // let status;
             // if ($("#check_user_status").prop("checked")){
@@ -126,11 +126,12 @@ $(document).ready(function(){
                     cognome: surname,
                     matricola: idnumber,
                     nationalita: nationality,
-                    ruolo: role
+                    ruolo: role,
+                    //deleted_at: status
                 },
 
                 success: function(response){
-                    console.log(response);
+                    alert("User Edited Correctly.");
                     console.log("User edited correctly");
                 },
                 error: function(e){
@@ -169,7 +170,7 @@ $(document).ready(function(){
                 },
 
                 success: function(){
-                    console.log("User Deleted");
+                    alert("User Deleted.");
                     location.reload();
                 },
                 error: function(e){
@@ -434,6 +435,7 @@ $(document).ready(function(){
 
                 success: function(response){
                     //var res = response["data"];
+                    alert("Washing Program Edited.");
                 },
                 error: function(e){
                     console.log(e);
@@ -468,8 +470,6 @@ $(document).ready(function(){
                 success: function(response){
                     $("#datepicker1").empty();
                     $("#timepicker1").empty();
-                    //$(`#washer1`).empty();
-                    //$(`#washing_program1`).empty();
                     
                     let res = response["data"].orario.split(" ");
                     let tempo = res[1].split(":");
@@ -517,6 +517,7 @@ $(document).ready(function(){
 
                 success: function(response){
                     console.log("Reservation Edited");
+                    alert("Reservation Edited.");
                     location.reload();
                 },
 
@@ -564,6 +565,7 @@ $(document).ready(function(){
                 
                 success: function(response){
                     console.log("Reservation deleted.", response);
+                    alert("Reservation Deleted.");
                     location.reload();
                 },
                 error: function(e){

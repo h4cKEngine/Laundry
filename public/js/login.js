@@ -1,24 +1,26 @@
 $(document).ready(function () {
     $('#loginform').submit(function(event){
-        var form = new FormData(); // Oggetto FormData
-        form.append('email', $("#email").val());
-        form.append('password', $("#password").val());
-        form.append('_token', $("meta[name='csrf-token']").attr("content"));
+        event.preventDefault();
+        let email = $("#email").val();
+        let password = $("#password").val();
+        let _token = $("meta[name='csrf-token']").attr("content");
 
         $.ajax({
             type: 'POST',
             url: '/auth/login',
             async: true,
-            
-            data: form,
-            contentType: false,
-            processData: false,
-            cache: false,
+            headers: {
+                'X-CSRF-TOKEN': _token
+            },
+            data: {
+                email: email,
+                password: password
+            },
 
             success: function (result) {
                 try {
                     document.cookie = "bearer_token=" + result.bearer_token;
-                    window.location.replace('/');
+                    location.replace('/');
                 } catch(e) {
                     console.log("Errore informazioni errate", e)
                 }
@@ -26,10 +28,8 @@ $(document).ready(function () {
 
             error: function (){
                 console.log("Non Trovato!");
+                alert("Credential Error!");
             }
-        });
-
-        event.preventDefault();
+        });    
     });
-
 });
