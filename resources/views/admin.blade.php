@@ -210,7 +210,7 @@
 
                 <input type="text" id="text_washing_program_name">
                 <input type="text" id="text_washing_program_price">
-                <input type="text" id="text_washing_program_time">
+                <input type="time" id="text_washing_program_time" class="timepicker" format="HH:mm" required>
                 <input type="checkbox" class="washer_status" id="check_washer_add_status">
 
                 <button type="submit">Done</button>

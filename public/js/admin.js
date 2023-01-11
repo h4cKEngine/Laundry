@@ -304,6 +304,50 @@ $(document).ready(function(){
             }); 
         });
 
+        // add Washing program button
+        $("#add_washing_program_button").click(function(){
+            $("#add_washing_program_div").show();
+            $("#backscreen").show();
+        });
+        // close add washing program
+        $("#close_add_washing_program").click(function(){
+            $("#add_washing_program_div").hide();
+            $("#backscreen").hide();
+        });
+
+        // add washing program
+        $("#add_washing_program_form").submit(function(event){
+            event.preventDefault();
+            let status;
+            if($("#check_washing_program_add_status").prop("checked")){
+                status=1;
+            }else{
+                status=0;
+            }
+            $.ajax({
+                url: `/api/washing_program/`,
+                type: 'POST',
+                headers: {
+                    "Authorization": 'Bearer ' + $btoken,
+                    'Accept' : 'application/json'
+                },
+                data:{
+                    nome: $("#text_washing_program_name").val(),
+                    prezzo: $("#text_washing_program_price").val(),
+                    durata: $("#text_washing_program_time").val()+":00",
+                    stato: status
+                },
+                success: function(){
+                    console.log("washing program created");
+                    location.reload();
+                },
+                error: function(e){
+                    console.log(e);
+                }
+            
+            }); 
+        });
+
         // Mostra Washers Status
         $("#info_washer_btn").click(function(){
             if($("#wname option:selected").val() == "-- Select a Washer --"){
