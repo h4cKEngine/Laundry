@@ -6,7 +6,6 @@
         @endif
     @else
         <a id="hello-message">Laundry</a>
-
     @endauth 
     
     </div>

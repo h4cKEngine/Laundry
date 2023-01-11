@@ -279,8 +279,9 @@ input[type="submit"], button {
     user-select: none;
 }
 
-#wpgrid, #wgrid, #ugrid{
+#wpgrid, #wgrid, #ugrid, #usgrid {
     display: grid;
+    margin: 0 auto;
     place-items: center;
     grid-template-columns: auto auto;
 }

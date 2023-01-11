@@ -1,9 +1,4 @@
-h1, h4 {
-    margin: 0 auto;
-    user-select: none;
-}
-
-h2 {
+#h2rainbow {
     text-align: center;
     margin: 0 auto;
     margin-top: 3rem;

@@ -8,6 +8,11 @@ body {
     font-family: Comic Sans MS;
 }
 
+h1, h2, h4 {
+    margin: 0 auto;
+    user-select: none;
+}
+
 ::-webkit-scrollbar {
     width: 10px;
     height: 10px;
@@ -21,12 +26,6 @@ body {
 
 ::-webkit-scrollbar-thumb:hover {
     background: #DEC237; 
-}
-
-h1, h2 {
-    font-family: Comic Sans MS;
-    margin: 0.2rem 1.5rem;
-    padding: 1rem;
 }
 
 p {

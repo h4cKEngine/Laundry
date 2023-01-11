@@ -173,7 +173,7 @@
 
         <!-- Stato delle Lavasciuga -->
         <h2> <b>Washers Status</b> </h2>
-        <div style="margin: 0 auto" id="wgrid">
+        <div id="wgrid">
             <select id="wname">
                 <option id="nowasher" data-id='nowasher' style="display: none">-- Select a Washer --</option>
             </select>
@@ -182,7 +182,7 @@
 
         <!-- Stato degli Programmi Lavaggio -->
         <h2> <b>Washing Programs Status</b> </h2>
-        <div style="margin: 0 auto" id="wpgrid">
+        <div id="wpgrid">
             <select id="wpname">
                 <option id="nowashingprogram" data-id='nowashingprogram' style="display: none">-- Select a Washing Program --</option>
             </select>
@@ -191,7 +191,7 @@
 
         <!-- Stato degli Utenti -->
         <h2> <b>Users Status</b> </h2>
-        <div style="margin: 0 auto" id=ugrid>
+        <div id="ugrid">
             <select class="user_status" id="uname">
                 <option id="nouser" data-id='nouser' style="display: none">-- Select a User --</option>
             </select>
@@ -199,8 +199,8 @@
         </div>
 
         <!-- Utenti Eliminati -->
-        <div style="margin: 0 auto">
-            <h2> <b>Users Trashed</b> </h2>
+        <h2> <b>Users Trashed</b> </h2>
+        <div id="usgrid">
             <select class="user_status" id="utrashed">
                 <option id="nousertrashed" data-id='nousertrashed' style="display: none">-- Select a User --</option>
             </select>

@@ -1,15 +1,13 @@
 $(document).ready(function(){ 
-
-
     $.getScript("/js/cookie.js", function() {
         console.log("Script cookie.js loaded.");
         $btoken = readCookie('bearer_token');
-        
-        selectionWashingProgram($btoken);
+        if($btoken)
+            WashingProgramPriceList($btoken);
     });
 });
 
-function selectionWashingProgram($btoken){
+function WashingProgramPriceList($btoken){
     $.ajax({
         url: "/api/washing_program",
         type: 'GET', 
