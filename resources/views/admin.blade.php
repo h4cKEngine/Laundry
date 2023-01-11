@@ -10,7 +10,7 @@
     <body class="antialiased">
         <div id="backscreen"></div>
         @include("navbar")
-
+        <!---------------------------- Campi Nascosti ---------------------->
         <!-- Lavasciuga -->
         <div id="info_washer">
             <a id="close_info_washer"><i class="fa-solid fa-x" ></i></a>
@@ -123,6 +123,7 @@
             <button type="button" id="confirm_softdelete_submit">Delete</button>
         </div>
 
+        <!---------------------------- Campi Mostrati ---------------------->
         <!-- Modifica Prenotazioni -->
         <h1> <b>Reservations</b> </h1>
         <div id="reservation">
