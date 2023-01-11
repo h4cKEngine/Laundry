@@ -126,10 +126,6 @@
         <!-- Modifica Prenotazioni -->
         <h1> <b>Reservations</b> </h1>
         <div id="reservation">
-            <label>User</label>
-            <label>Reservation</label>
-            <label></label>
-
             <select id="select_user_reservation">
                 <option id="nouser" data-id='nouser' style="display: none">-- Select a User --</option>
             </select>
