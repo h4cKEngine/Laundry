@@ -282,14 +282,14 @@ input[type="submit"], button {
     user-select: none;
 }
 
-#wpgrid, #ugrid, #usgrid {
+#ugrid, #usgrid {
     display: grid;
     margin: 0 auto;
     place-items: center;
     grid-template-columns: auto auto;
 }
 
-#add_washer_div {
+#add_washer_div, #add_washing_program_div {
     display: none;
     position: absolute;
     z-index: 3;
@@ -308,11 +308,18 @@ input[type="submit"], button {
     max-height: 10rem;
 }
 
-#wgrid, #add_washer_form {
+#wgrid, #wpgrid, #add_washer_form {
     display: grid;
     margin: 0 auto;
     place-items: center;
     grid-template-columns: auto auto auto;
+}
+
+#add_washing_program_form{
+    display: grid;
+    margin: 0 auto;
+    place-items: center;
+    grid-template-columns: auto auto auto auto auto;
 }
 
 .washer_status {
@@ -391,7 +398,7 @@ input[type="submit"], button {
     bottom: 1rem;
 }
 
-#text_washer {
+#text_washer, #text_washing_program_name, #text_washing_program_price, #text_washing_program_time {
     margin: 2rem 1rem 2rem;
     padding: 0.5rem 0.5rem;
     border: 2.5px solid #000;

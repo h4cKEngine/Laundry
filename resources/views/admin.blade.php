@@ -169,7 +169,7 @@
         </div>
 
 
-        <!-- Prenotazioni Disponibili -->
+        <!-- aggiunta lavasiuga -->
         <div id="add_washer_div">
             <a id="close_add_washer"><i class="fa-solid fa-x" ></i></a>
             <h2> <b>Add Washer</b> </h2>
@@ -187,7 +187,7 @@
         </div>
 
         <!-- Gestione Lavasciuga -->
-        <h2> <b>Washers Status</b> </h2>
+        <h2> <b>Washers</b> </h2>
         <div id="wgrid">
             <select id="wname">
                 <option id="nowasher" data-id='nowasher' style="display: none">-- Select a Washer --</option>
@@ -196,13 +196,35 @@
             <button type="button" id="add_washer_button">Add Washer</button>
         </div>
 
+        <!-- aggiunta programma lavaggio -->
+        <div id="add_washing_program_div">
+            <a id="close_add_washing_program"><i class="fa-solid fa-x" ></i></a>
+            <h2> <b>Add Washing Program</b> </h2>
+            <form id="add_washing_program_form">
+                @csrf
+                <label>Name</label>
+                <label>Price</label>
+                <label>Time</label>
+                <label>Status</label>
+                <label></label>
+
+                <input type="text" id="text_washing_program_name">
+                <input type="text" id="text_washing_program_price">
+                <input type="text" id="text_washing_program_time">
+                <input type="checkbox" class="washer_status" id="check_washer_add_status">
+
+                <button type="submit">Done</button>
+            </form>
+        </div>
+
         <!-- Stato degli Programmi Lavaggio -->
-        <h2> <b>Washing Programs Status</b> </h2>
+        <h2> <b>Washing Programs</b> </h2>
         <div id="wpgrid">
             <select id="wpname">
                 <option id="nowashingprogram" data-id='nowashingprogram' style="display: none">-- Select a Washing Program --</option>
             </select>
             <button type="button" id="info_washing_program_btn">Info</button>
+            <button type="button" id="add_washing_program_button">Add Washing Program</button>
         </div>
 
         <!-- Stato degli Utenti -->
