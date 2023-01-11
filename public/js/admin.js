@@ -222,7 +222,7 @@ $(document).ready(function(){
         });
 
         // User Restore
-                // Popup Trashed
+        // Popup Trashed
         // Chiudi
         $("#cancel").click(function(){
             $("#restore_user_field").hide();
@@ -599,6 +599,12 @@ function viewUsers($btoken){
 
 // Visualizza gli utenti trashed
 function viewTrashedUsers($btoken){
+    if($("#utrashed option[data-id='nousertrashedfound']").val() == "No User Trashed"){
+        console.log("No User Trashed Founded");
+        alert("No User Trashed founded!");
+        return;
+    }
+
     $.ajax({
         url: `/api/user/trashed`,
         async: true,
@@ -611,8 +617,13 @@ function viewTrashedUsers($btoken){
         success: function(response){
             let res = response;
             $("#utrashed").empty();
-            for(let i in res){
-                $("#utrashed").append(`<option data-id=${res[i].id}>` + res[i].id + " " + res[i].email + "</option>");
+            if(res.length){ 
+                for(let i in res){
+                    $("#utrashed").append(`<option data-id=${res[i].id}>` + res[i].id + " " + res[i].email + "</option>");
+                }
+            }else{
+                $("#utrashed").empty();
+                $("#utrashed").append("<option data-id='nousertrashed' style='display: none'>" + "No User Trashed" + "</option>");
             }
         },
         error: function(e){
