@@ -237,7 +237,7 @@
         </div>
 
         <!-- Utenti Eliminati -->
-        <h2> <b>Busket</b> </h2>
+        <h2> <b>Basket</b> </h2>
         <div id="usgrid">
             <select class="user_status" id="utrashed">
                 <option id="nousertrashed" data-id='nousertrashed' style="display: none">-- Select a User --</option>
