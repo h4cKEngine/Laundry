@@ -98,15 +98,13 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {   
-        return $request;
         $request->validate([
             'email' => 'string|required',
             'nome' => 'string|required',
             'cognome' => 'string|required',
             'matricola' => 'string|required',
-            'nazionalita' => 'string',
-            'ruolo' => 'boolean',
-            'delete_at' => 'date_format:Y-m-d H:i:s'
+            'nazionalita' => 'string|required',
+            'ruolo' => 'boolean',   
         ],[
             'string' => 'Errore, inserire string',
             'integer' => 'Errore, inserire integer',
@@ -114,14 +112,16 @@ class UserController extends Controller
             'required' => 'Errore, inserire un campo'
         ]);
 
-        $user->update([
+//     'delete_at' => 'date_format:Y-m-d H:i:s'
+//     'delete_at' => $request->stato
+
+        User::where('id', $user->id)->update([
             'email' => $request->email,
             'nome' => $request->nome,
             'cognome' => $request->cognome,
-            'matricola' => $request-> matricola,
+            'matricola' => $request->matricola,
             'nazionalita' => $request->nazionalita,
-            'ruolo' => $request->ruolo,
-            'delete_at' => $request->stato
+            'ruolo' => $request->ruolo
         ]);
         return new UserResource($user);
     }

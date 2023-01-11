@@ -9,7 +9,6 @@ $(document).ready(function(){
     noWeekend($('#datepicker1'), $("#error_message_date1"));
     noWeekend($('#datepicker2'), $("#error_message_date2"));
 
-
     $.getScript("/js/cookie.js", function() {
         console.log("Script cookie.js loaded.");
         $btoken = readCookie('bearer_token');
@@ -56,9 +55,8 @@ $(document).ready(function(){
                     "Authorization": 'Bearer ' + $btoken,
                     'Accept' : 'application/json'
                 },
-
                 success: function(response){
-                    let res = response["data"];
+                    let res = response.data;
                     $("#iduser").empty();
                     $("#idnumber").empty();
                     $("#name").empty();
@@ -71,14 +69,11 @@ $(document).ready(function(){
                     $("#name").val(res.nome);
                     $("#surname").val(res.cognome);
                     $("#email").val(res.email);
-                    console.log(res);
-                    $(`#nationality option[value=${res.nationalita}]`).attr("selected", true);
+
+                    $(`#nationalities option[value=${res.nazionalita}]`).attr("selected", true);
                     $(`#role option[data-id=${res.ruolo}]`).attr("selected", true);
-                    if(res.stato){
-                        $("#check_user_status").prop("checked", false);
-                    }else{
-                        $("#check_user_status").prop("checked", true);
-                    }
+                    
+                    $("#check_user_status").prop("checked", ! (res.stato ?? false));
                 },
                 error: function(e){
                     console.log(e);
@@ -125,7 +120,7 @@ $(document).ready(function(){
                     nome: name,
                     cognome: surname,
                     matricola: idnumber,
-                    nationalita: nationality,
+                    nazionalita: nationality,
                     ruolo: role,
                     //deleted_at: status
                 },

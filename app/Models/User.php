@@ -20,15 +20,15 @@ class User extends Authenticatable
      */
     public $timestamps = false;
     
-    protected $fillable = [
-        'email',
-        'password',
-        'nome',
-        'cognome',
-        'matricola',
-        'nazionalita',
-        'ruolo'
-    ];
+    // protected $fillable = [
+    //     'email',
+    //     'password',
+    //     'nome',
+    //     'cognome',
+    //     'matricola',
+    //     'nazionalita',
+    //     'ruolo'
+    // ];
     
     protected $dates = [
         'deleted_at'
@@ -72,11 +72,6 @@ class User extends Authenticatable
     // public function isAdmin(){
     //     return $this->ruolo == enumUser::admin;
     // }
-
-    public function nazionalita()
-    {
-        return $this->nazionalita;
-    }
 
     public function hasRole(String $role){
         $roles = ["user", "admin"];
