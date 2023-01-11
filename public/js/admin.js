@@ -105,6 +105,7 @@ $(document).ready(function(){
             }else{
                 role = 0;
             }
+            console.log(nationality, typeof(nationality));
             // let status;
             // if ($("#check_user_status").prop("checked")){
             //     status = "NULL";
@@ -125,11 +126,11 @@ $(document).ready(function(){
                     cognome: surname,
                     matricola: idnumber,
                     nationalita: nationality,
-                    ruolo: role,
-                    deleted_at: status,
+                    ruolo: role
                 },
 
-                success: function(){
+                success: function(response){
+                    console.log(response);
                     console.log("User edited correctly");
                 },
                 error: function(e){

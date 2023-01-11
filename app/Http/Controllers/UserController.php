@@ -34,6 +34,12 @@ class UserController extends Controller
     {
         $user->prenotazione()->delete();
     }
+
+    // Return nazionalità
+    // public function nazione(User $user)
+    // {
+    //     $user->nazionalita();
+    // }
     
     /**
      * Display a listing of the resource.
@@ -97,7 +103,7 @@ class UserController extends Controller
             'nome' => 'string|required',
             'cognome' => 'string|required',
             'matricola' => 'string|required',
-            'nazionalita' => 'string|required',
+            'nazionalita' => 'string',
             'ruolo' => 'boolean',
             'delete_at' => 'date_format:Y-m-d H:i:s'
         ],[
@@ -118,7 +124,6 @@ class UserController extends Controller
         ]);
         return new UserResource($user);
     }
-
 
     /**
      * Remove the specified resource from storage.

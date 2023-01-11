@@ -59,19 +59,24 @@ class User extends Authenticatable
      */
     
     // ----------------- Examples Getter and Setter ------------------ //
-    private $numero;
+    // private $numero;
     
-    public function getElem(){
-        return $this->numero;
-    }
+    // public function getElem(){
+    //     return $this->numero;
+    // }
     
-    public function setElem($num){
-        $this->numero = $num;
-    }
+    // public function setElem($num){
+    //     $this->numero = $num;
+    // }
 
     // public function isAdmin(){
     //     return $this->ruolo == enumUser::admin;
     // }
+
+    public function nazionalita()
+    {
+        return $this->nazionalita;
+    }
 
     public function hasRole(String $role){
         $roles = ["user", "admin"];
