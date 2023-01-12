@@ -4,7 +4,6 @@
     <head>
         <link rel="stylesheet" type="text/css" href="{{ asset('./css/access.css') }}" >
         <title>Signup</title>
-        <script type="text/javascript" src="{{ asset('./js/access.js') }}"></script>
     </head>
 
     <body class="antialiased">
@@ -31,6 +30,7 @@
             <a class="redirect" href="/login">Already have an account? Signin here!</a>
         </form>
 
-        <script src="{{ asset('./js/register.js') }}"></script>
+        <script src="{{ asset('js/access.js') }}"></script>
+        <script src="{{ asset('js/register.js') }}"></script>
     </body>
 </html>
