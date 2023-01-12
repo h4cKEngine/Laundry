@@ -1,12 +1,12 @@
 $(document).ready(function() {
-    $('#submitbtn').click(function(event) {
-        checkPassword(event);
+    $('#signupform').submit(function(event) {
+        event.preventDefault();
+        checkPassword();
     })
 });
 
-function checkPassword(e){
+function checkPassword(){
     if ($("#password").val() != $("#confirm_password").val()) {
-        e.preventDefault();
         $('.error_message').css("color", "red");
         $('.error_message').html('Password are not matching<br>The password must contain:<br>at least 8 characters including a number and an upppercase letter!');
     } else {
