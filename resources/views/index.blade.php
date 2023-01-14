@@ -24,6 +24,6 @@
         
         <h2 id="h2rainbow"><b>Open from Monday to Friday <br> from 8:00 to 13:00 and from 16:00 to 20:00</b></h2>
         
-        <script src="{{ asset('./js/index.js') }}"></script>
+        <script src="{{ asset('js/index.js') }}"></script>
     </body>
 </html>

@@ -19,6 +19,6 @@
             <a class="redirect" href="/signup">Not a member? Signup here!</a>
         </form>
 
-        <script src="{{ asset('./js/login.js') }}"></script>
+        <script src="{{ asset('js/login.js') }}"></script>
     </body>
 </html>
