@@ -211,6 +211,6 @@ input[type="submit"]:hover, button:hover {
     color: #F3EFF5;
     background: #bb0b0b;
 }
-#iduser, #washerid, #washingprogramid, #user1, #reservation1 {
+#iduser, #washerid, #washingprogramid, #user1, #reservation1, #iduser_restore {
     min-width: 2rem;
 }
