@@ -46,7 +46,7 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
         Route::group(['prefix' =>'/{user}'], function(){
             Route::get('/', [UserController::class, 'show'])->middleware('role')->name("show"); // Visualizza l'utente
             
-            Route::patch('/update', [UserController::class, 'update'])->middleware('adminrole')->name("update");
+            Route::patch('/update', [UserController::class, 'update'])->middleware('adminrole')->name("update"); // Modifica le infomazioni di un utente
             
             Route::patch('/', [UserController::class, 'restore'])->middleware('adminrole'); // Annulla Soft Delete un utente
             

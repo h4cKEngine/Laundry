@@ -168,7 +168,6 @@
             <button type="button" id="confirm_delete_submit">Delete</button>
         </div>
 
-
         <!-- aggiunta lavasiuga -->
         <div id="add_washer_div">
             <a id="close_add_washer"><i class="fa-solid fa-x" ></i></a>

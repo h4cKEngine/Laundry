@@ -43,10 +43,6 @@ use App\Http\Controllers\AuthController;
     Route::any(['GET', 'POST'], '/url', [Controller::class, 'functionName']);
 */
 
-Route::get('/', function () {
-    return view('index');
-})->name('home');
-
 // URI: /auth/
 Route::group(["prefix"=>"auth"], function(){
     Route::post('/register', [AuthController::class, 'register']); // Registrazione
@@ -64,6 +60,11 @@ Route::get('/signup', function () {
 Route::get('/login', function () {
     return view('login');
 })->name('login');
+
+// Homepage
+Route::get('/', function () {
+    return view('index');
+})->name('home');
 
 // Users
 Route::get('/user', function () {
